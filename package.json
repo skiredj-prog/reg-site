@@ -2,11 +2,11 @@
   "name": "reg-site",
   "private": true,
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "node src/build.mjs && node scripts/check-dist.mjs",
-    "build:public": "PREVIEW=0 node src/build.mjs && node scripts/check-dist.mjs",
+    "build:public": "node src/build.mjs --public && node scripts/check-dist.mjs",
     "check": "node scripts/check-dist.mjs",
     "check:viewports": "node scripts/check-viewports.mjs",
     "pin": "node scripts/pin.mjs",

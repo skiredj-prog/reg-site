@@ -1,16 +1,132 @@
 {
   "contract": "reg-projection",
-  "contract_version": "1.0.0",
-  "generated_at": "2026-11-19T02:44:53+00:00",
+  "contract_version": "1.1.0",
+  "generated_at": "2026-11-19T06:15:01+00:00",
   "source": {
     "repository": "https://github.com/skiredj-prog/reg-conformance",
     "commit": "b943f06cb23b24bc5424eb220c7b40b6a3f58425",
     "commit_date": "2026-11-18T20:23:47+00:00",
-    "describe": "v0.6.2-54-gb943f06",
     "exact_tag": null,
     "catalog_version": "1.1.0",
     "rules_version": "1.0.0",
-    "capabilities_version": "1.2.0"
+    "capabilities_version": "1.2.0",
+    "files": [
+      {
+        "path": "VECTORS.md",
+        "sha256": "4a3f6b4297942c6039ac928e53d80baf61af364507b7979068bc9302cc49681f",
+        "bytes": 15986
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-budget-crossproc.json",
+        "sha256": "a6538412b8e38351ac2d9b0ed51fb282d679b4b7a8e1973caa8fb16dc62f4748",
+        "bytes": 1047
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-budget-disttx.json",
+        "sha256": "1d726cd742d4795e0ff03ec92c2564c17d3b47128ca27ad7f5e120692e5a94fb",
+        "bytes": 936
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-budget-inproc.json",
+        "sha256": "fdffb55377980c5fa4adb75ff93e3ee5999ec8b75a7a0c83656d8ed33edc79a4",
+        "bytes": 1019
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-budget-raft.json",
+        "sha256": "9b7281d02a1b3818119eed5d9af3e25dd33bb41635277d489611d9b80e3de27a",
+        "bytes": 1074
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-byzantine-tolerance.json",
+        "sha256": "2774080c924e36a6f1587e9dc4bc8817bfa315634b323d259e7ca981d0bcc89b",
+        "bytes": 869
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-dedup-consensus-registry.json",
+        "sha256": "6fe4824bff4b68de303e3bd50c70b782535b3f512fbb8cc193e830f8436dab8d",
+        "bytes": 982
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-dedup-local-registry.json",
+        "sha256": "0a57077d3a2cbfdbf2c17680fecf8799fa42fe8ba6ba37fe5184be0eb24897cc",
+        "bytes": 1088
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-dedup-provider-key.json",
+        "sha256": "2d3533c0061dec4c4be5678b34ad9373e0b30659a2e8dd8096cca34031195aca",
+        "bytes": 929
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-deterministic-replication.json",
+        "sha256": "b80046ac2b61537e2942eddc2a4ae26f722abcdce38ff901bb51eaa407ed6ad3",
+        "bytes": 994
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-exactly-once-external.json",
+        "sha256": "a9d2ae53b0ecc1bdb39a5050b69908af27d200dd9ba7866574060c186491456c",
+        "bytes": 890
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-linearizability-verification.json",
+        "sha256": "618ff70d843261bc0180fe73e1a550eab5cfc953d9c0f99ec01a8883aafb4221",
+        "bytes": 1010
+      },
+      {
+        "path": "capabilities/v1.0.0/cap-secure-consensus-transport.json",
+        "sha256": "23c774acf75814e0862152a86e8b31deeb6e83f50446e732476d8763d873590d",
+        "bytes": 917
+      },
+      {
+        "path": "capabilities/v1.0.0/raft-consensus-replication.json",
+        "sha256": "daedc9bf2a9a05d25bc303beed5e268078e9c2de64ebbb1ed8fddffae4f23592",
+        "bytes": 1661
+      },
+      {
+        "path": "catalog/capabilities-v1.yaml",
+        "sha256": "5caca92088dc626b578a96d53785141621c4af70ef037bd869e706f529c0a9d0",
+        "bytes": 11546
+      },
+      {
+        "path": "catalog/compatibility-rules-v1.yaml",
+        "sha256": "769fb4dfbfe8b03e415c965bdda9fdfb42a989bd7c8fd30710573d037cc4352d",
+        "bytes": 3205
+      },
+      {
+        "path": "catalog/hypotheses-v1.yaml",
+        "sha256": "8595e78dbb10e6c39e15599707f3146b7ca2d8da6c4f04b81ce92f00ce308245",
+        "bytes": 1006
+      },
+      {
+        "path": "catalog/valid-configurations-v1.1.0.json",
+        "sha256": "983530c2916b7b6ab1caedbf57d2e39e24799da0271e7cdf1784d55803c9c594",
+        "bytes": 89240
+      },
+      {
+        "path": "vectors/commit.yaml",
+        "sha256": "4716812eac697a92ba06e4236d3d233a966d42c7e67d07c1b884d3bd00348866",
+        "bytes": 3588
+      },
+      {
+        "path": "vectors/core.yaml",
+        "sha256": "130e4b5333ab8f875071e03aa02e76b194570c27dda9fe2b058d8930d47dce28",
+        "bytes": 3662
+      },
+      {
+        "path": "vectors/dist/vectors.json",
+        "sha256": "3254c7ef16c6cce9d8770038f6ad4b2e0314234ab2345c03c226ff333161af02",
+        "bytes": 26751
+      },
+      {
+        "path": "vectors/extended.yaml",
+        "sha256": "a8b6485616661c365e5e8713631a8ede43e450e32a49f087050ec3a63f4cb571",
+        "bytes": 14366
+      },
+      {
+        "path": "vectors/proposals.yaml",
+        "sha256": "4dea1cdfeb0a99e906d62586bc882d8879506bf7038a6ebc5bba4e78dd467314",
+        "bytes": 499
+      }
+    ]
   },
   "claims": {
     "conformance_claims_allowed": false,
@@ -43,6 +159,9 @@
     "guarantee_records_total": 13,
     "guarantee_records_bound": 0,
     "vectors_total": 60,
+    "vectors_registered": 56,
+    "candidates_total": 4,
+    "vectors_superseded": 0,
     "vectors_by_status": {
       "implemented": 14,
       "lab_validated": 3,
@@ -51,11 +170,26 @@
       "rejected": 1,
       "specified": 17
     },
+    "vectors_by_index_status": {
+      "DECLARED": 17,
+      "IMPLEMENTED": 14,
+      "RESERVED": 25
+    },
     "vectors_by_reference_kernel_result": {
       "IMPLEMENTATION_GAP": 41,
       "NOT_APPLICABLE": 1,
-      "None": 4,
       "PASS": 14
+    },
+    "index_rows_without_vector": 28,
+    "index_rows_without_vector_by_status": {
+      "DECLARED": 28
+    },
+    "reference_kernel_pass": {
+      "total": 14,
+      "by_index_status": {
+        "IMPLEMENTED": 14
+      },
+      "superseded": 0
     }
   },
   "axes": [
@@ -202,34 +336,176 @@
       ]
     }
   ],
+  "rules": [
+    {
+      "clause_id": "R1a",
+      "rule_id": "R1_HOST_CONCURRENCY",
+      "description": "mono-process n'autorise que le verrou de thread.",
+      "condition": {
+        "field": "HOST_SCOPE",
+        "value": "mono-process"
+      },
+      "requires": {
+        "field": "CONCURRENCY",
+        "allowed_values": [
+          "thread-lock"
+        ]
+      }
+    },
+    {
+      "clause_id": "R1b",
+      "rule_id": "R1_HOST_CONCURRENCY",
+      "description": "mono-host autorise file-lock ou distributed-transaction.",
+      "condition": {
+        "field": "HOST_SCOPE",
+        "value": "mono-host"
+      },
+      "requires": {
+        "field": "CONCURRENCY",
+        "allowed_values": [
+          "file-lock",
+          "distributed-transaction"
+        ]
+      }
+    },
+    {
+      "clause_id": "R1c",
+      "rule_id": "R1_HOST_CONCURRENCY",
+      "description": "multi-host autorise distributed-transaction ou distributed-consensus.",
+      "condition": {
+        "field": "HOST_SCOPE",
+        "value": "multi-host"
+      },
+      "requires": {
+        "field": "CONCURRENCY",
+        "allowed_values": [
+          "distributed-transaction",
+          "distributed-consensus"
+        ]
+      }
+    },
+    {
+      "clause_id": "R2a",
+      "rule_id": "R2_CONSENSUS_SCOPE",
+      "description": "Le consensus distribué exige une topologie multi-host.",
+      "condition": {
+        "field": "CONCURRENCY",
+        "value": "distributed-consensus"
+      },
+      "requires": {
+        "field": "HOST_SCOPE",
+        "allowed_values": [
+          "multi-host"
+        ]
+      }
+    },
+    {
+      "clause_id": "R2b",
+      "rule_id": "R2_CONSENSUS_DEDUP",
+      "description": "Le registre de déduplication distribué exige multi-host.",
+      "condition": {
+        "field": "DEDUP_LAYER",
+        "value": "distributed-consensus-registry"
+      },
+      "requires": {
+        "field": "HOST_SCOPE",
+        "allowed_values": [
+          "multi-host"
+        ]
+      }
+    },
+    {
+      "clause_id": "R2c",
+      "rule_id": "R2_CONSENSUS_DEDUP",
+      "description": "Le registre de déduplication distribué exige le consensus distribué.",
+      "condition": {
+        "field": "DEDUP_LAYER",
+        "value": "distributed-consensus-registry"
+      },
+      "requires": {
+        "field": "CONCURRENCY",
+        "allowed_values": [
+          "distributed-consensus"
+        ]
+      }
+    },
+    {
+      "clause_id": "R3a",
+      "rule_id": "R3_LOCAL_DEDUP",
+      "description": "Un registre local ne peut pas coordonner plusieurs hôtes.",
+      "condition": {
+        "field": "DEDUP_LAYER",
+        "value": "local-registry"
+      },
+      "requires": {
+        "field": "HOST_SCOPE",
+        "allowed_values": [
+          "mono-process",
+          "mono-host"
+        ]
+      }
+    }
+  ],
   "invariants": [
     {
       "id": "I2",
       "name": "permit-single-use",
       "property": "a permit bound to an attempt and LEI authorizes at most one effect-producing dispatch",
       "formerly": null,
-      "verification": "a définir : aucun test de conformance ne l'exerce encore"
+      "verification": "a définir : aucun test de conformance ne l'exerce encore",
+      "scope": "per attempt",
+      "applies_to": [
+        "cap.dedup.local-registry",
+        "cap.dedup.consensus-registry",
+        "cap.dedup.provider-key"
+      ],
+      "contract_ref": "manuscript/v7.1.md (I2 — Permit single-use)"
     },
     {
       "id": "BUD",
       "name": "budget-ceiling-aggregate",
       "property": "reserved + committed <= capacity",
       "formerly": "I8 (jusqu'au catalogue v1.1.0 ; toujours nommé I8 dans tenir_governance et dans les journaux de preuve antérieurs)",
-      "verification": "test.consensus.safety (budget conservation check)"
+      "verification": "test.consensus.safety (budget conservation check)",
+      "scope": "per resource_id",
+      "applies_to": [
+        "cap.concurrency.thread-lock",
+        "cap.concurrency.file-lock",
+        "cap.concurrency.consensus-reference",
+        "cap.concurrency.distributed-transaction",
+        "cap.concurrency.consensus"
+      ],
+      "contract_ref": "consensus-contract-v1.md §2.4"
     },
     {
       "id": "LIN",
       "name": "linearizability",
       "property": "linearizable history exists",
       "formerly": null,
-      "verification": "test.consensus.safety (linearizability checker, Wing-Gong)"
+      "verification": "test.consensus.safety (linearizability checker, Wing-Gong)",
+      "scope": "all operations",
+      "applies_to": [
+        "cap.concurrency.file-lock",
+        "cap.concurrency.consensus-reference",
+        "cap.concurrency.distributed-transaction",
+        "cap.concurrency.consensus"
+      ],
+      "contract_ref": "consensus-contract-v1.md §2.1"
     },
     {
       "id": "AGR",
       "name": "agreement",
       "property": "at most one commit per reservation",
       "formerly": null,
-      "verification": "test.consensus.safety (agreement check)"
+      "verification": "test.consensus.safety (agreement check)",
+      "scope": "all commit operations",
+      "applies_to": [
+        "cap.concurrency.file-lock",
+        "cap.concurrency.consensus-reference",
+        "cap.concurrency.distributed-transaction",
+        "cap.concurrency.consensus"
+      ],
+      "contract_ref": "consensus-contract-v1.md §2.2"
     }
   ],
   "guarantee_records": [
@@ -259,7 +535,9 @@
       "known_limits": [
         "single-host only (flock ne traverse pas les hôtes)"
       ],
-      "source_path": "capabilities/v1.0.0/cap-budget-crossproc.json"
+      "source_path": "capabilities/v1.0.0/cap-budget-crossproc.json",
+      "source_sha256": "a6538412b8e38351ac2d9b0ed51fb282d679b4b7a8e1973caa8fb16dc62f4748",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-budget-disttx",
@@ -287,7 +565,9 @@
       "known_limits": [
         "slot structurel seulement"
       ],
-      "source_path": "capabilities/v1.0.0/cap-budget-disttx.json"
+      "source_path": "capabilities/v1.0.0/cap-budget-disttx.json",
+      "source_sha256": "1d726cd742d4795e0ff03ec92c2564c17d3b47128ca27ad7f5e120692e5a94fb",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-budget-inproc",
@@ -315,7 +595,9 @@
       "known_limits": [
         "single-process only"
       ],
-      "source_path": "capabilities/v1.0.0/cap-budget-inproc.json"
+      "source_path": "capabilities/v1.0.0/cap-budget-inproc.json",
+      "source_sha256": "fdffb55377980c5fa4adb75ff93e3ee5999ec8b75a7a0c83656d8ed33edc79a4",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-budget-raft",
@@ -345,7 +627,9 @@
         "adresses loopback uniquement",
         "déploiement multi-host physique NON supporté"
       ],
-      "source_path": "capabilities/v1.0.0/cap-budget-raft.json"
+      "source_path": "capabilities/v1.0.0/cap-budget-raft.json",
+      "source_sha256": "9b7281d02a1b3818119eed5d9af3e25dd33bb41635277d489611d9b80e3de27a",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-byzantine-tolerance",
@@ -373,7 +657,9 @@
       "known_limits": [
         "Raft = crash-stop uniquement"
       ],
-      "source_path": "capabilities/v1.0.0/cap-byzantine-tolerance.json"
+      "source_path": "capabilities/v1.0.0/cap-byzantine-tolerance.json",
+      "source_sha256": "2774080c924e36a6f1587e9dc4bc8817bfa315634b323d259e7ca981d0bcc89b",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-dedup-consensus-registry",
@@ -402,7 +688,9 @@
         "périmètre loopback",
         "FM-20"
       ],
-      "source_path": "capabilities/v1.0.0/cap-dedup-consensus-registry.json"
+      "source_path": "capabilities/v1.0.0/cap-dedup-consensus-registry.json",
+      "source_sha256": "6fe4824bff4b68de303e3bd50c70b782535b3f512fbb8cc193e830f8436dab8d",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-dedup-local-registry",
@@ -430,7 +718,9 @@
       "known_limits": [
         "single-host"
       ],
-      "source_path": "capabilities/v1.0.0/cap-dedup-local-registry.json"
+      "source_path": "capabilities/v1.0.0/cap-dedup-local-registry.json",
+      "source_sha256": "0a57077d3a2cbfdbf2c17680fecf8799fa42fe8ba6ba37fe5184be0eb24897cc",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-dedup-provider-key",
@@ -458,7 +748,9 @@
       "known_limits": [
         "dépend des sémantiques du provider"
       ],
-      "source_path": "capabilities/v1.0.0/cap-dedup-provider-key.json"
+      "source_path": "capabilities/v1.0.0/cap-dedup-provider-key.json",
+      "source_sha256": "2d3533c0061dec4c4be5678b34ad9373e0b30659a2e8dd8096cca34031195aca",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-deterministic-replication",
@@ -486,7 +778,9 @@
       "known_limits": [
         "périmètre loopback"
       ],
-      "source_path": "capabilities/v1.0.0/cap-deterministic-replication.json"
+      "source_path": "capabilities/v1.0.0/cap-deterministic-replication.json",
+      "source_sha256": "b80046ac2b61537e2942eddc2a4ae26f722abcdce38ff901bb51eaa407ed6ad3",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-exactly-once-external",
@@ -514,7 +808,9 @@
       "known_limits": [
         "états gouvernés seulement (UNKNOWN/HOLD)"
       ],
-      "source_path": "capabilities/v1.0.0/cap-exactly-once-external.json"
+      "source_path": "capabilities/v1.0.0/cap-exactly-once-external.json",
+      "source_sha256": "a9d2ae53b0ecc1bdb39a5050b69908af27d200dd9ba7866574060c186491456c",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-linearizability-verification",
@@ -544,7 +840,9 @@
         "comparaison status-only",
         "specs raccourcies"
       ],
-      "source_path": "capabilities/v1.0.0/cap-linearizability-verification.json"
+      "source_path": "capabilities/v1.0.0/cap-linearizability-verification.json",
+      "source_sha256": "618ff70d843261bc0180fe73e1a550eab5cfc953d9c0f99ec01a8883aafb4221",
+      "perimeter_rejected_by": []
     },
     {
       "id": "cap-secure-consensus-transport",
@@ -573,7 +871,9 @@
         "FM-20 ouvert",
         "pickle non authentifié"
       ],
-      "source_path": "capabilities/v1.0.0/cap-secure-consensus-transport.json"
+      "source_path": "capabilities/v1.0.0/cap-secure-consensus-transport.json",
+      "source_sha256": "23c774acf75814e0862152a86e8b31deeb6e83f50446e732476d8763d873590d",
+      "perimeter_rejected_by": []
     },
     {
       "id": "raft-consensus-replication",
@@ -608,7 +908,12 @@
         "Multi-host physique NON supporté",
         "Attestation textuelle, pas de signature cryptographique"
       ],
-      "source_path": "capabilities/v1.0.0/raft-consensus-replication.json"
+      "source_path": "capabilities/v1.0.0/raft-consensus-replication.json",
+      "source_sha256": "daedc9bf2a9a05d25bc303beed5e268078e9c2de64ebbb1ed8fddffae4f23592",
+      "perimeter_rejected_by": [
+        "R1b",
+        "R2a"
+      ]
     }
   ],
   "configurations": [
@@ -4450,667 +4755,1816 @@
       "state": "not_evaluated"
     }
   ],
+  "vector_index": {
+    "present": true,
+    "path": "VECTORS.md",
+    "notes": [
+      "This index points to normative properties in the RFCs; it does not replace them. A vector id is a stable label, not a pointer: the CT-Rn prefix records where the id was first filed, and the rfc column states the clause the vector rests on. CT-R5 vectors rest on RFC-1 and RFC-4 clauses; CT-R4-011 to CT-R4-013 rest on the manuscript. IMPLEMENTED means a behavioral test exists in the current runner. DECLARED means the RFC specifies the property but the runner does not test it. RESERVED means the check is identified but the RFC does not specify it.",
+      "The runner registers 56 vector IDs (18 core/commit, of which three lifecycle vectors, and 38 extended). Registration alone does not make a vector IMPLEMENTED: 36 extended entries currently return an implementation-gap result without exercising the property. The archived v0.3.1 reports also contain false PASS assessments for C3, CT-R4-005, CT-R4-009, and CT-R4-010; use corrected implementation and current report before making conformance claims."
+    ],
+    "status_definitions": {
+      "IMPLEMENTED": "a behavioral test exists in the current runner.",
+      "DECLARED": "the RFC specifies the property but the runner does not test it.",
+      "RESERVED": "the check is identified but the RFC does not specify it."
+    },
+    "rows_without_vector": [
+      {
+        "id": "VEC-6-01",
+        "status": "DECLARED",
+        "family": "SECURITY",
+        "rfc": "RFC-6 §2.2, §6.2",
+        "normative_property": "Signature verification must be based on canonicalized payloads, not JSON formatting.",
+        "location": "reg-standards-baseline/rfc/rfc-6.md §2.2, §6.2"
+      },
+      {
+        "id": "VEC-6-02",
+        "status": "DECLARED",
+        "family": "SECURITY",
+        "rfc": "RFC-6 §3.1, §6.2",
+        "normative_property": "Reuse of an idempotency key with a modified action must be rejected.",
+        "location": "reg-standards-baseline/rfc/rfc-6.md §3.1, §6.2"
+      },
+      {
+        "id": "VEC-6-03",
+        "status": "DECLARED",
+        "family": "SECURITY",
+        "rfc": "RFC-6 §3.2, §6.2",
+        "normative_property": "Requests outside the declared freshness window must be rejected.",
+        "location": "reg-standards-baseline/rfc/rfc-6.md §3.2, §6.2"
+      },
+      {
+        "id": "VEC-6-04",
+        "status": "DECLARED",
+        "family": "SECURITY",
+        "rfc": "RFC-3 §4.2; RFC-6 §4.2, §6.2",
+        "normative_property": "A credential signed by a revoked key past its revocation bound must not authorize execution.",
+        "location": "reg-standards-baseline/rfc/rfc-6.md §4.2, §6.2"
+      },
+      {
+        "id": "REG-STATE-001",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.5",
+        "normative_property": "UNKNOWN evidence must not be treated as satisfying an invariant; default to HOLD or HARD_VETO.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.5"
+      },
+      {
+        "id": "REG-STATE-002",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.5",
+        "normative_property": "STALE measurements must be excluded; a critical stale measurement yields HOLD or HARD_VETO.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.5"
+      },
+      {
+        "id": "REG-STATE-003",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.5",
+        "normative_property": "MISSING evidence must remain distinguishable from other epistemic states.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.5"
+      },
+      {
+        "id": "REG-STATE-004",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.5",
+        "normative_property": "CONTRADICTORY evidence yields HOLD unless a deterministic, pre-declared resolution applies.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.5"
+      },
+      {
+        "id": "REG-STATE-005",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.5, §2.8",
+        "normative_property": "LOW CONFIDENCE must invoke Conservative Admissibility.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.5, §2.8"
+      },
+      {
+        "id": "REG-STATE-006",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.1",
+        "normative_property": "The membrane must not invent observations; observations without provenance are invalid for structural evaluation.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.1"
+      },
+      {
+        "id": "REG-STATE-007",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.2",
+        "normative_property": "Measurements must carry provenance and required contextual bindings.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.2"
+      },
+      {
+        "id": "REG-STATE-008",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.3",
+        "normative_property": "Interpretations must be produced by deterministic, versioned mappings.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.3"
+      },
+      {
+        "id": "REG-STATE-009",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.4",
+        "normative_property": "Decisions must derive only from Interpretation and applicable Invariants.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.4"
+      },
+      {
+        "id": "REG-STATE-010",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.6",
+        "normative_property": "Prohibited inferences must not be used to establish admissibility.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.6"
+      },
+      {
+        "id": "REG-STATE-011",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.7",
+        "normative_property": "A reason chain must link the decision to interpretations and exact measurements for deterministic reproduction.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.7"
+      },
+      {
+        "id": "REG-STATE-012",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.8",
+        "normative_property": "Uncertainty must be evaluated against worst-case plausible bounds.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.8"
+      },
+      {
+        "id": "REG-STATE-013",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §2.8",
+        "normative_property": "Increasing uncertainty must never expand the Admissible Region.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §2.8"
+      },
+      {
+        "id": "REG-STATE-014",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §3.3",
+        "normative_property": "A hard invariant violation must bypass scoring and produce HARD_VETO.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §3.3"
+      },
+      {
+        "id": "REG-STATE-015",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-2 §3.4",
+        "normative_property": "Confidence modulation may only degrade, never upgrade, the disposition.",
+        "location": "reg-standards-baseline/rfc/rfc-2.md §3.4"
+      },
+      {
+        "id": "REG-STATE-016",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §2.3",
+        "normative_property": "Credentials must be checked using public cryptographic material or sufficiently fresh local revocation data.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §2.3"
+      },
+      {
+        "id": "REG-STATE-017",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §2.3",
+        "normative_property": "Verification must not depend on synchronous real-time IAM lookups at the Execution Boundary.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §2.3"
+      },
+      {
+        "id": "REG-STATE-018",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §3",
+        "normative_property": "Child authority scope must not exceed parent scope; invalid chain links invalidate descendants.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §3"
+      },
+      {
+        "id": "REG-STATE-019",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §4.1",
+        "normative_property": "Credential revocation, policy invocation, context drift, and execution invocation must remain distinct events.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §4.1"
+      },
+      {
+        "id": "REG-STATE-020",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §4.2",
+        "normative_property": "Revocation bounds must be explicit, versioned, and signed.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §4.2"
+      },
+      {
+        "id": "REG-STATE-021",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §4.2",
+        "normative_property": "Revocation after grant but before/during commit must trigger HARD_VETO and a safe-state transition.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §4.2"
+      },
+      {
+        "id": "REG-STATE-022",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §4.3, §5.1",
+        "normative_property": "Parent revocation and material authority/context changes must invalidate or trigger re-evaluation of affected standing.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §4.3, §5.1"
+      },
+      {
+        "id": "REG-STATE-023",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-3 §6, §7; RFC-5 §4",
+        "normative_property": "Composition must preserve local Standing; recovery must establish a new authorization context.",
+        "location": "reg-standards-baseline/rfc/rfc-3.md §6–7; reg-standards-baseline/rfc/rfc-5.md §4"
+      },
+      {
+        "id": "REG-STATE-024",
+        "status": "DECLARED",
+        "family": "STATE",
+        "rfc": "RFC-5 §1–3",
+        "normative_property": "τ_K and exhaustion behavior must be pre-declared; HOLD expiry defaults to fail-closed, and Shadow Mode requires bounded review capacity.",
+        "location": "reg-standards-baseline/rfc/rfc-5.md §1–3"
+      }
+    ]
+  },
   "vectors": [
     {
       "id": "C1",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 6,
       "category": "core",
       "status": "implemented",
       "rfc": "RFC-3",
       "property": "Standing Gate",
+      "input": "Actor with invalid credential",
+      "intended": "HARD_VETO — no structural computation",
       "expected": "HARD_VETO",
+      "observed": "HARD_VETO on standing failure (native)",
+      "reference": "RFC-3 §4.1",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "CORE",
+        "rfc": "RFC-3",
+        "normative_property": "Invalid credential → HARD_VETO regardless of structural state.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "C2",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 18,
       "category": "core",
       "status": "implemented",
       "rfc": "RFC-2",
       "property": "Structure Gate",
+      "input": "P≥0.9, V≥0.9, K≤0.15",
+      "intended": "FLAG or HARD_VETO — never PASS",
       "expected": "FLAG or HARD_VETO",
+      "observed": "HARD_VETO extreme pressure (native)",
+      "reference": "RFC-2 §3.2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "CORE",
+        "rfc": "RFC-2",
+        "normative_property": "P≥0.9, V≥0.9, K≤0.15 → FLAG or HARD_VETO, never PASS.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "C3",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 30,
       "category": "core",
       "status": "implemented",
       "rfc": "RFC-3 §4.2; RFC-4 §2.2",
       "property": "Standing Continuity at Commit",
+      "input": "Standing revoked between verdict and commit",
+      "intended": "HARD_VETO; commit blocked",
       "expected": "HARD_VETO",
+      "observed": "post-verdict revocation produced HARD_VETO; commit blocked (native): STANDING_REVOKED:HARD_VETO",
+      "reference": "RFC-3 §4.2; RFC-4 §2.2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "CORE",
+        "rfc": "RFC-4 §2.2",
+        "normative_property": "Revocation after verdict but before or during commit must trigger HARD_VETO and block the action. (RFC-4 §2.2; RFC-3 §4.2)",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "C4",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 42,
       "category": "core",
       "status": "specified",
       "rfc": "RFC-1",
       "property": "Fail-Closed Transport Safety",
+      "input": "Transport fault or 5xx",
+      "intended": "No execution proceeds",
       "expected": "no execution",
+      "observed": "No transport layer in in-process kernel",
+      "reference": "RFC-1 §5",
+      "superseded_by": [],
       "reference_kernel_result": "NOT_APPLICABLE",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "CORE",
+        "rfc": "RFC-1",
+        "normative_property": "Transport fault → no execution. NOT_APPLICABLE for in-process kernels.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "NOT_APPLICABLE"
     },
     {
       "id": "C5",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 54,
       "category": "core",
       "status": "implemented",
       "rfc": "RFC-1 §2.1; RFC-4 §2.1",
       "property": "Replay Soundness — Idempotency",
+      "input": "Duplicate nonce or request",
+      "intended": "REJECT / NONCE_REPLAY",
       "expected": "REJECT",
+      "observed": "NONCE_REPLAY raised (native)",
+      "reference": "RFC-1 §2.1",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "CORE",
+        "rfc": "RFC-1/4",
+        "normative_property": "Duplicate nonce → REJECT/NONCE_REPLAY.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-011",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 66,
       "category": "core",
       "status": "lab_validated",
       "rfc": "Lifecycle T6 (manuscript v7.2 §4.4; not in the frozen RFC-4 text)",
       "property": "UNKNOWN → RESOLVED (qualified)",
+      "input": "Qualified receipt or explicit resolve under τ_K discipline",
+      "intended": "RESOLVED; timeout alone does not resolve",
       "expected": "RESOLVED when qualified",
+      "observed": "Validated in tenir-conformance-s1-g1 membrane (S2c); native runner adapter pending",
+      "reference": "Manuscript v7.2 §4.4, transition T6",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "COMMIT",
+        "rfc": "Manuscript v7.2 §4.4 (transitions); the frozen RFC-4 text defines no lifecycle transition",
+        "normative_property": "Unspecified proposal (T6): UNKNOWN or AWAITING becomes RESOLVED only on qualified, correctly bound evidence; a timeout alone does not resolve.",
+        "location": "runner.py CORE_VECTORS; laboratory probe only, reported as IMPLEMENTATION_GAP in native mode (LIFECYCLE_INTEGRATION.md)"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R4-012",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 78,
       "category": "core",
       "status": "lab_validated",
       "rfc": "Lifecycle T7 (manuscript v7.2 §4.4; not in the frozen RFC-4 text)",
       "property": "UNKNOWN → FAILED (evidence guard)",
+      "input": "declare_failed without a verified attestation vs with a bound Ed25519 non-execution attestation",
+      "intended": "REJECT without cryptographic verification; FAILED only with verified non-execution evidence",
       "expected": "timeout and boolean alone cannot declare FAILED; exact attempt/LEI/nonce binding is required",
+      "observed": "Validated in tenir-conformance-s1-g1 (test_t7_t8); native adapter pending",
+      "reference": "Manuscript v7.2 §4.4, transition T7",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "COMMIT",
+        "rfc": "Manuscript v7.2 §4.4 (transitions); the frozen RFC-4 text defines no lifecycle transition",
+        "normative_property": "Unspecified proposal (T7): UNKNOWN becomes FAILED only on a qualified non-execution attestation; a timeout or a boolean alone is insufficient.",
+        "location": "runner.py CORE_VECTORS; laboratory probe only, reported as IMPLEMENTATION_GAP in native mode (LIFECYCLE_INTEGRATION.md)"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R4-013",
+      "registry": "vector",
       "file": "vectors/core.yaml",
+      "line": 90,
       "category": "core",
       "status": "lab_validated",
       "rfc": "Lifecycle T8 (manuscript v7.2 §4.4; not in the frozen RFC-4 text)",
       "property": "FAILED + retry_eligible → new attempt",
+      "input": "FAILED with verified non-execution, no observed effect, and retry_eligible true/false",
+      "intended": "new attempt_id allowed only if retry_eligible and non-execution are verified",
       "expected": "retry_eligible=false preserves LEI lock; true permits a fresh evaluation, never automatic execution",
+      "observed": "Validated in tenir-conformance-s1-g1 (T8 tests); native adapter pending",
+      "reference": "Manuscript v7.2 §4.4, transition T8",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "COMMIT",
+        "rfc": "Manuscript v7.2 §4.4 (transitions); the frozen RFC-4 text defines no lifecycle transition",
+        "normative_property": "Unspecified proposal (T8): a new attempt after FAILED requires confirmed non-execution, no observed effect and retry eligibility.",
+        "location": "runner.py CORE_VECTORS; laboratory probe only, reported as IMPLEMENTATION_GAP in native mode (LIFECYCLE_INTEGRATION.md)"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R4-001",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 6,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §1",
       "property": "Valid Grant Binding",
+      "input": "Matching evaluation_id, action, nonce within window",
+      "intended": "GRANT / COMMITTED",
       "expected": "GRANT",
+      "observed": "bound and committed (native)",
+      "reference": "RFC-4 §1",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1",
+        "normative_property": "Matching evaluation_id/action/nonce within window → GRANT/COMMITTED.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-002",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 18,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §1.3",
       "property": "Action / Payload Binding Violation",
+      "input": "Grant for action_A; commit attempts action_B",
+      "intended": "REJECT / PAYLOAD_BINDING_VIOLATION",
       "expected": "REJECT",
+      "observed": "PAYLOAD_BINDING_VIOLATION raised (native)",
+      "reference": "RFC-4 §1.3",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1.3",
+        "normative_property": "Grant for action_A; commit attempts action_B → REJECT/BINDING_VIOLATION.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-003",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 30,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §2.1",
       "property": "Replay Rejection",
+      "input": "Consumed nonce reused",
+      "intended": "REJECT / REPLAY_DETECTED",
       "expected": "REJECT",
+      "observed": "REPLAY_DETECTED (native)",
+      "reference": "RFC-4 §2.1",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §2.1",
+        "normative_property": "Consumed nonce reused → REJECT/REPLAY_DETECTED.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-004",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 42,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §2",
       "property": "Expired Grant Rejection",
+      "input": "valid_until passed before commit",
+      "intended": "REJECT / EVALUATION_EXPIRED",
       "expected": "REJECT",
+      "observed": "EVALUATION_EXPIRED (native)",
+      "reference": "RFC-4 §2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §2",
+        "normative_property": "valid_until passed before commit → REJECT/EVALUATION_EXPIRED.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-005",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 54,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §2.2",
       "property": "Commit-State Binding / Race Detection",
+      "input": "policy_epoch changed between verdict and commit",
+      "intended": "HARD_VETO / STATE_DRIFT; commit blocked",
       "expected": "HARD_VETO",
+      "observed": "STATE_DRIFT produced HARD_VETO (epoch 0→1) (native)",
+      "reference": "RFC-4 §2.2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §2.2",
+        "normative_property": "Relevant state drift after verdict and before commit must be detected and trigger HARD_VETO. (RFC-4 §2.2)",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-006",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 66,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §1",
       "property": "Non-PASS Cannot Cross Commit",
+      "input": "HOLD or HARD_VETO then commit attempt",
+      "intended": "REJECT / INVALID_DISPOSITION",
       "expected": "REJECT",
+      "observed": "HARD_VETO blocked at commit gate (native)",
+      "reference": "RFC-4 §1",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1",
+        "normative_property": "HOLD or HARD_VETO → commit attempt → REJECT/INVALID_DISPOSITION.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-007",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 78,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §3",
       "property": "Decision Receipt Generation",
+      "input": "Every disposition generates a signed Receipt",
+      "intended": "Signed Receipt, independently verifiable",
       "expected": "signed receipt",
+      "observed": "Ed25519 verified (native)",
+      "reference": "RFC-4 §3",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §3",
+        "normative_property": "Every disposition → cryptographically signed Receipt, independently verifiable.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-008",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 90,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §4",
       "property": "Evidence Manifest Integrity",
+      "input": "Append-only hash-chain manifest",
+      "intended": "Integrity verifiable at any time",
       "expected": "integrity verifiable",
+      "observed": "Hash-chain intact (native, len=13)",
+      "reference": "RFC-4 §4",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §4",
+        "normative_property": "Append-only hash-chain manifest; integrity verifiable at any time.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R4-009",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 102,
       "category": "commit",
       "status": "specified",
       "rfc": "RFC-4 §4",
       "property": "Independent Evidence Verification",
+      "input": "Third-party verifier reproduces decision from manifest",
+      "intended": "Decision reproducible from Manifest",
       "expected": "independently verifiable",
+      "observed": "Signature verification alone does not reproduce the decision.",
+      "reference": "RFC-4 §4.3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §4",
+        "normative_property": "Independent verification must reproduce or verify the decision from recorded inputs, policies, transformations, and attestations. (RFC-4 §4.3, §5.1)",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R4-010",
+      "registry": "vector",
       "file": "vectors/commit.yaml",
+      "line": 114,
       "category": "commit",
       "status": "specified",
       "rfc": "RFC-4 §1.1",
       "property": "External-Effect Claim Boundary",
+      "input": "Non-atomic external effects",
+      "intended": "Declared non-atomic; post-commit evidence required",
       "expected": "declared",
+      "observed": "Declaration present; no evidence of external effect.",
+      "reference": "RFC-4 §1.1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1.1",
+        "normative_property": "Non-atomic external effects require post-commit evidence; declaring the effect non-atomic alone is insufficient. (RFC-4 §1.1, §4.1)",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R0-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 7,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-0",
       "property": "Policy Anchor Integrity",
+      "input": "Policy file hash verification",
+      "intended": "Policy file hash verifiable independently",
       "expected": "hash verifiable",
+      "observed": "Policy anchor hash endpoint not yet implemented",
+      "reference": "RFC-0",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-0",
+        "normative_property": "Unspecified proposal: Policy file hash verifiable independently.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R0-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 19,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-0",
       "property": "RFC Version Declaration",
+      "input": "RFC version declaration check",
+      "intended": "Implementation declares conformant RFC versions",
       "expected": "versions declared",
+      "observed": "RFC version declaration endpoint absent",
+      "reference": "RFC-0",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-0",
+        "normative_property": "Unspecified proposal: Implementation declares conformant RFC versions.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R0-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 31,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-0",
       "property": "Governance Scope Declaration",
+      "input": "Declared scope vs tested behavior",
+      "intended": "Declared scope matches tested behavior",
       "expected": "scope declared",
+      "observed": "Governance scope declaration not formally specified in implementation",
+      "reference": "RFC-0",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-0",
+        "normative_property": "Declared scope matches tested behavior.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R0-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 43,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-0",
       "property": "Normative Reference Binding",
+      "input": "RFC references with SHA/date",
+      "intended": "All referenced RFCs pinned with SHA/date",
       "expected": "pinned",
+      "observed": "Normative RFC SHAs not yet pinned in implementation manifest",
+      "reference": "RFC-0",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-0",
+        "normative_property": "Unspecified proposal: All referenced RFCs pinned with SHA/date.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R0-005",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 55,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-0",
       "property": "Constitutional Override Prohibition",
+      "input": "Override mechanism bypass attempt",
+      "intended": "No mechanism bypasses REG constitution",
       "expected": "no bypass",
+      "observed": "Constitutional override prohibition not formally tested",
+      "reference": "RFC-0",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-0 §4",
+        "normative_property": "The most restrictive applicable disposition governs conflicting controls.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 68,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-1",
       "property": "Response Schema Compliance",
+      "input": "Response fields from evaluation endpoint",
+      "intended": "Response fields match declared schema exactly",
       "expected": "schema compliant",
+      "observed": "Response schema validation endpoint absent; schema not machine-readable",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "Unspecified proposal: Response fields match declared schema exactly.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 80,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-1",
       "property": "Content-Type Declaration",
+      "input": "HTTP response headers",
+      "intended": "Responses declare Content-Type: application/json",
       "expected": "declared",
+      "observed": "Content-Type header present in practice; formal compliance test absent",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "Unspecified proposal: Responses declare Content-Type: application/json.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 92,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-1",
       "property": "HTTP Status Semantics",
+      "input": "HTTP status codes in responses",
+      "intended": "2xx/4xx/5xx used per RFC semantics",
       "expected": "semantically correct",
+      "observed": "HTTP status semantics partially correct; formal semantic validation absent",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "2xx/4xx/5xx used per RFC semantics.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 104,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-1",
       "property": "Request Timeout Enforcement",
+      "input": "Requests within and beyond timeout window",
+      "intended": "Requests time out within declared window",
       "expected": "timeout enforced",
+      "observed": "Configurable request timeout not enforced at server level",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1 §5 (timeout window itself unspecified)",
+        "normative_property": "Unspecified proposal: server-side request timeout bound; RFC-1 requires fail-closed handling of transport timeout.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-005",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 116,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-1",
       "property": "TLS Requirement (production)",
+      "input": "Non-TLS connection attempt",
+      "intended": "Non-TLS connections rejected in production mode",
       "expected": "rejected",
+      "observed": "TLS enforcement absent; --insecure flag provided as dev workaround only",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "Non-TLS connections rejected in production mode.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-006",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 128,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-1",
       "property": "Request Size Limit",
+      "input": "Oversized payload submission",
+      "intended": "Oversized payloads rejected with 413",
       "expected": "413 on oversized",
+      "observed": "Request size limit not enforced (FastAPI default only)",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "Unspecified proposal: Oversized payloads rejected with 413.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R1-007",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 140,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-1",
       "property": "Concurrent Request Isolation",
+      "input": "Parallel evaluation requests",
+      "intended": "Parallel evaluations do not interfere",
       "expected": "isolated",
+      "observed": "Concurrent isolation not formally tested (in-memory dict is not thread-safe)",
+      "reference": "RFC-1",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1",
+        "normative_property": "Unspecified proposal: Parallel evaluations do not interfere.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R2-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 153,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-2",
       "property": "Threshold Declaration",
+      "input": "Threshold values in policy file",
+      "intended": "Thresholds declared and pinned in policy file",
       "expected": "declared",
+      "observed": "Threshold declaration endpoint absent; thresholds accessible in YAML only",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Thresholds declared and pinned in policy file.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R2-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 165,
       "category": "extended",
       "status": "implemented",
       "rfc": "RFC-2",
       "property": "S-Score Determinism",
+      "input": "Identical P/V/K measurements",
+      "intended": "Identical P/V/K → identical S and disposition across independent calls",
       "expected": "deterministic",
+      "observed": "S and disposition deterministic across calls (native)",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Identical P/V/K → identical S and disposition across independent calls.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R2-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 177,
       "category": "extended",
       "status": "implemented",
       "rfc": "RFC-2",
       "property": "Epsilon Guard",
+      "input": "Zero-denominator case (P=0, V=0)",
+      "intended": "Zero-denominator handled without error; epsilon prevents divide-by-zero",
       "expected": "no error",
+      "observed": "Epsilon guard handles zero-denominator safely (native)",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "PASS",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Zero-denominator (P=0, V=0) handled without error; epsilon prevents divide-by-zero.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
     },
     {
       "id": "CT-R2-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 189,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-2",
       "property": "Boundary Exactness",
+      "input": "Values at threshold boundaries",
+      "intended": "Values at threshold boundaries produce consistent, declared dispositions",
       "expected": "consistent",
+      "observed": "Exact boundary behavior (S == threshold) not formally specified",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Unspecified proposal: Values at threshold boundaries produce consistent, declared dispositions.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R2-005",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 201,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-2",
       "property": "Measurement Range Validation",
+      "input": "P/V/K outside [0,1]",
+      "intended": "P/V/K outside [0,1] rejected with 422",
       "expected": "422 on out-of-range",
+      "observed": "Out-of-range P/V/K accepted and computed; 422 rejection not implemented",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Unspecified proposal: P/V/K outside [0,1] rejected with 422.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R2-006",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 213,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-2",
       "property": "Institutional Override Audit",
+      "input": "Threshold override event",
+      "intended": "Threshold overrides logged with policy_epoch",
       "expected": "logged",
+      "observed": "Institutional threshold override audit logging absent",
+      "reference": "RFC-2",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-2",
+        "normative_property": "Unspecified proposal: Threshold overrides logged with policy_epoch.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 226,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-3",
       "property": "Credential Format Validation",
+      "input": "Malformed credentials",
+      "intended": "Malformed credentials rejected before evaluation",
       "expected": "rejected",
+      "observed": "Credential format validation limited to null/empty check",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Malformed credentials rejected before evaluation.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 238,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-3",
       "property": "Revocation Propagation",
+      "input": "Revocation event",
+      "intended": "Revocation effective within declared latency window",
       "expected": "propagated",
+      "observed": "Revocation propagation latency not declared or measured",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Revocation effective within declared latency window.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 250,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-3",
       "property": "Multi-Principal Isolation",
+      "input": "Two principals, one revoked",
+      "intended": "Revocation of A does not affect principal B",
       "expected": "isolated",
+      "observed": "Multi-principal isolation not formally tested",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Unspecified proposal: Revocation of A does not affect principal B.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 262,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-3",
       "property": "Revocation Audit Trail",
+      "input": "Revocation event",
+      "intended": "All revocation events appended to manifest",
       "expected": "appended",
+      "observed": "Revocation events not appended to hash-chain manifest",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Unspecified proposal: All revocation events appended to manifest.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-005",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 274,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-3",
       "property": "Delegation Depth Enforcement",
+      "input": "Delegation chain",
+      "intended": "Delegation chain depth limit enforced",
       "expected": "enforced",
+      "observed": "Delegation depth enforcement not implemented",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3 §3 (maximum depth itself unspecified)",
+        "normative_property": "Unspecified proposal: a fixed maximum delegation-chain depth.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-006",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 286,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-3",
       "property": "Temporal Credential Binding",
+      "input": "Time-limited credentials at expiry",
+      "intended": "Time-limited credentials expire as declared",
       "expected": "expired",
+      "observed": "Temporal credential binding (time-limited credentials) not implemented",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Time-limited credentials expire as declared.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-007",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 298,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-3",
       "property": "Standing Scope Boundary",
+      "input": "Cross-organizational credential usage",
+      "intended": "Standing valid only within declared organizational scope",
       "expected": "bounded",
+      "observed": "Standing scope boundary not declared or enforced",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Standing valid only within declared organizational scope.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R3-008",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 310,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-3",
       "property": "Credential Rotation",
+      "input": "Rotated credentials",
+      "intended": "Rotated credentials invalidate prior grants",
       "expected": "invalidated",
+      "observed": "Credential rotation invalidation not implemented",
+      "reference": "RFC-3",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-3",
+        "normative_property": "Rotated credentials invalidate prior grants.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R5-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 323,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-5",
       "property": "Manifest Export",
+      "input": "Full manifest export request",
+      "intended": "Full manifest exportable as verifiable artifact",
       "expected": "exported",
+      "observed": "Manifest export endpoint absent; manifest in-memory only",
+      "reference": "RFC-5",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-1 §2; RFC-4 §4.1",
+        "normative_property": "The final Evidence Manifest is retrievable for closure and audit.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R5-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 335,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-5",
       "property": "Manifest Import Verification",
+      "input": "Exported manifest re-import",
+      "intended": "Imported manifest verifies from genesis block",
       "expected": "verified",
+      "observed": "Manifest import and re-verification path absent",
+      "reference": "RFC-5",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-4 §4.3; RFC-4 §5.1",
+        "normative_property": "Independent verifier can verify/reproduce the decision from recorded evidence.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R5-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 347,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-5",
       "property": "Evidence Retention Policy",
+      "input": "Evidence retention deadline",
+      "intended": "Evidence retained for declared minimum period",
       "expected": "retained",
+      "observed": "Evidence retention policy not declared",
+      "reference": "RFC-5",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-4 (retention period unspecified)",
+        "normative_property": "Unspecified proposal: minimum evidence-retention period.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R5-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 359,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-5",
       "property": "Redaction Prohibition",
+      "input": "Closed manifest deletion attempt",
+      "intended": "No evidence silently deleted from closed manifest",
       "expected": "no deletion",
+      "observed": "Redaction prohibition not formally enforced (in-memory list)",
+      "reference": "RFC-5",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-4 §4.2",
+        "normative_property": "Evidence manifests are tamper-evident and append-only; closed entries are not silently removed.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R5-005",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 371,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-5",
       "property": "Cross-Epoch Continuity",
+      "input": "Policy epoch change during manifest growth",
+      "intended": "Manifest chain survives policy epoch changes",
       "expected": "continuous",
+      "observed": "Cross-epoch manifest continuity not formally tested",
+      "reference": "RFC-5",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-4 §4.2 (cross-epoch continuity unspecified)",
+        "normative_property": "Unspecified proposal: manifest-chain continuity across policy epochs.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R6-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 384,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-6",
       "property": "Emergency Override Audit",
+      "input": "Override decision event",
+      "intended": "Override decisions always appended to manifest",
       "expected": "appended",
+      "observed": "Override audit logging absent",
+      "reference": "RFC-6",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-6 (no override requirement specified)",
+        "normative_property": "Unspecified proposal: emergency override audit requirement.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R6-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 396,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-6",
       "property": "Override Authority Validation",
+      "input": "Override request from unauthorized principal",
+      "intended": "Only declared principals may invoke override",
       "expected": "rejected",
+      "observed": "Override authority validation absent",
+      "reference": "RFC-6",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-6 (no override requirement specified)",
+        "normative_property": "Unspecified proposal: override authority validation requirement.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R6-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 408,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-6",
       "property": "Override Time Window",
+      "input": "Override request outside authorization window",
+      "intended": "Override grant valid only within declared window",
       "expected": "expired",
+      "observed": "Override time window not implemented",
+      "reference": "RFC-6",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-6 (no override requirement specified)",
+        "normative_property": "Unspecified proposal: override time-window requirement.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R6-004",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 420,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-6",
       "property": "Override Receipt Generation",
+      "input": "Override decision event",
+      "intended": "Override decisions generate signed receipts",
       "expected": "signed receipt",
+      "observed": "Override receipt generation absent",
+      "reference": "RFC-6",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-6 (no override requirement specified)",
+        "normative_property": "Unspecified proposal: override receipt requirement.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R7-001",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 433,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-7",
       "property": "Adapter Result Equivalence",
+      "input": "Same input to adapter and native modes",
+      "intended": "Adapter and native modes produce identical dispositions for same inputs",
       "expected": "identical",
+      "observed": "Formal equivalence test between adapter and native modes absent",
+      "reference": "RFC-7",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-7 §8.1 (mode-specific conformance; exact output equivalence unspecified)",
+        "normative_property": "Unspecified proposal: adapter and native outputs must be exactly equivalent.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R7-002",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 445,
       "category": "extended",
       "status": "specified",
       "rfc": "RFC-7",
       "property": "Evidence Level Non-Promotion",
+      "input": "Adapter-tested result claim as native",
+      "intended": "Adapter results never promoted to native-conformance claims",
       "expected": "no promotion",
+      "observed": "Evidence level non-promotion enforced structurally; formal test absent",
+      "reference": "RFC-7",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-7 §8.2",
+        "normative_property": "Adapter evidence must not be promoted to native-conformance evidence.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "CT-R7-003",
+      "registry": "vector",
       "file": "vectors/extended.yaml",
+      "line": 457,
       "category": "extended",
       "status": "proposal",
       "rfc": "RFC-7",
       "property": "Cross-Implementation Compatibility",
+      "input": "Same inputs to two independent implementations",
+      "intended": "Two independent implementations agree on disposition for same inputs",
       "expected": "agree",
+      "observed": "Cross-implementation testing requires second independent implementation",
+      "reference": "RFC-7",
+      "superseded_by": [],
       "reference_kernel_result": "IMPLEMENTATION_GAP",
-      "note": null
+      "note": null,
+      "index": {
+        "status": "RESERVED",
+        "family": "INTEGRATION",
+        "rfc": "RFC-7 §7.2 (cross-implementation agreement not mandated)",
+        "normative_property": "Unspecified proposal: independent implementations must agree on outcomes.",
+        "location": "runner.py EXTENDED_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
     },
     {
       "id": "P-001",
+      "registry": "candidate",
       "file": "vectors/proposals.yaml",
+      "line": 6,
       "category": "candidate",
       "status": "proposed",
       "rfc": null,
       "property": null,
+      "input": null,
+      "intended": null,
       "expected": null,
+      "observed": null,
+      "reference": null,
+      "superseded_by": [],
       "reference_kernel_result": null,
-      "note": "not validated yet"
+      "note": "not validated yet",
+      "index": null,
+      "reference_kernel_replay": null
     },
     {
       "id": "P-002",
+      "registry": "candidate",
       "file": "vectors/proposals.yaml",
+      "line": 10,
       "category": "candidate",
       "status": "proposed",
       "rfc": null,
       "property": null,
+      "input": null,
+      "intended": null,
       "expected": null,
+      "observed": null,
+      "reference": null,
+      "superseded_by": [],
       "reference_kernel_result": null,
-      "note": "not validated yet"
+      "note": "not validated yet",
+      "index": null,
+      "reference_kernel_replay": null
     },
     {
       "id": "P-003",
+      "registry": "candidate",
       "file": "vectors/proposals.yaml",
+      "line": 14,
       "category": "candidate",
       "status": "proposed",
       "rfc": null,
       "property": null,
+      "input": null,
+      "intended": null,
       "expected": null,
+      "observed": null,
+      "reference": null,
+      "superseded_by": [],
       "reference_kernel_result": null,
-      "note": "not validated yet"
+      "note": "not validated yet",
+      "index": null,
+      "reference_kernel_replay": null
     },
     {
       "id": "NV-001",
+      "registry": "non_validated",
       "file": "vectors/proposals.yaml",
+      "line": 19,
       "category": "exploratory",
       "status": "rejected",
       "rfc": null,
       "property": null,
+      "input": null,
+      "intended": null,
       "expected": null,
+      "observed": null,
+      "reference": null,
+      "superseded_by": [],
       "reference_kernel_result": null,
-      "note": "requires further standardization"
+      "note": "requires further standardization",
+      "index": null,
+      "reference_kernel_replay": null
     }
   ],
-  "content_sha256": "82d6866b97b52845d03d52145195c520341d62cc9901989e40172f3928266c3b"
+  "reference_kernel_replay": {
+    "performed": true,
+    "suite": "REG Conformance Suite v0.3.2",
+    "interface_mode": "native",
+    "evidence_level": 1,
+    "results_total": 56,
+    "matching_registry": 56,
+    "summary_by_basis": {
+      "specified_by_frozen_rfcs": {
+        "total": 31,
+        "PASS": 14,
+        "FAIL": 0,
+        "INCONCLUSIVE": 0,
+        "NOT_APPLICABLE": 1,
+        "ADAPTER_REQUIRED": 0,
+        "IMPLEMENTATION_GAP": 16
+      },
+      "outside_frozen_rfcs": {
+        "total": 25,
+        "PASS": 0,
+        "FAIL": 0,
+        "INCONCLUSIVE": 0,
+        "NOT_APPLICABLE": 0,
+        "ADAPTER_REQUIRED": 0,
+        "IMPLEMENTATION_GAP": 25
+      },
+      "unclassified": 0
+    }
+  },
+  "claims_policy": {
+    "present": false,
+    "path": "CLAIMS.md",
+    "sha256": null
+  },
+  "content_sha256": "79e12850510673a94a7aba0cbff0c6b647e67ee88ea2be51e7490c1dedfa06ab"
 }

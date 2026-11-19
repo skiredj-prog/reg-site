@@ -1,6 +1,7 @@
 // Pin a reg-platform projection: npm run pin -- <platform_commit>
 //   or: npm run pin -- --file ../reg-platform/projection/projection-v1.json [--badges ../reg-platform/badges]
-// Writes data/projection-v1.json, data/badges/ and projection.lock.json.
+// Writes data/projection-v1.json, data/badges/ (with badges/en/) and
+// projection.lock.json.
 import { cpSync, readFileSync, rmSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -24,14 +25,17 @@ if (args[0] === "--file") {
   if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
   text = await res.text();
   const p0 = JSON.parse(text);
+  // French badges in badges/, English ones in badges/en/.
   rmSync(join(ROOT, "data/badges"), { recursive: true, force: true });
-  mkdirSync(join(ROOT, "data/badges"), { recursive: true });
+  mkdirSync(join(ROOT, "data/badges/en"), { recursive: true });
   const ids = ["demonstrated", "partial", "not_evaluated", "refuted", "inadmissible"].map((s) => `state-${s}`)
     .concat(p0.configurations.filter((c) => c.admissible_structural).map((c) => c.id));
-  for (const id of ids) {
-    const r = await fetch(`${base}/badges/${id}.svg`);
-    if (!r.ok) throw new Error(`badge ${id}: ${r.status}`);
-    writeFileSync(join(ROOT, "data/badges", `${id}.svg`), await r.text());
+  for (const dir of ["badges", "badges/en"]) {
+    for (const id of ids) {
+      const r = await fetch(`${base}/${dir}/${id}.svg`);
+      if (!r.ok) throw new Error(`${dir}/${id}.svg: ${r.status}`);
+      writeFileSync(join(ROOT, "data", dir, `${id}.svg`), await r.text());
+    }
   }
 } else {
   console.error("usage: npm run pin -- <40-hex reg-platform commit> | --file <projection.json> [--badges <dir>]");

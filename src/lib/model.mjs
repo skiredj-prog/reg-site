@@ -1,0 +1,105 @@
+// What the pages need, derived from the projection and nothing else.
+
+export const SITE_URL = "https://reg.tenirlabs.cc";
+
+export const ROUTES = {
+  home: { fr: "/", en: "/en/" },
+  configurator: { fr: "/configurateur/", en: "/en/configurator/" },
+  configuration: { fr: (id) => `/configurations/${id}/`, en: (id) => `/en/configurations/${id}/` },
+  vectors: { fr: "/vecteurs/", en: "/en/vectors/" },
+  vector: { fr: (id) => `/vecteurs/${id}/`, en: (id) => `/en/vectors/${id}/` },
+  cite: { fr: "/citer/", en: "/en/cite/" },
+  data: { fr: "/donnees/", en: "/en/data/" },
+};
+
+export const route = (name, lang, id) => {
+  const r = ROUTES[name][lang];
+  return typeof r === "function" ? r(id) : r;
+};
+
+export const badgePath = (lang, id) => (lang === "en" ? `/badges/en/${id}.svg` : `/badges/${id}.svg`);
+export const profilePath = (id) => `/profiles/${id}.yaml`;
+
+// The preferred starting point of the configurator: the repository's own
+// example profile (profiles/example-aggregate-budget-single-host.yaml).
+const DEFAULT_CONFIG = "mono-host__local-registry__file-lock__fail-closed";
+
+export function model(P, lock) {
+  const repo = P.source.repository;
+  const commit = P.source.commit;
+  const files = new Map(P.source.files.map((f) => [f.path, f]));
+  const blob = (path, line) => `${repo}/blob/${commit}/${path}${line ? `#L${line}` : ""}`;
+  const AXES = P.axes.map((a) => a.id);
+  const axis = Object.fromEntries(P.axes.map((a) => [a.id, a]));
+  const valueInfo = {};
+  for (const a of P.axes) for (const v of a.values) valueInfo[`${a.id}=${v.value}`] = v;
+
+  const configs = P.configurations;
+  const configById = new Map(configs.map((c) => [c.id, c]));
+  const admissible = configs.filter((c) => c.admissible_structural);
+  const defaultConfig = configById.get(DEFAULT_CONFIG)?.admissible_structural ? DEFAULT_CONFIG : admissible[0]?.id;
+
+  const records = new Map(P.guarantee_records.map((r) => [r.id, r]));
+  const configsByRecord = new Map();
+  for (const c of configs) for (const r of c.capability_refs) {
+    if (!configsByRecord.has(r)) configsByRecord.set(r, []);
+    configsByRecord.get(r).push(c.id);
+  }
+  const rulesByClause = new Map(P.rules.map((r) => [r.clause_id, r]));
+
+  const capsOf = (c) => AXES.map((ax) => valueInfo[`${ax}=${c.config[ax]}`]?.capability_id).filter(Boolean);
+  const invariantsFor = (c) => {
+    const caps = new Set(capsOf(c));
+    return P.invariants.filter((i) => (i.applies_to || []).some((x) => caps.has(x)));
+  };
+  const evidenceFor = (c) => AXES.map((ax) => ({ axis: ax, value: c.config[ax], ...valueInfo[`${ax}=${c.config[ax]}`] }));
+
+  // Admissible configurations one change away (then two), in axis order.
+  function nearest(c, keepAxis = null, limit = 4) {
+    const out = [];
+    for (const d of [1, 2]) {
+      for (const o of admissible) {
+        const diff = AXES.filter((ax) => o.config[ax] !== c.config[ax]);
+        if (diff.length !== d || (keepAxis && diff.includes(keepAxis))) continue;
+        out.push({ id: o.id, diff });
+      }
+      if (out.length) break;
+    }
+    out.sort((a, b) => AXES.indexOf(a.diff[0]) - AXES.indexOf(b.diff[0]));
+    return out.slice(0, limit);
+  }
+
+  const registered = P.vectors.filter((v) => v.registry === "vector");
+  const proposals = P.vectors.filter((v) => v.registry !== "vector");
+  const indexOnly = P.vector_index?.rows_without_vector || [];
+  const supersedes = new Map();
+  for (const v of P.vectors) for (const by of v.superseded_by || []) {
+    if (!supersedes.has(by)) supersedes.set(by, []);
+    supersedes.get(by).push(v.id);
+  }
+  const vectorById = new Map(P.vectors.map((v) => [v.id, v]));
+
+  const fileOf = (re) => P.source.files.find((f) => re.test(f.path))?.path;
+  const paths = {
+    catalog: fileOf(/^catalog\/valid-configurations/),
+    rules: fileOf(/^catalog\/compatibility-rules/),
+    capabilities: fileOf(/^catalog\/capabilities/),
+    index: P.vector_index?.present ? P.vector_index.path : null,
+    claims: P.claims_policy?.present ? P.claims_policy.path : null,
+    vectors: P.source.files.filter((f) => /^vectors\/[^/]+\.yaml$/.test(f.path) && !/proposals/.test(f.path)).map((f) => f.path),
+    proposals: fileOf(/^vectors\/proposals\.yaml$/),
+  };
+
+  const platformUrl = lock.platform_commit
+    ? `${lock.platform_repository}/commit/${lock.platform_commit}`
+    : lock.platform_repository;
+
+  return {
+    P, lock, repo, commit, files, blob, AXES, axis, valueInfo, configs, configById, admissible, defaultConfig,
+    records, configsByRecord, rulesByClause, capsOf, invariantsFor, evidenceFor, nearest,
+    registered, proposals, indexOnly, supersedes, vectorById, paths,
+    commitUrl: `${repo}/commit/${commit}`,
+    treeUrl: `${repo}/tree/${commit}`,
+    platformUrl,
+  };
+}

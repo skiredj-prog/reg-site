@@ -3,21 +3,46 @@
 The presentation layer of REG: a static site, French and English, built
 from one pinned projection published by
 [reg-platform](https://github.com/skiredj-prog/reg-platform). It reads
-nothing else.
+nothing else, and it never says that a product is conformant.
 
-Pages: home (counts at the source commit), REG+ configurator, vector list,
-data source (commit, contract, fingerprint, guard findings, records).
+## Pages
+
+| Page | French / English | What a visitor does there |
+| --- | --- | --- |
+| Home | `/`, `/en/` | Sees the counts at the source commit, each one linked to the file that produces it, and the map of the 144 configurations. |
+| Configurator | `/configurateur/`, `/en/configurator/` | Picks four axes, sees the state, the rule that rejects it and the nearest admissible configurations; leaves with a link, a badge and a REG+ profile skeleton. |
+| Configuration | `/configurations/<id>/` | One page per configuration, citable; the badge links here. |
+| Vectors | `/vecteurs/`, `/en/vectors/` | Searches and filters the registered vectors, the proposals and the indexed properties without a vector. |
+| Vector | `/vecteurs/<id>/` | Requirement, reference-kernel result, and the commands to replay it at the pinned commit. |
+| Cite | `/citer/`, `/en/cite/` | Copies the exact reference of this version; when CLAIMS.md is present, assembles the statement it requires. |
+| Data source | `/donnees/`, `/en/data/` | Commit, contract, fingerprint, replay, guards, files read with their sha256, records, rules. |
+
+Every page carries a "what this does not establish" block and a footer that
+links the exact reg-conformance commit.
 
 ## Build
 
 ```sh
-npm run build          # preview build: banner, noindex, robots Disallow
-npm run build:public   # same content without the preview banner
-npm run preview        # serves dist/ on http://127.0.0.1:4173
-npm run check:viewports   # needs playwright; 375px and 1280px, both themes
+npm run build            # preview build: banner, noindex, robots Disallow; then the output guards
+npm run build:public     # same content without the preview banner
+npm run preview          # serves dist/ on http://127.0.0.1:4173
+npm run check:viewports  # browser checks (needs playwright and the preview server)
 ```
 
-No dependencies for the build itself (Node ≥ 20).
+The build has no dependencies (Node 20 or later). The browser checks need
+`npm i --no-save playwright` and `npx playwright install chromium`; they
+take their expected values from the projection the site was built from.
+
+To look at a candidate projection without pinning it, put its
+`projection-v1.json` and `badges/` in `.rc/data/` and a lock naming its hash
+and source commit in `.rc/lock.json` (`.rc/` is ignored by git), then:
+
+```sh
+node src/build.mjs --data .rc/data --lock .rc/lock.json --out .rc/dist
+node scripts/check-dist.mjs --dist .rc/dist --lock .rc/lock.json
+node scripts/serve.mjs 4174 .rc/dist &
+BASE=http://127.0.0.1:4174 DIST=.rc/dist node scripts/check-viewports.mjs
+```
 
 ## How the data is bound
 
@@ -27,8 +52,9 @@ it. The build refuses to run when:
 
 - the projection's content does not hash to its `content_sha256`,
 - that hash is not the pinned one,
+- the projection's contract is not `reg-projection` 1.1.x,
 - the projection's guards failed,
-- the projection allows conformance claims (contract v1.0 never does; a site
+- the projection allows conformance claims (contract 1.1 never does; a site
   that renders claims will be a new major version).
 
 CI also fetches the projection from reg-platform at the pinned commit and
@@ -40,17 +66,21 @@ To take a new projection: `npm run pin -- <reg-platform commit>`, then
 
 ## Output guards (`scripts/check-dist.mjs`)
 
-- No affirmative claim wording anywhere in the site's own copy
-  (certification, "REG-conformant", "conforme REG", "compliant"). Text quoted
-  verbatim from reg-conformance is exempt.
-- Every page's footer links the exact reg-conformance commit.
+- No affirmative claim wording in the site's own copy (certification,
+  "REG-conformant", "conforme REG", "compliant"). Text quoted verbatim from
+  reg-conformance is exempt.
+- Every page's footer links the exact reg-conformance commit, and every
+  page names the commit and the projection hash in its metadata.
+- Every page except the 404 has its "what this does not establish" block.
 - Preview builds carry the banner and `noindex` on every page.
-- Every internal link resolves.
+- Every internal link and anchor resolves; no duplicate ids.
+- Every admissible configuration has a profile skeleton, with no
+  attestation; no other configuration has one.
 
 ## Deploy (preview)
 
 `public/CNAME` is `reg.tenirlabs.cc`. Deployment is manual only: Actions →
-preview → Run workflow → deploy. See `HANDOVER.md` in the project folder
-for the DNS record.
+preview → Run workflow → deploy. The steps to create the repositories and
+the DNS record are in `MARCHE-A-SUIVRE.md`, in the project folder.
 
 License: Apache-2.0.
