@@ -1,0 +1,50 @@
+name: preview
+# Builds and checks on every push. Deploys to GitHub Pages only when run by
+# hand (Actions > preview > Run workflow), so nothing goes live by accident.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy the preview to GitHub Pages"
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build
+      - name: Pinned projection matches reg-platform
+        run: node scripts/verify-remote.mjs
+        env:
+          REQUIRE_PLATFORM_PIN: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
+      - name: Browser checks (375px and 1280px)
+        run: |
+          npm i --no-save playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node scripts/serve.mjs 4173 &
+          sleep 1
+          node scripts/check-viewports.mjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4

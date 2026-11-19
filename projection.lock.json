@@ -1,0 +1,7 @@
+{
+  "content_sha256": "82d6866b97b52845d03d52145195c520341d62cc9901989e40172f3928266c3b",
+  "source_commit": "b943f06cb23b24bc5424eb220c7b40b6a3f58425",
+  "platform_repository": "https://github.com/skiredj-prog/reg-platform",
+  "platform_commit": null,
+  "projection_url": "https://raw.githubusercontent.com/skiredj-prog/reg-platform/{platform_commit}/projection/projection-v1.json"
+}
