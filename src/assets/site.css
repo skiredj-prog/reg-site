@@ -527,6 +527,7 @@ blockquote p { margin: 0; }
 .files-t code.sha { font-size: 0.75rem; }
 .rec-t td { min-width: 140px; }
 .cell-t { display: block; font-weight: 600; margin-bottom: 4px; }
+.cell-sub { display: block; margin-top: 4px; }
 .perim { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
 .perim code { font-size: 0.75rem; }
 .num-t td { text-align: right; font-variant-numeric: tabular-nums; }

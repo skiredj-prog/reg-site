@@ -145,7 +145,7 @@ export function cite(M, lang, { preview }) {
     <h3>${esc(t.cite_status_of)}</h3>
     <div class="frame"><table class="plain-t status-t">
       <thead><tr><th scope="col">${esc(t.cite_section)}</th><th scope="col">${esc(t.cite_status)}</th></tr></thead>
-      <tbody>${cp.sections.map((s) => `<tr><td lang="en">${esc(s.title)}${s.status === "partly_in_force" ? `<span class="muted small"> ${esc(t.cite_part_in_force)}${colon} <span lang="en">${esc(s.parts_in_force.join(", "))}</span></span>` : ""}</td><td><span class="sec-st sec-${s.status}">${esc(SECTION_STATUS[lang][s.status])}</span></td></tr>`).join("")}</tbody>
+      <tbody>${cp.sections.map((s) => `<tr><td><span lang="en">${esc(s.title)}</span>${s.status === "partly_in_force" ? `<span class="muted small cell-sub">${esc(t.cite_part_in_force)}${colon} <span lang="en">${esc(s.parts_in_force.join(", "))}</span></span>` : ""}</td><td><span class="sec-st sec-${s.status}">${esc(SECTION_STATUS[lang][s.status])}</span></td></tr>`).join("")}</tbody>
     </table></div>
     <p class="muted small" lang="en">${esc(cp.status_line || "")}</p>
     ${form(M, lang, cp)}
