@@ -88,6 +88,7 @@ for (const f of pages) {
 }
 if (build.preview && !readFileSync(join(DIST, "robots.txt"), "utf8").includes("Disallow: /")) errors.push("robots.txt allows indexing in preview");
 if (build.projection_sha256 !== lock.content_sha256) errors.push("dist was built from another projection");
+if (build.pages !== pages.length) errors.push(`build wrote ${build.pages} HTML pages, dist holds ${pages.length}`);
 
 // Every admissible configuration has a profile skeleton; no other does.
 const admissible = new Set(P.configurations.filter((c) => c.admissible_structural).map((c) => c.id));
@@ -105,4 +106,4 @@ if (errors.length) {
   console.error(`check-dist: ${errors.length} problem(s)`);
   process.exit(1);
 }
-console.log(`check-dist: ${pages.length} pages, ${files.length} files, ${profiles.length} profile skeletons; no claim wording, source commit and limits on every page, links and anchors resolve`);
+console.log(`check-dist: ${pages.length} HTML pages (404.html included, same count as the build), ${files.length} files, ${profiles.length} profile skeletons; no claim wording, source commit and limits on every page, links and anchors resolve`);

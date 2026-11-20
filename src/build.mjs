@@ -88,6 +88,7 @@ const nf = layout(M, {
 <div lang="en"><h2>${esc(T.en.nf_title)}</h2><p>${esc(T.en.nf_lead)}</p><p><a class="btn" href="/en/">${esc(T.en.nf_home)} <span aria-hidden="true">→</span></a></p></div></div>`,
 });
 writeFileSync(join(DIST, "404.html"), nf);
+pages++;
 
 cpSync(join(ROOT, "src/assets"), join(DIST, "assets"), { recursive: true });
 cpSync(join(DATA, "badges"), join(DIST, "badges"), { recursive: true });
@@ -112,4 +113,4 @@ writeFileSync(join(DIST, "build.json"), JSON.stringify({
   projection_contract: P.contract_version, projection_sha256: P.content_sha256,
   platform_commit: lock.platform_commit || null, pages,
 }, null, 2) + "\n");
-console.log(`built ${pages} pages from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)})${PREVIEW ? ", preview" : ", public"}`);
+console.log(`built ${pages} HTML pages (${(pages - 1) / LANGS.length} per language and 404.html) from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)})${PREVIEW ? ", preview" : ", public"}`);

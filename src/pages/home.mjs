@@ -16,10 +16,31 @@ export function home(M, lang, { preview }) {
   const pass = S.reference_kernel_pass;
   const impl = pass.by_index_status.IMPLEMENTED || 0;
   const others = Object.entries(pass.by_index_status).filter(([k]) => k !== "IMPLEMENTED");
-  let passSub = others.length
-    ? fmt(t.led_pass_sub_mixed, { impl, other: others.reduce((a, [, n]) => a + n, 0), others: others.map(([k]) => k).join(", ") })
-    : t.led_pass_sub;
-  if (pass.superseded) passSub += " " + fmt(t.led_pass_superseded, { n: pass.superseded });
+  // What the PASS rest on, each group named by its vectors. A vector whose
+  // rfc field names a dated revision ("RFC-4 v0.3 revision §2.1") rests on a
+  // revision that reg-conformance keeps outside the frozen baseline
+  // (revisions/); its reference says whether it was ratified. Superseded
+  // vectors are counted apart, so the two groups never overlap.
+  const REVISION = /\b(RFC-\d+ v\d+(?:\.\d+)*) revision\b/;
+  const passed = P.vectors.filter((v) => v.registry === "vector" && v.reference_kernel_result === "PASS");
+  const superseded = passed.filter((v) => (v.superseded_by || []).length);
+  const onRevision = passed.filter((v) => !(v.superseded_by || []).length && REVISION.test(v.rfc || ""));
+  const revisions = [...new Set(onRevision.map((v) => v.rfc.match(REVISION)[1]))];
+  const ratified = onRevision.length > 0 && onRevision.every((v) => /\bratified\b/i.test(v.reference || ""));
+  const ids = (vs) => vs.map((v) => `<a href="${route("vector", lang, v.id)}"><code>${esc(v.id)}</code></a>`).join(", ");
+  const parts = [];
+  if (superseded.length) {
+    parts.push(fmt(esc(plural(lang, superseded.length, t.led_pass_superseded, t.led_pass_superseded_n)), { n: superseded.length, ids: ids(superseded) }));
+  }
+  if (onRevision.length) {
+    const tpl = revisions.length === 1 ? (ratified ? t.led_rev_one_ratified : t.led_rev_one) : (ratified ? t.led_rev_many_ratified : t.led_rev_many);
+    const rev = esc(fmt(tpl, { r: revisions[0], list: revisions.join(", ") }));
+    parts.push(fmt(esc(plural(lang, onRevision.length, t.led_pass_revision, t.led_pass_revision_n)), { n: onRevision.length, rev, ids: ids(onRevision) }));
+  }
+  const passOn = esc(others.length
+    ? fmt(t.led_pass_on_mixed, { impl, other: others.reduce((a, [, n]) => a + n, 0), others: others.map(([k]) => k).join(", ") })
+    : t.led_pass_on);
+  const passSub = `${passOn}${parts.length ? ", " + fmt(esc(t.led_pass_of_which), { parts: parts.join(esc(t.led_and)) }) : ""}. ${esc(t.led_pass_kernel)}`;
   const replay = P.reference_kernel_replay;
   const vecFiles = M.paths.vectors.map((p) => prov(M, lang, p)).join("");
   const ledger = [
@@ -48,7 +69,7 @@ export function home(M, lang, { preview }) {
     {
       n: pass.total,
       l: t.led_pass,
-      s: passSub,
+      sh: passSub,
       src: replay.performed
         ? `<p class="led-replay"><span class="g" aria-hidden="true">✓</span>${esc(fmt(t.led_replay, { same: replay.matching_registry, total: replay.results_total }))}</p>`
         : "",
@@ -88,7 +109,7 @@ export function home(M, lang, { preview }) {
 ${ledger.map((x) => `    <li class="led${x.zero ? " led-zero" : ""}">
       <p class="led-n">${x.n}</p>
       <p class="led-l">${esc(x.l)}</p>
-      <p class="led-s">${esc(x.s)}</p>
+      <p class="led-s">${x.sh ?? esc(x.s)}</p>
       <div class="led-src">${x.src}</div>
       <a class="led-more" href="${esc(x.more)}">${esc(t.led_open)} ${arrow()}</a>
     </li>`).join("\n")}

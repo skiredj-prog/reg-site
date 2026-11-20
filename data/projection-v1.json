@@ -1,20 +1,25 @@
 {
   "contract": "reg-projection",
   "contract_version": "1.1.0",
-  "generated_at": "2026-11-19T06:15:01+00:00",
+  "generated_at": "2026-11-20T18:40:08+00:00",
   "source": {
     "repository": "https://github.com/skiredj-prog/reg-conformance",
-    "commit": "b943f06cb23b24bc5424eb220c7b40b6a3f58425",
-    "commit_date": "2026-11-18T20:23:47+00:00",
-    "exact_tag": null,
+    "commit": "20016d271ce1d5420260116f8323aba707ad5dde",
+    "commit_date": "2026-11-20T16:49:13+00:00",
+    "exact_tag": "v0.7.0",
     "catalog_version": "1.1.0",
     "rules_version": "1.0.0",
     "capabilities_version": "1.2.0",
     "files": [
       {
+        "path": "CLAIMS.md",
+        "sha256": "0f4573ef79adca4afaada48c2bc23eee47855e59f87eae71c81c761d74591043",
+        "bytes": 7161
+      },
+      {
         "path": "VECTORS.md",
-        "sha256": "4a3f6b4297942c6039ac928e53d80baf61af364507b7979068bc9302cc49681f",
-        "bytes": 15986
+        "sha256": "3b4fd86ca488627f30289cc65c70ba4b2dedf7dca40659b89957d9c0352adcc7",
+        "bytes": 18788
       },
       {
         "path": "capabilities/v1.0.0/cap-budget-crossproc.json",
@@ -103,18 +108,18 @@
       },
       {
         "path": "vectors/commit.yaml",
-        "sha256": "4716812eac697a92ba06e4236d3d233a966d42c7e67d07c1b884d3bd00348866",
-        "bytes": 3588
+        "sha256": "e9eea08746e79e054b98700c91f3d49df94f81ce7135149fb9009c61113ca65e",
+        "bytes": 7512
       },
       {
         "path": "vectors/core.yaml",
-        "sha256": "130e4b5333ab8f875071e03aa02e76b194570c27dda9fe2b058d8930d47dce28",
-        "bytes": 3662
+        "sha256": "fba2c82900575383a32eefdac16a552a25a4ac06d9ec42d63852ecfe686f380b",
+        "bytes": 3822
       },
       {
         "path": "vectors/dist/vectors.json",
-        "sha256": "3254c7ef16c6cce9d8770038f6ad4b2e0314234ab2345c03c226ff333161af02",
-        "bytes": 26751
+        "sha256": "41be5b7b378ed9a1c38a0ba528a24c5e81f3954dcb2d6cffd8edd6e92c2384d9",
+        "bytes": 31367
       },
       {
         "path": "vectors/extended.yaml",
@@ -158,38 +163,39 @@
     },
     "guarantee_records_total": 13,
     "guarantee_records_bound": 0,
-    "vectors_total": 60,
-    "vectors_registered": 56,
+    "vectors_total": 65,
+    "vectors_registered": 61,
     "candidates_total": 4,
-    "vectors_superseded": 0,
+    "vectors_superseded": 4,
     "vectors_by_status": {
-      "implemented": 14,
+      "implemented": 15,
       "lab_validated": 3,
       "proposal": 22,
       "proposed": 3,
       "rejected": 1,
-      "specified": 17
+      "specified": 21
     },
     "vectors_by_index_status": {
-      "DECLARED": 17,
-      "IMPLEMENTED": 14,
+      "DECLARED": 21,
+      "IMPLEMENTED": 15,
       "RESERVED": 25
     },
     "vectors_by_reference_kernel_result": {
-      "IMPLEMENTATION_GAP": 41,
+      "ADAPTER_REQUIRED": 1,
+      "IMPLEMENTATION_GAP": 44,
       "NOT_APPLICABLE": 1,
-      "PASS": 14
+      "PASS": 15
     },
     "index_rows_without_vector": 28,
     "index_rows_without_vector_by_status": {
       "DECLARED": 28
     },
     "reference_kernel_pass": {
-      "total": 14,
+      "total": 15,
       "by_index_status": {
-        "IMPLEMENTED": 14
+        "IMPLEMENTED": 15
       },
-      "superseded": 0
+      "superseded": 1
     }
   },
   "axes": [
@@ -4759,8 +4765,8 @@
     "present": true,
     "path": "VECTORS.md",
     "notes": [
-      "This index points to normative properties in the RFCs; it does not replace them. A vector id is a stable label, not a pointer: the CT-Rn prefix records where the id was first filed, and the rfc column states the clause the vector rests on. CT-R5 vectors rest on RFC-1 and RFC-4 clauses; CT-R4-011 to CT-R4-013 rest on the manuscript. IMPLEMENTED means a behavioral test exists in the current runner. DECLARED means the RFC specifies the property but the runner does not test it. RESERVED means the check is identified but the RFC does not specify it.",
-      "The runner registers 56 vector IDs (18 core/commit, of which three lifecycle vectors, and 38 extended). Registration alone does not make a vector IMPLEMENTED: 36 extended entries currently return an implementation-gap result without exercising the property. The archived v0.3.1 reports also contain false PASS assessments for C3, CT-R4-005, CT-R4-009, and CT-R4-010; use corrected implementation and current report before making conformance claims."
+      "This index points to normative properties in the RFCs; it does not replace them. A vector id is a stable label, not a pointer: the CT-Rn prefix records where the id was first filed, and the rfc column states the clause the vector rests on. CT-R5 vectors rest on RFC-1 and RFC-4 clauses; CT-R4-011 to CT-R4-013 rest on the manuscript; CT-R4-004a and CT-R4-004b rest on the RFC-4 v0.3 revision, ratified on 19 November 2026 and kept outside the frozen baseline; CT-R4-015 and CT-R4-016 rest on RFC-2 and RFC-5 clauses as read by RN-001. IMPLEMENTED means a behavioral test exists in the current runner. DECLARED means the RFC specifies the property but the runner does not test it. RESERVED means the check is identified but the RFC does not specify it. For CT-R4-004a and CT-R4-004b, the RFC is the ratified RFC-4 v0.3 revision.",
+      "The runner registers 61 vector IDs (23 core/commit, of which three lifecycle vectors, three registered under RN-001 §3 and since superseded, and two registered under the RFC-4 v0.3 revision of 19 November 2026, and 38 extended). Registration alone does not make a vector IMPLEMENTED: 36 extended entries currently return an implementation-gap result without exercising the property. The archived v0.3.1 reports also contain false PASS assessments for C3, CT-R4-005, CT-R4-009, and CT-R4-010; use corrected implementation and current report before making conformance claims."
     ],
     "status_definitions": {
       "IMPLEMENTED": "a behavioral test exists in the current runner.",
@@ -5057,10 +5063,10 @@
       "rfc": "RFC-3 §4.2; RFC-4 §2.2",
       "property": "Standing Continuity at Commit",
       "input": "Standing revoked between verdict and commit",
-      "intended": "HARD_VETO; commit blocked",
-      "expected": "HARD_VETO",
+      "intended": "No effect under the changed state; terminal refusal, or suspension with a declared resumption condition",
+      "expected": "no effect; terminal refusal, or suspension with a declared resumption condition",
       "observed": "post-verdict revocation produced HARD_VETO; commit blocked (native): STANDING_REVOKED:HARD_VETO",
-      "reference": "RFC-3 §4.2; RFC-4 §2.2",
+      "reference": "RFC-3 §4.2; RFC-4 §2.2; RN-001 §4",
       "superseded_by": [],
       "reference_kernel_result": "PASS",
       "note": null,
@@ -5068,7 +5074,7 @@
         "status": "IMPLEMENTED",
         "family": "CORE",
         "rfc": "RFC-4 §2.2",
-        "normative_property": "Revocation after verdict but before or during commit must trigger HARD_VETO and block the action. (RFC-4 §2.2; RFC-3 §4.2)",
+        "normative_property": "Revocation after verdict but before or during commit: no effect under the changed state, and the reported state class is a terminal refusal or a suspension with a declared resumption condition. (RFC-4 §2.2; RFC-3 §4.2; RN-001 §4)",
         "location": "runner.py CORE_VECTORS and adapter dispatch"
       },
       "reference_kernel_replay": "PASS"
@@ -5294,33 +5300,88 @@
       "intended": "REJECT / EVALUATION_EXPIRED",
       "expected": "REJECT",
       "observed": "EVALUATION_EXPIRED (native)",
-      "reference": "RFC-4 §2",
+      "reference": "RFC-4 v0.2 §5.2 item 4; superseded per RFC-4 v0.3 revision (2026-11-19) §5, kept with its text and results",
+      "superseded_by": [
+        "CT-R4-004a",
+        "CT-R4-004b"
+      ],
+      "reference_kernel_result": "PASS",
+      "note": null,
+      "index": {
+        "status": "IMPLEMENTED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1.1, §5.2",
+        "normative_property": "valid_until passed before commit → REJECT/EVALUATION_EXPIRED. Superseded by CT-R4-004a and CT-R4-004b (RFC-4 v0.3 revision §5); kept with its text and results.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "PASS"
+    },
+    {
+      "id": "CT-R4-004a",
+      "registry": "vector",
+      "file": "vectors/commit.yaml",
+      "line": 56,
+      "category": "commit",
+      "status": "implemented",
+      "rfc": "RFC-4 v0.3 revision §2.1",
+      "property": "Authority Valid at the Time of the Effect",
+      "input": "Commit under an authorization whose declared bound has passed",
+      "intended": "No effect attributed to the expired authorization; any refusal mechanism satisfies the clause. A fresh authorization is a declared policy, attributed to the new authorization with its own identity and evidence.",
+      "expected": "no effect under the expired authorization",
+      "observed": "commit refused under the expired authorization (EVALUATION_EXPIRED) (native)",
+      "reference": "RFC-4 v0.3 revision (ratified 2026-11-19) §2.1, §5",
       "superseded_by": [],
       "reference_kernel_result": "PASS",
       "note": null,
       "index": {
         "status": "IMPLEMENTED",
         "family": "COMMIT",
-        "rfc": "RFC-4 §2",
-        "normative_property": "valid_until passed before commit → REJECT/EVALUATION_EXPIRED.",
-        "location": "runner.py CORE_VECTORS and adapter dispatch"
+        "rfc": "RFC-4 v0.3 revision §2.1",
+        "normative_property": "Authority valid at the time of the effect: commit under an authorization whose declared bound has passed → no effect under that authorization; any refusal mechanism satisfies the clause. Rests on the ratified RFC-4 v0.3 revision, outside the frozen baseline.",
+        "location": "runner.py CORE_VECTORS and adapter dispatch; harness/scenarios.py"
       },
       "reference_kernel_replay": "PASS"
+    },
+    {
+      "id": "CT-R4-004b",
+      "registry": "vector",
+      "file": "vectors/commit.yaml",
+      "line": 68,
+      "category": "commit",
+      "status": "specified",
+      "rfc": "RFC-4 v0.3 revision §2.2, §2.3; RFC-0 §6; REG-STATE-024",
+      "property": "Held Attempt at Its Declared Bound",
+      "input": "Held attempt (HOLD, escalation) left past its declared bound, then an advance under the same attempt identity",
+      "intended": "Pre-declared disposition, refusal by default, terminal for that attempt identity; recorded with the bound, the disposition and the resulting state as the available evidence establishes it (CONFIRMED_NONEXECUTION if never dispatched, if a qualified rejection of the dispatch was observed, or if a qualified, verified non-execution attestation exists; otherwise UNKNOWN with reconciliation)",
+      "expected": "no effect under that attempt identity; terminal refusal recorded",
+      "observed": "The bundled kernel declares no bound on a held attempt (its only HOLD is insufficient evidence).",
+      "reference": "RFC-4 v0.3 revision (ratified 2026-11-19) §2.2, §2.3, §5; RFC-5 §2",
+      "superseded_by": [],
+      "reference_kernel_result": "ADAPTER_REQUIRED",
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 v0.3 revision §2.2–2.3; RFC-0 §6; REG-STATE-024",
+        "normative_property": "Held attempt at its declared bound: pre-declared disposition, refusal by default, terminal for that attempt identity; recorded as the available evidence establishes it: CONFIRMED_NONEXECUTION (never dispatched, a qualified rejection of the dispatch observed, or a qualified, verified non-execution attestation) or UNKNOWN with reconciliation. Rests on the ratified RFC-4 v0.3 revision, outside the frozen baseline.",
+        "location": "harness/scenarios.py; runner.py reports ADAPTER_REQUIRED (no declared bound on a held attempt in the bundled kernel or the shim)"
+      },
+      "reference_kernel_replay": "ADAPTER_REQUIRED"
     },
     {
       "id": "CT-R4-005",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 54,
+      "line": 79,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §2.2",
       "property": "Commit-State Binding / Race Detection",
       "input": "policy_epoch changed between verdict and commit",
-      "intended": "HARD_VETO / STATE_DRIFT; commit blocked",
-      "expected": "HARD_VETO",
+      "intended": "No effect under the changed state; terminal refusal, or suspension with a declared resumption condition",
+      "expected": "no effect; terminal refusal, or suspension with a declared resumption condition",
       "observed": "STATE_DRIFT produced HARD_VETO (epoch 0→1) (native)",
-      "reference": "RFC-4 §2.2",
+      "reference": "RFC-4 §2.2; RN-001 §4",
       "superseded_by": [],
       "reference_kernel_result": "PASS",
       "note": null,
@@ -5328,7 +5389,7 @@
         "status": "IMPLEMENTED",
         "family": "COMMIT",
         "rfc": "RFC-4 §2.2",
-        "normative_property": "Relevant state drift after verdict and before commit must be detected and trigger HARD_VETO. (RFC-4 §2.2)",
+        "normative_property": "Relevant state drift after verdict and before commit: no effect under the changed state, and the reported state class is a terminal refusal or a suspension with a declared resumption condition. (RFC-4 §2.2; RN-001 §4)",
         "location": "runner.py CORE_VECTORS and adapter dispatch"
       },
       "reference_kernel_replay": "PASS"
@@ -5337,7 +5398,7 @@
       "id": "CT-R4-006",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 66,
+      "line": 91,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §1",
@@ -5363,7 +5424,7 @@
       "id": "CT-R4-007",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 78,
+      "line": 103,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §3",
@@ -5389,7 +5450,7 @@
       "id": "CT-R4-008",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 90,
+      "line": 115,
       "category": "commit",
       "status": "implemented",
       "rfc": "RFC-4 §4",
@@ -5415,7 +5476,7 @@
       "id": "CT-R4-009",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 102,
+      "line": 127,
       "category": "commit",
       "status": "specified",
       "rfc": "RFC-4 §4",
@@ -5441,7 +5502,7 @@
       "id": "CT-R4-010",
       "registry": "vector",
       "file": "vectors/commit.yaml",
-      "line": 114,
+      "line": 139,
       "category": "commit",
       "status": "specified",
       "rfc": "RFC-4 §1.1",
@@ -5459,6 +5520,90 @@
         "family": "COMMIT",
         "rfc": "RFC-4 §1.1",
         "normative_property": "Non-atomic external effects require post-commit evidence; declaring the effect non-atomic alone is insufficient. (RFC-4 §1.1, §4.1)",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
+    },
+    {
+      "id": "CT-R4-014",
+      "registry": "vector",
+      "file": "vectors/commit.yaml",
+      "line": 151,
+      "category": "commit",
+      "status": "specified",
+      "rfc": "RFC-4 §1.1, §5.2; RN-001 §3",
+      "property": "No Dispatch on a Stale Verdict",
+      "input": "Verdict older than the policy's freshness threshold reaches commit",
+      "intended": "No effect without a fresh adjudication that includes the verdict's age",
+      "expected": "no effect, or a fresh adjudication that includes the verdict's age",
+      "observed": "Not exercised yet. CT-R4-004 covers the refusal branch only.",
+      "reference": "withdrawn reading, RFC-4 v0.3 revision §4; was RN-001 §3.1",
+      "superseded_by": [
+        "CT-R4-004a"
+      ],
+      "reference_kernel_result": "IMPLEMENTATION_GAP",
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-4 §1.1, §5.2; RN-001 §3",
+        "normative_property": "No effect on a verdict older than the policy's freshness threshold without a fresh adjudication that includes the verdict's age. Withdrawn reading; superseded by CT-R4-004a (RFC-4 v0.3 revision §4).",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
+    },
+    {
+      "id": "CT-R4-015",
+      "registry": "vector",
+      "file": "vectors/commit.yaml",
+      "line": 164,
+      "category": "commit",
+      "status": "specified",
+      "rfc": "RFC-2 §3.4; RN-001 §3",
+      "property": "Age Never Improves a Disposition",
+      "input": "Same inputs readjudicated with a greater verdict age",
+      "intended": "Disposition no less restrictive than at the lesser age",
+      "expected": "disposition at the greater age is equal or more restrictive",
+      "observed": "Not exercised yet; needs a readjudication entry point.",
+      "reference": "withdrawn reading, RFC-4 v0.3 revision §4; was RFC-2 §3.4 (one-way hardening) applied to verdict age; RN-001 §3.2",
+      "superseded_by": [
+        "CT-R4-004a"
+      ],
+      "reference_kernel_result": "IMPLEMENTATION_GAP",
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-2 §3.4; RN-001 §3",
+        "normative_property": "All else equal, age never improves a disposition: readjudication at a greater verdict age is equal or more restrictive. Withdrawn reading; superseded by CT-R4-004a (RFC-4 v0.3 revision §4).",
+        "location": "runner.py CORE_VECTORS and adapter dispatch"
+      },
+      "reference_kernel_replay": "IMPLEMENTATION_GAP"
+    },
+    {
+      "id": "CT-R4-016",
+      "registry": "vector",
+      "file": "vectors/commit.yaml",
+      "line": 177,
+      "category": "commit",
+      "status": "specified",
+      "rfc": "RFC-5 §2; RFC-0 §6; RN-001 §2a, §3",
+      "property": "Fail-Safe Bound Refuses Alone",
+      "input": "A bound the policy declares fail-safe (e.g. τ_K on a HOLD) is exhausted, all other inputs favourable",
+      "intended": "Pre-declared exhaustion policy applied wherever the held operation could advance",
+      "expected": "no effect; exhaustion policy applied without a timer",
+      "observed": "Not exercised yet; needs a policy-declared fail-safe bound in the subject.",
+      "reference": "merged into CT-R4-004b, RFC-4 v0.3 revision §4; was RFC-5 §2 (pre-declared exhaustion policy); RN-001 §2a, §3.3",
+      "superseded_by": [
+        "CT-R4-004b"
+      ],
+      "reference_kernel_result": "IMPLEMENTATION_GAP",
+      "note": null,
+      "index": {
+        "status": "DECLARED",
+        "family": "COMMIT",
+        "rfc": "RFC-5 §2; RFC-0 §6; RN-001 §2a, §3",
+        "normative_property": "A bound the policy declares fail-safe (e.g. τ_K on a HOLD) refuses alone when exhausted, wherever the held operation could advance. Overlaps REG-STATE-024. Merged into CT-R4-004b (RFC-4 v0.3 revision §4).",
         "location": "runner.py CORE_VECTORS and adapter dispatch"
       },
       "reference_kernel_replay": "IMPLEMENTATION_GAP"
@@ -6534,20 +6679,21 @@
   ],
   "reference_kernel_replay": {
     "performed": true,
-    "suite": "REG Conformance Suite v0.3.2",
+    "suite": "REG Conformance Suite v0.4.0",
     "interface_mode": "native",
     "evidence_level": 1,
-    "results_total": 56,
-    "matching_registry": 56,
+    "results_total": 61,
+    "matching_registry": 61,
     "summary_by_basis": {
       "specified_by_frozen_rfcs": {
-        "total": 31,
-        "PASS": 14,
+        "total": 36,
+        "PASS": 15,
         "FAIL": 0,
         "INCONCLUSIVE": 0,
         "NOT_APPLICABLE": 1,
-        "ADAPTER_REQUIRED": 0,
-        "IMPLEMENTATION_GAP": 16
+        "ADAPTER_REQUIRED": 1,
+        "IMPLEMENTATION_GAP": 19,
+        "NOT_IN_PERIMETER": 0
       },
       "outside_frozen_rfcs": {
         "total": 25,
@@ -6556,15 +6702,431 @@
         "INCONCLUSIVE": 0,
         "NOT_APPLICABLE": 0,
         "ADAPTER_REQUIRED": 0,
-        "IMPLEMENTATION_GAP": 25
+        "IMPLEMENTATION_GAP": 25,
+        "NOT_IN_PERIMETER": 0
       },
       "unclassified": 0
     }
   },
   "claims_policy": {
-    "present": false,
+    "present": true,
     "path": "CLAIMS.md",
-    "sha256": null
+    "sha256": "0f4573ef79adca4afaada48c2bc23eee47855e59f87eae71c81c761d74591043",
+    "title": "What a REG conformance result lets you say",
+    "status_line": "Two sections are in force: \"What counts as an admission\" and \"Third-party assessments\", ratified by the author on 18 November 2026. The rest is not yet in force.",
+    "in_force_sections": [
+      "What counts as an admission",
+      "Third-party assessments"
+    ],
+    "sections": [
+      {
+        "title": "What a run establishes",
+        "status": "partly_in_force",
+        "parts": [
+          "How the subject was reached",
+          "The outcome of each test",
+          "Which set the test belongs to",
+          "The reading by property",
+          "What a result does not establish",
+          "What counts as an admission"
+        ],
+        "parts_in_force": [
+          "What counts as an admission"
+        ],
+        "paragraphs": [
+          "One run covers one revision of one subject, reached in one way, on the cases the suite contains. Three things are reported separately and must stay separate when a result is quoted.",
+          "How the subject was reached",
+          "The outcome of each test",
+          "Only PASS counts as a pass.",
+          "Which set the test belongs to. REG vectors test properties specified by the REG RFCs. Effect probes (HX-EFFECT-*) check that a refusal matches zero downstream effects and an allowed call exactly one. Property checks (PX-*) each exercise one property that the index lists and that has no executable vector yet. Probes and property checks are listed apart and are never counted among the vectors.",
+          "The reading by property. A run also groups its results by candidate property family: the vectors, the probes and the property checks that exercise the same property are counted together, each under its own kind. The families are candidates and are not part of the frozen RFCs. The grouping changes no outcome and no vector count. It shows which properties were observed on a subject whose shape does not fit the vectors as written.",
+          "What a result does not establish. Each test declares where it observes, as a phase of RFC-0 §5, and what its result leaves open. A test submits one case: a pass is a pass on that case. Tests that depend on time use the bound the subject declares and none of their own; when the subject declares no bound, the test does not run. \"No effect\" is read from one journal, after the effect window the port declares. verdict.json carries all of this for every result that gave an observation.",
+          "What counts as an admission. RFC-0 §4 lets execution proceed on PASS and on FLAG, the latter only under an explicit condition or supervision. A test that needs an admitted action accepts either. The run lists the tests that went forward on a FLAG and says whether the condition was observed.",
+          "As ratified in RN-001 §1: a FLAG that carries an explicit condition counts as an admission. A FLAG that carries none does not satisfy RFC-0 §4; it is recorded as an implementation gap, and a quote of a test that went forward on it says so."
+        ],
+        "quotes": [],
+        "bullets": [],
+        "steps": [],
+        "tables": [
+          {
+            "header": [
+              "Level",
+              "Name",
+              "Meaning"
+            ],
+            "rows": [
+              [
+                "1",
+                "Semantic mapping",
+                "A documented correspondence. No product behaviour demonstrated."
+              ],
+              [
+                "2",
+                "Adapter-tested",
+                "Real product behaviour, observed through a port."
+              ],
+              [
+                "3",
+                "Native-conformant",
+                "The runtime satisfies the properties natively. No run reaches this today."
+              ]
+            ]
+          },
+          {
+            "header": [
+              "Outcome",
+              "Meaning"
+            ],
+            "rows": [
+              [
+                "PASS",
+                "The behaviour was observed."
+              ],
+              [
+                "FAIL",
+                "The opposite behaviour was observed."
+              ],
+              [
+                "INCONCLUSIVE",
+                "The test could not reach a determinate result."
+              ],
+              [
+                "NOT_APPLICABLE",
+                "The property cannot apply to this runtime."
+              ],
+              [
+                "ADAPTER_REQUIRED",
+                "Not tested: the port or the harness cannot test it yet."
+              ],
+              [
+                "IMPLEMENTATION_GAP",
+                "The implementer declares the capability missing."
+              ]
+            ]
+          }
+        ],
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "One run covers one revision of one subject, reached in one way, on the cases the suite contains. Three things are reported separately and must stay separate when a result is quoted.",
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": "How the subject was reached",
+            "text": "",
+            "part": "How the subject was reached"
+          },
+          {
+            "type": "table",
+            "header": [
+              "Level",
+              "Name",
+              "Meaning"
+            ],
+            "rows": [
+              [
+                "1",
+                "Semantic mapping",
+                "A documented correspondence. No product behaviour demonstrated."
+              ],
+              [
+                "2",
+                "Adapter-tested",
+                "Real product behaviour, observed through a port."
+              ],
+              [
+                "3",
+                "Native-conformant",
+                "The runtime satisfies the properties natively. No run reaches this today."
+              ]
+            ],
+            "part": "How the subject was reached"
+          },
+          {
+            "type": "paragraph",
+            "lead": "The outcome of each test",
+            "text": "",
+            "part": "The outcome of each test"
+          },
+          {
+            "type": "table",
+            "header": [
+              "Outcome",
+              "Meaning"
+            ],
+            "rows": [
+              [
+                "PASS",
+                "The behaviour was observed."
+              ],
+              [
+                "FAIL",
+                "The opposite behaviour was observed."
+              ],
+              [
+                "INCONCLUSIVE",
+                "The test could not reach a determinate result."
+              ],
+              [
+                "NOT_APPLICABLE",
+                "The property cannot apply to this runtime."
+              ],
+              [
+                "ADAPTER_REQUIRED",
+                "Not tested: the port or the harness cannot test it yet."
+              ],
+              [
+                "IMPLEMENTATION_GAP",
+                "The implementer declares the capability missing."
+              ]
+            ],
+            "part": "The outcome of each test"
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "Only PASS counts as a pass.",
+            "part": "The outcome of each test"
+          },
+          {
+            "type": "paragraph",
+            "lead": "Which set the test belongs to.",
+            "text": "REG vectors test properties specified by the REG RFCs. Effect probes (HX-EFFECT-*) check that a refusal matches zero downstream effects and an allowed call exactly one. Property checks (PX-*) each exercise one property that the index lists and that has no executable vector yet. Probes and property checks are listed apart and are never counted among the vectors.",
+            "part": "Which set the test belongs to"
+          },
+          {
+            "type": "paragraph",
+            "lead": "The reading by property.",
+            "text": "A run also groups its results by candidate property family: the vectors, the probes and the property checks that exercise the same property are counted together, each under its own kind. The families are candidates and are not part of the frozen RFCs. The grouping changes no outcome and no vector count. It shows which properties were observed on a subject whose shape does not fit the vectors as written.",
+            "part": "The reading by property"
+          },
+          {
+            "type": "paragraph",
+            "lead": "What a result does not establish.",
+            "text": "Each test declares where it observes, as a phase of RFC-0 §5, and what its result leaves open. A test submits one case: a pass is a pass on that case. Tests that depend on time use the bound the subject declares and none of their own; when the subject declares no bound, the test does not run. \"No effect\" is read from one journal, after the effect window the port declares. verdict.json carries all of this for every result that gave an observation.",
+            "part": "What a result does not establish"
+          },
+          {
+            "type": "paragraph",
+            "lead": "What counts as an admission.",
+            "text": "RFC-0 §4 lets execution proceed on PASS and on FLAG, the latter only under an explicit condition or supervision. A test that needs an admitted action accepts either. The run lists the tests that went forward on a FLAG and says whether the condition was observed.",
+            "part": "What counts as an admission"
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "As ratified in RN-001 §1: a FLAG that carries an explicit condition counts as an admission. A FLAG that carries none does not satisfy RFC-0 §4; it is recorded as an implementation gap, and a quote of a test that went forward on it says so.",
+            "part": "What counts as an admission"
+          }
+        ]
+      },
+      {
+        "title": "How to quote a result",
+        "status": "draft",
+        "parts": [],
+        "parts_in_force": [],
+        "paragraphs": [
+          "A statement about a result names all of the following:",
+          "Example:",
+          "A count of families is quoted with the words \"candidate families\" and with the number not exercised. If a test went forward on a FLAG whose condition was not observed, the quote says so. A quote that rests on one test's result gives what that test does not establish."
+        ],
+        "quotes": [
+          "<subject> <version> at commit <commit>, run with reg-conformance at <commit>, evidence level 2: 0 of 59 REG vectors executed (59 adapter required); 4 of 4 effect probes passed. By property: 2 of 14 candidate families with a passing check, none with a failing check, 12 not exercised. Bundle: <link>."
+        ],
+        "bullets": [],
+        "steps": [
+          "the subject and its exact revision (commit),",
+          "the reg-conformance commit that ran,",
+          "the evidence level,",
+          "the counts per outcome, with vectors, probes and property checks apart,",
+          "where the evidence bundle is, with its checksums."
+        ],
+        "tables": [],
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "A statement about a result names all of the following:",
+            "part": null
+          },
+          {
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "the subject and its exact revision (commit),",
+              "the reg-conformance commit that ran,",
+              "the evidence level,",
+              "the counts per outcome, with vectors, probes and property checks apart,",
+              "where the evidence bundle is, with its checksums."
+            ],
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "Example:",
+            "part": null
+          },
+          {
+            "type": "quote",
+            "text": "<subject> <version> at commit <commit>, run with reg-conformance at <commit>, evidence level 2: 0 of 59 REG vectors executed (59 adapter required); 4 of 4 effect probes passed. By property: 2 of 14 candidate families with a passing check, none with a failing check, 12 not exercised. Bundle: <link>.",
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "A count of families is quoted with the words \"candidate families\" and with the number not exercised. If a test went forward on a FLAG whose condition was not observed, the quote says so. A quote that rests on one test's result gives what that test does not establish.",
+            "part": null
+          }
+        ]
+      },
+      {
+        "title": "What must not be said",
+        "status": "draft",
+        "parts": [],
+        "parts_in_force": [],
+        "paragraphs": [],
+        "quotes": [],
+        "bullets": [
+          "That a subject is \"REG-conformant\", \"REG-certified\" or \"REG-compliant\" on the strength of a run. verdict.json always carries certifying: false.",
+          "That a result at level 1 describes a product. The 15 passes of the bundled reference kernel are not results of any runtime.",
+          "That a result holds for another revision of the subject. Another commit is another run.",
+          "That a pass count is a score. Tests that were not executed are not passes and are not failures.",
+          "That a result maps to a regulation or to another framework. The crosswalk states such relations one by one, each with its limit.",
+          "That an effect probe or a property check is a REG vector, or the reverse.",
+          "That a row of the index is \"covered\" or \"implemented\" because a property check exists for it. The row keeps its status in VECTORS.md.",
+          "That a property holds \"at the declared bound\" for a subject that declares none. The test did not run.",
+          "That no observed effect means no effect. The journal is one channel, read after one declared window.",
+          "That a family with a passing check is satisfied, or that a subject \"satisfies\" a number of families. One check observed one behaviour."
+        ],
+        "steps": [],
+        "tables": [],
+        "blocks": [
+          {
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "That a subject is \"REG-conformant\", \"REG-certified\" or \"REG-compliant\" on the strength of a run. verdict.json always carries certifying: false.",
+              "That a result at level 1 describes a product. The 15 passes of the bundled reference kernel are not results of any runtime.",
+              "That a result holds for another revision of the subject. Another commit is another run.",
+              "That a pass count is a score. Tests that were not executed are not passes and are not failures.",
+              "That a result maps to a regulation or to another framework. The crosswalk states such relations one by one, each with its limit.",
+              "That an effect probe or a property check is a REG vector, or the reverse.",
+              "That a row of the index is \"covered\" or \"implemented\" because a property check exists for it. The row keeps its status in VECTORS.md.",
+              "That a property holds \"at the declared bound\" for a subject that declares none. The test did not run.",
+              "That no observed effect means no effect. The journal is one channel, read after one declared window.",
+              "That a family with a passing check is satisfied, or that a subject \"satisfies\" a number of families. One check observed one behaviour."
+            ],
+            "part": null
+          }
+        ]
+      },
+      {
+        "title": "Mappings written by someone other than the runtime's owner",
+        "status": "draft",
+        "parts": [],
+        "parts_in_force": [],
+        "paragraphs": [
+          "A port translates a runtime's verdicts and refusals into REG terms. When the port was not written or reviewed by the runtime's owner, the result is provisional and is quoted as such until the owner has confirmed or corrected the mapping."
+        ],
+        "quotes": [],
+        "bullets": [],
+        "steps": [],
+        "tables": [],
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "A port translates a runtime's verdicts and refusals into REG terms. When the port was not written or reviewed by the runtime's owner, the result is provisional and is quoted as such until the owner has confirmed or corrected the mapping.",
+            "part": null
+          }
+        ]
+      },
+      {
+        "title": "Third-party assessments",
+        "status": "in_force",
+        "parts": [],
+        "parts_in_force": [],
+        "paragraphs": [
+          "A third party may run the suite and report its results under the terms above. A third party's own requirement identifiers, scoring or labels are that party's work. REG neither defines nor endorses them. An assessment report keeps the two apart: what the REG run observed, and what the assessor concluded from it.",
+          "What an assessment says about REG is limited to this sentence:",
+          "followed by the quote described in \"How to quote a result\", and nothing more."
+        ],
+        "quotes": [
+          "Assessed against REG Conformance <version> at commit <commit>, evidence level <N>."
+        ],
+        "bullets": [
+          "A readiness, maturity or assurance rating defined by the assessor is not a REG conformance level, and is not presented as one. In particular, a \"readiness\" result says nothing about conformance.",
+          "Using the REG name in a commercial offer, product or service name requires the licensor's written agreement. Apache-2.0 covers the files, not the name (see below)."
+        ],
+        "steps": [],
+        "tables": [],
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "A third party may run the suite and report its results under the terms above. A third party's own requirement identifiers, scoring or labels are that party's work. REG neither defines nor endorses them. An assessment report keeps the two apart: what the REG run observed, and what the assessor concluded from it.",
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "What an assessment says about REG is limited to this sentence:",
+            "part": null
+          },
+          {
+            "type": "quote",
+            "text": "Assessed against REG Conformance <version> at commit <commit>, evidence level <N>.",
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "followed by the quote described in \"How to quote a result\", and nothing more.",
+            "part": null
+          },
+          {
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "A readiness, maturity or assurance rating defined by the assessor is not a REG conformance level, and is not presented as one. In particular, a \"readiness\" result says nothing about conformance.",
+              "Using the REG name in a commercial offer, product or service name requires the licensor's written agreement. Apache-2.0 covers the files, not the name (see below)."
+            ],
+            "part": null
+          }
+        ]
+      },
+      {
+        "title": "Name and licence",
+        "status": "draft",
+        "parts": [],
+        "parts_in_force": [],
+        "paragraphs": [
+          "The code and the vectors are under the Apache License 2.0. That licence covers use, modification and redistribution of the files. It does not grant permission to use the licensor's trade names, trademarks, service marks or product names, except to describe the origin of the work (Apache-2.0, section 6).",
+          "Questions about a wording not covered here: open an issue."
+        ],
+        "quotes": [],
+        "bullets": [],
+        "steps": [],
+        "tables": [],
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "The code and the vectors are under the Apache License 2.0. That licence covers use, modification and redistribution of the files. It does not grant permission to use the licensor's trade names, trademarks, service marks or product names, except to describe the origin of the work (Apache-2.0, section 6).",
+            "part": null
+          },
+          {
+            "type": "paragraph",
+            "lead": null,
+            "text": "Questions about a wording not covered here: open an issue.",
+            "part": null
+          }
+        ]
+      }
+    ]
   },
-  "content_sha256": "79e12850510673a94a7aba0cbff0c6b647e67ee88ea2be51e7490c1dedfa06ab"
+  "content_sha256": "3d96ba0def7964fc886b751b9e2ff6bd9aca87424430122dbfd67a7d7d5f8dba"
 }
