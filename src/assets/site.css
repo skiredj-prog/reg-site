@@ -256,6 +256,7 @@ code.sha { overflow-wrap: anywhere; font-size: 0.875rem; }
 .led-n { font: 600 3rem/1.1 var(--serif); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .led-l { font-weight: 600; }
 .led-s { color: var(--muted); font-size: 0.875rem; }
+.led-s code { background: none; padding: 0; white-space: nowrap; }
 .led-src { margin-top: auto; padding-top: 8px; }
 .led-replay { font-size: 0.875rem; color: var(--ink-soft); }
 .led-replay .g { color: var(--accent); margin-right: 8px; }

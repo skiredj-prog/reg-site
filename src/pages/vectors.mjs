@@ -158,7 +158,7 @@ export function vectorPage(M, lang, row, { preview }) {
     if (row.index === "RESERVED") lim.push(esc(t.vp_lim_reserved));
     if (supBy.length) lim.push(esc(t.vp_lim_superseded));
     const rev = revisionOf(v);
-    if (rev) lim.push(esc(fmt(rev.ratified ? t.vp_lim_revision_ratified : t.vp_lim_revision, { r: rev.name })));
+    if (rev) lim.push(esc(fmt(rev.ratified ? t.vp_lim_revision_ratified : t.vp_lim_revision, { r: rev.name.replace(/ /g, "\u00a0") })));
   } else if (row.kind === "index_only") {
     lim.push(esc(t.vp_lim_index));
   } else {
