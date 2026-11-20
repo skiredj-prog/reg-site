@@ -51,6 +51,51 @@ if (P.claims.conformance_claims_allowed !== false || P.claims.subjects.length) {
 for (const c of P.configurations) {
   if (!/^[a-z0-9-]+(__[a-z0-9-]+){3}$/.test(c.id)) fail(`configuration id not usable in a URL: ${c.id}`);
 }
+
+// The five states, checked again here whatever the platform wrote: no
+// configuration is shown as demonstrated or partial unless every record it
+// cites carries bound evidence, and the counts the pages show agree with the
+// configurations. "refuted" comes from a catalogue claim of false and
+// promotes nothing, so it needs no bound record.
+const STATES = ["demonstrated", "partial", "not_evaluated", "refuted", "inadmissible"];
+const records = new Map(P.guarantee_records.map((r) => [r.id, r]));
+for (const r of P.guarantee_records) {
+  if (r.evidence_bound === true && (r.evidence_problems?.length || !r.evidence_artifact
+    || !/^[0-9a-f]{64}$/.test(r.declared_results_hash || "") || /^0+$/.test(r.declared_results_hash)
+    || !["production-equivalent", "loopback-test-only"].includes(r.demonstration_scope))) {
+    fail(`record ${r.id} is marked bound without a matching artifact, results hash and scope`);
+  }
+}
+const byState = Object.fromEntries(STATES.map((s) => [s, 0]));
+for (const c of P.configurations) {
+  if (!STATES.includes(c.state)) fail(`${c.id}: unknown state ${c.state}`);
+  byState[c.state]++;
+  if ((c.state === "inadmissible") !== !c.admissible_structural) {
+    fail(`${c.id}: state ${c.state} contradicts admissible_structural ${c.admissible_structural}`);
+  }
+  if (c.state === "demonstrated" || c.state === "partial") {
+    const refs = c.capability_refs || [];
+    const unbound = refs.filter((id) => records.get(id)?.evidence_bound !== true);
+    if (!refs.length) fail(`${c.id} is shown as ${c.state} but cites no guarantee record`);
+    if (unbound.length) fail(`${c.id} is shown as ${c.state} but cites records without bound evidence: ${unbound.join(", ")}`);
+    if (c.catalog_claim === null || c.catalog_claim === false) fail(`${c.id} is shown as ${c.state} without a catalogue claim`);
+    if (c.state === "demonstrated" && (c.catalog_claim === "partial"
+      || refs.some((id) => records.get(id).demonstration_scope === "loopback-test-only"))) {
+      fail(`${c.id} is shown as demonstrated on a partial claim or loopback-only evidence`);
+    }
+  }
+}
+const S = P.summary;
+for (const s of new Set([...STATES, ...Object.keys(S.configurations_by_state || {})])) {
+  const said = S.configurations_by_state?.[s] || 0;
+  if (said !== (byState[s] || 0)) fail(`the summary counts ${said} ${s} configurations, the configurations say ${byState[s] || 0}`);
+}
+if (S.configurations_total !== P.configurations.length
+  || S.configurations_admissible !== P.configurations.filter((c) => c.admissible_structural).length
+  || S.guarantee_records_total !== P.guarantee_records.length
+  || S.guarantee_records_bound !== P.guarantee_records.filter((r) => r.evidence_bound === true).length) {
+  fail("the summary counts disagree with the configurations or the guarantee records");
+}
 for (const v of [...P.vectors, ...(P.vector_index?.rows_without_vector || [])]) {
   if (!/^[A-Za-z0-9._-]+$/.test(v.id)) fail(`vector id not usable in a URL: ${v.id}`);
 }

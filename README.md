@@ -55,11 +55,18 @@ it. The build refuses to run when:
 - the projection's contract is not `reg-projection` 1.1.x,
 - the projection's guards failed,
 - the projection allows conformance claims (contract 1.1 never does; a site
-  that renders claims will be a new major version).
+  that renders claims will be a new major version),
+- a configuration shown as demonstrated or partial cites no record, or a
+  record without bound evidence, or a record is marked bound without its
+  artifact, results hash and scope,
+- the summary counts the pages show disagree with the configurations or the
+  guarantee records.
 
 CI also fetches the projection from reg-platform at the pinned commit and
-checks it hashes to the pin (`scripts/verify-remote.mjs`); the deploy job
-requires that pin.
+checks it hashes to the pin, then compares every badge the site ships with
+reg-platform's, byte for byte (`scripts/verify-remote.mjs`); the deploy job
+requires that pin. Push reg-platform first: until it is on GitHub, this
+check fails.
 
 To take a new projection: `npm run pin -- <reg-platform commit>`, then
 `npm run build`, then commit `projection.lock.json` and `data/`.
@@ -72,7 +79,12 @@ To take a new projection: `npm run pin -- <reg-platform commit>`, then
 - Every page's footer links the exact reg-conformance commit, and every
   page names the commit and the projection hash in its metadata.
 - Every page except the 404 has its "what this does not establish" block.
-- Preview builds carry the banner and `noindex` on every page.
+- Preview builds carry the banner, with its whole text in the page's
+  language, and `noindex` on every page. The browser checks also see the
+  banner at the top of each page they visit.
+- Each badge says what the projection says about its configuration (label,
+  colour, title), in French and English, and the badges are exactly the five
+  state badges plus one per admissible configuration.
 - Every internal link and anchor resolves; no duplicate ids.
 - Every admissible configuration has a profile skeleton, with no
   attestation; no other configuration has one.

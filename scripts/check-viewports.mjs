@@ -62,6 +62,14 @@ for (const width of [375, 1280]) {
       if (path.includes("does-not-exist") ? res.status() !== 404 : !res.ok()) fail(`${path}: HTTP ${res.status()}`);
       const o = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
       if (o.sw > o.cw) fail(`${width} ${theme} ${path}: page overflows horizontally (${o.sw} > ${o.cw})`);
+      if (build.preview) {
+        // The preview banner is seen, not only present in the markup.
+        const b = await page.$eval('[data-guard="preview-banner"]', (e) => {
+          const r = e.getBoundingClientRect(), s = getComputedStyle(e);
+          return { top: r.top + window.scrollY, h: r.height, shown: s.display !== "none" && s.visibility === "visible" && Number(s.opacity) === 1 };
+        }).catch(() => null);
+        if (!b || !b.shown || b.h < 16 || b.top > 1) fail(`${width} ${theme} ${path}: preview banner not visible at the top of the page`);
+      }
       if (mobile) {
         // Controls a thumb has to hit. Inline links in running text, the map
         // (a visual summary; the selects are the way in) and native checkboxes
@@ -202,4 +210,4 @@ if (errors.length) {
   console.error(`check-viewports: ${errors.length} problem(s)`);
   process.exit(1);
 }
-console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu OK`);
+console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build, banner seen at the top of each)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu OK`);
