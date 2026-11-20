@@ -380,6 +380,8 @@ export const T = {
     vp_lim_gap: "Le runner ne teste pas encore cette propriété : ce n'est ni une réussite ni un échec.",
     vp_lim_reserved: "Statut RESERVED : le contrôle est identifié, mais la RFC ne le spécifie pas (VECTORS.md).",
     vp_lim_superseded: "Ce vecteur est remplacé. Il reste enregistré avec son texte et ses résultats.",
+    vp_lim_revision: "Ce vecteur repose sur la révision {r}, hors base gelée.",
+    vp_lim_revision_ratified: "Ce vecteur repose sur la révision ratifiée {r}, hors base gelée.",
     vp_lim_index: "Une propriété indexée sans vecteur n'est pas testée. Elle n'est ni satisfaite ni violée.",
     vp_lim_proposal: "Une proposition n'est pas un vecteur : elle ne compte dans aucun total.",
     // cite
@@ -699,6 +701,8 @@ export const T = {
     vp_lim_gap: "The runner does not test this property yet: it is neither a pass nor a failure.",
     vp_lim_reserved: "RESERVED status: the check is identified but the RFC does not specify it (VECTORS.md).",
     vp_lim_superseded: "This vector is superseded. It stays registered with its text and results.",
+    vp_lim_revision: "This vector rests on the {r} revision, outside the frozen baseline.",
+    vp_lim_revision_ratified: "This vector rests on the ratified {r} revision, outside the frozen baseline.",
     vp_lim_index: "An indexed property with no vector is not tested. It is neither satisfied nor violated.",
     vp_lim_proposal: "A proposal is not a vector: it counts in no total.",
     cite_title: "Cite and report",

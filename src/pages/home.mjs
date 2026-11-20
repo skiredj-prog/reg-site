@@ -5,7 +5,7 @@
 import { T, fmt } from "../i18n.mjs";
 import { arrow, dateLabel, esc, limits, plural, prov, short } from "../lib/html.mjs";
 import { layout } from "../lib/layout.mjs";
-import { route } from "../lib/model.mjs";
+import { revisionOf, route } from "../lib/model.mjs";
 import { configMap } from "./configurator.mjs";
 
 export function home(M, lang, { preview }) {
@@ -16,17 +16,14 @@ export function home(M, lang, { preview }) {
   const pass = S.reference_kernel_pass;
   const impl = pass.by_index_status.IMPLEMENTED || 0;
   const others = Object.entries(pass.by_index_status).filter(([k]) => k !== "IMPLEMENTED");
-  // What the PASS rest on, each group named by its vectors. A vector whose
-  // rfc field names a dated revision ("RFC-4 v0.3 revision §2.1") rests on a
-  // revision that reg-conformance keeps outside the frozen baseline
-  // (revisions/); its reference says whether it was ratified. Superseded
-  // vectors are counted apart, so the two groups never overlap.
-  const REVISION = /\b(RFC-\d+ v\d+(?:\.\d+)*) revision\b/;
+  // What the PASS rest on, each group named by its vectors (revisionOf in
+  // lib/model.mjs). Superseded vectors are counted apart, so the two groups
+  // never overlap.
   const passed = P.vectors.filter((v) => v.registry === "vector" && v.reference_kernel_result === "PASS");
   const superseded = passed.filter((v) => (v.superseded_by || []).length);
-  const onRevision = passed.filter((v) => !(v.superseded_by || []).length && REVISION.test(v.rfc || ""));
-  const revisions = [...new Set(onRevision.map((v) => v.rfc.match(REVISION)[1]))];
-  const ratified = onRevision.length > 0 && onRevision.every((v) => /\bratified\b/i.test(v.reference || ""));
+  const onRevision = passed.filter((v) => !(v.superseded_by || []).length && revisionOf(v));
+  const revisions = [...new Set(onRevision.map((v) => revisionOf(v).name))];
+  const ratified = onRevision.length > 0 && onRevision.every((v) => revisionOf(v).ratified);
   const ids = (vs) => vs.map((v) => `<a href="${route("vector", lang, v.id)}"><code>${esc(v.id)}</code></a>`).join(", ");
   const parts = [];
   if (superseded.length) {

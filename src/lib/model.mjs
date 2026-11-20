@@ -24,6 +24,16 @@ export const profilePath = (id) => `/profiles/${id}.yaml`;
 // example profile (profiles/example-aggregate-budget-single-host.yaml).
 const DEFAULT_CONFIG = "mono-host__local-registry__file-lock__fail-closed";
 
+// A vector whose rfc field names a dated revision ("RFC-4 v0.3 revision
+// §2.1") rests on a revision that reg-conformance keeps outside the frozen
+// baseline (revisions/); its reference says whether it was ratified.
+// Returns { name: "RFC-4 v0.3", ratified } or null.
+const REVISION = /\b(RFC-\d+ v\d+(?:\.\d+)*) revision\b/;
+export function revisionOf(v) {
+  const m = REVISION.exec(v?.rfc || "");
+  return m ? { name: m[1], ratified: /\bratified\b/i.test(v.reference || "") } : null;
+}
+
 export function model(P, lock) {
   const repo = P.source.repository;
   const commit = P.source.commit;
