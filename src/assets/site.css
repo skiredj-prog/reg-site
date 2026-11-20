@@ -59,6 +59,7 @@ main:focus { outline: none; }
 .skip:focus { left: 16px; top: 8px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .muted { color: var(--muted); }
+.nw { white-space: nowrap; }
 .small { font-size: 0.875rem; }
 .note { padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--note-soft); }
 .no-js .js-only { display: none !important; }

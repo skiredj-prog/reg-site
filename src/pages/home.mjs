@@ -31,8 +31,8 @@ export function home(M, lang, { preview }) {
   }
   if (onRevision.length) {
     const tpl = revisions.length === 1 ? (ratified ? t.led_rev_one_ratified : t.led_rev_one) : (ratified ? t.led_rev_many_ratified : t.led_rev_many);
-    const keep = (n) => n.replace(/ /g, "\u00a0"); // "RFC-4 v0.3" stays on one line
-    const rev = esc(fmt(tpl, { r: keep(revisions[0]), list: revisions.map(keep).join(", ") }));
+    const keep = (n) => `<span class="nw">${esc(n)}</span>`; // "RFC-4 v0.3" stays on one line, hyphen included
+    const rev = fmt(esc(tpl), { r: keep(revisions[0]), list: revisions.map(keep).join(", ") });
     parts.push(fmt(esc(plural(lang, onRevision.length, t.led_pass_revision, t.led_pass_revision_n)), { n: onRevision.length, rev, ids: ids(onRevision) }));
   }
   const passOn = esc(others.length
