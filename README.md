@@ -5,6 +5,10 @@ from one pinned projection published by
 [reg-platform](https://github.com/skiredj-prog/reg-platform). It reads
 nothing else, and it never says that a product is conformant.
 
+**Status: preview, not deployed.** A preview build carries a banner on every
+page that says so. No page attests or certifies anything, and nothing on this
+site may be cited to say that a product conforms to REG.
+
 ## Pages
 
 | Page | French / English | What a visitor does there |
@@ -92,7 +96,7 @@ To take a new projection: `npm run pin -- <reg-platform commit>`, then
 ## Deploy (preview)
 
 `public/CNAME` is `reg.tenirlabs.cc`. Deployment is manual only: Actions →
-preview → Run workflow → deploy. The steps to create the repositories and
-the DNS record are in `MARCHE-A-SUIVRE.md`, in the project folder.
+preview → Run workflow → deploy. It has not been run: GitHub Pages and the
+DNS record are not set up, and setting them up is a separate decision.
 
 License: Apache-2.0.
