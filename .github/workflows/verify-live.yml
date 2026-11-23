@@ -1,0 +1,60 @@
+name: verify-live
+# Read-only checks of a served site against a build of the commit it was
+# deployed from (docs/DEPLOYMENT.md, "Verifying a deployment"). Run by hand
+# after a deployment: Actions > verify-live > Run workflow, with the origin, the
+# base and the deployed commit. Builds that commit in a separate directory,
+# compares what the site serves with that build, loads pages in Chromium, and
+# uploads the report. Deploys nothing and writes nothing on the site.
+on:
+  workflow_dispatch:
+    inputs:
+      site:
+        description: "Origin the site is served from (scheme and host, no path)"
+        type: string
+        default: "https://preview.reg.tenirlabs.cc"
+      base:
+        description: "Path the site is served under (/ or /reg-site/)"
+        type: string
+        default: "/"
+      commit:
+        description: "Commit the served site was built from (full SHA; empty: the commit this workflow runs on)"
+        type: string
+        default: ""
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE: ${{ inputs.base }}
+      SITE_URL: ${{ inputs.site }}
+    steps:
+      # The scripts come from the commit this workflow runs on; the site to
+      # compare with is built from the deployed commit, in its own directory.
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit || github.sha }}
+          path: deployed
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the deployed commit for this origin and base
+        run: npm run build
+        working-directory: deployed
+      - name: Checks 1 to 6, 8, 9 and 11
+        run: node scripts/verify-live.mjs --site="$SITE_URL" --dist=deployed/dist --repo="$GITHUB_REPOSITORY" --out=verify-live-report
+      - name: Check 7, the visitor's paths on the served site (375px and 1280px)
+        if: ${{ !cancelled() }}
+        run: |
+          npm i --no-save playwright@1.49.1
+          npx playwright install --with-deps chromium
+          BASE="$SITE_URL" DIST=deployed/dist node scripts/check-viewports.mjs
+      - name: Checks 7 and 10, console errors, failed requests and hosts contacted
+        if: ${{ !cancelled() }}
+        run: node scripts/verify-live-browser.mjs --site="$SITE_URL" --base="$SITE_BASE" --out=verify-live-report/browser.json
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: verify-live-report
+          path: verify-live-report

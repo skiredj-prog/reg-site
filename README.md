@@ -32,6 +32,7 @@ npm run build            # preview build: banner, noindex, robots Disallow; then
 npm run build:public     # same content without the preview banner
 npm run preview          # serves dist/ on http://127.0.0.1:4173
 npm run check:viewports  # browser checks (needs playwright and the preview server)
+node scripts/verify-live.mjs --site=<origin>  # compares a served site with dist/ (docs/DEPLOYMENT.md)
 ```
 
 The build has no dependencies (Node 20 or later). The browser checks need
@@ -113,8 +114,8 @@ artifact carries none. Deployment is manual only: Actions → preview → Run
 workflow with `deploy` checked, then approval by the required reviewer of
 the `github-pages` environment. Every deployment is a decision on an exact
 commit. The procedure, the one-time configuration, the eleven
-post-deployment checks and the log of deployments are in
-[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The `gate-check` workflow tests
+post-deployment checks (the `verify-live` workflow runs them, read-only)
+and the log of deployments are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The `gate-check` workflow tests
 the approval gate without publishing anything.
 
 License: Apache-2.0.
