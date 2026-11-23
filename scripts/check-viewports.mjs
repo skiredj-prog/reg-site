@@ -6,12 +6,14 @@
 //
 //   node scripts/serve.mjs 4173 &   then   node scripts/check-viewports.mjs
 //   BASE=http://127.0.0.1:4173 DIST=dist SHOTS=<dir> (optional screenshots)
+//   SITE_BASE=/reg-site/ for a dist built for that path and served under it
+//   (node scripts/serve.mjs 4173 --base=/reg-site/)
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { STATE_LABEL, T, fmt } from "../src/i18n.mjs";
-import { ROUTES } from "../src/lib/model.mjs";
+import { profilePath, route, withBase } from "../src/lib/model.mjs";
 
 const { chromium } = createRequire(import.meta.url)("playwright");
 const BASE = process.env.BASE || "http://127.0.0.1:4173";
@@ -24,7 +26,7 @@ const AXES = P.axes.map((a) => a.id);
 const cfg = new Map(P.configurations.map((c) => [c.id, c]));
 const idOf = (c) => AXES.map((a) => c[a]).join("__");
 const firstVector = P.vectors[0]?.id;
-const r = (name, lang, ...a) => (typeof ROUTES[name][lang] === "function" ? ROUTES[name][lang](...a) : ROUTES[name][lang]);
+const r = route; // the site's own routes, base included
 
 // The default configuration of the configurator, and one that breaks a rule
 // by changing only the host scope: found in the data, not assumed.
@@ -40,7 +42,7 @@ for (const lang of ["fr", "en"]) {
     r("configuration", lang, DEFAULT), r("configuration", lang, broken));
   if (firstVector) PAGES.push(r("vector", lang, firstVector));
 }
-PAGES.push("/this-page-does-not-exist/");
+PAGES.push(withBase("/this-page-does-not-exist/"));
 
 const errors = [];
 const fail = (m) => errors.push(m);
@@ -108,7 +110,7 @@ for (const width of [1280, 375]) {
     if (cfg.get(target).config[hostAxis] !== cfg.get(broken).config[hostAxis]) fail(`configurator ${width}: the first fix changes the axis the visitor just chose`);
     if ((await state()) !== want(target)) fail(`configurator ${width}: after the fix, state "${await state()}" instead of "${want(target)}"`);
     if (!page.url().includes(`c=${target}`)) fail(`configurator ${width}: the configuration is not kept in the URL`);
-    if ((await page.getAttribute("#cfg-export", "href")) !== `/profiles/${target}.yaml`) fail(`configurator ${width}: export does not point to the profile of ${target}`);
+    if ((await page.getAttribute("#cfg-export", "href")) !== profilePath(target)) fail(`configurator ${width}: export does not point to the profile of ${target}`);
   }
   if (!mobile && otherAdmissible) {
     await page.click(`#cfg-map a[data-id="${otherAdmissible}"]`);

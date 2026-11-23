@@ -1,6 +1,6 @@
 // Guards on the built site. Fails if any page could be read as a conformance
 // claim, loses its source commit, has no "what this does not establish"
-// block, or links to nothing.
+// block, links to nothing, or links outside the base it was built for.
 //
 //   node scripts/check-dist.mjs [--dist dist] [--lock projection.lock.json]
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -13,6 +13,13 @@ const opt = (name, d) => { const i = args.indexOf(name); return i >= 0 ? args[i 
 const DIST = join(ROOT, opt("--dist", "dist"));
 const lock = JSON.parse(readFileSync(join(ROOT, opt("--lock", "projection.lock.json")), "utf8"));
 const build = JSON.parse(readFileSync(join(DIST, "build.json"), "utf8"));
+// The path the site is served under ("/", "/reg-site/") and its origin, as
+// the build wrote them.
+const { base, site } = build;
+if (typeof base !== "string" || !/^\/(.+\/)?$/.test(base) || typeof site !== "string" || !site) {
+  console.error("check-dist: build.json does not name the base and the site the build was made for");
+  process.exit(1);
+}
 
 // Affirmative claim language. The copy says what the site does not do
 // without using these forms.
@@ -87,8 +94,12 @@ for (const f of pages) {
     if (!html.includes('<meta name="robots" content="noindex, nofollow">')) errors.push(`${rel(f)}: preview page is indexable`);
   }
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  const canonical = html.match(/<link rel="canonical" href="([^"]*)">/)?.[1];
+  if (!canonical?.startsWith(site + base)) errors.push(`${rel(f)}: canonical URL ${canonical ?? "missing"} is not under ${site}${base}`);
   for (const m of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:\?[^"#]*)?(#[^"]*)?"/g)) {
-    let p = join(DIST, m[1]);
+    // Every internal link carries the base; dist/ is what the base serves.
+    if (!m[1].startsWith(base)) { errors.push(`${rel(f)}: link outside the base ${base}: ${m[1]}`); continue; }
+    let p = join(DIST, m[1].slice(base.length - 1));
     if (m[1].endsWith("/")) p = join(p, "index.html");
     if (!existsSync(p)) errors.push(`${rel(f)}: broken internal link ${m[1]}`);
   }

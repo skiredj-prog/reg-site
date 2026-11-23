@@ -7,7 +7,7 @@ import {
 import { renderResult, renderTake, tag } from "../assets/cfg-render.js";
 import { arrow, crumbs, esc, mark, short } from "../lib/html.mjs";
 import { layout } from "../lib/layout.mjs";
-import { ROUTES, SITE_URL, badgePath, profilePath, route } from "../lib/model.mjs";
+import { SITE_URL, badgePath, profilePath, route } from "../lib/model.mjs";
 
 const STATES = ["demonstrated", "partial", "not_evaluated", "refuted", "inadmissible"];
 
@@ -110,7 +110,7 @@ export function cfgData(M, lang, uid = "c") {
     state: STATE_LABEL[lang],
     stateHelp: STATE_HELP[lang],
     routes: {
-      config: ROUTES.configuration[lang]("{id}"),
+      config: route("configuration", lang, "{id}"),
       badge: badgePath(lang, "{id}"),
       profile: profilePath("{id}"),
     },

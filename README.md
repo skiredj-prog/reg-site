@@ -37,6 +37,17 @@ The build has no dependencies (Node 20 or later). The browser checks need
 `npm i --no-save playwright` and `npx playwright install chromium`; they
 take their expected values from the projection the site was built from.
 
+Where the site is served comes from two variables. `SITE_URL` is its
+origin, scheme and host only (default `https://reg.tenirlabs.cc`):
+canonical and hreflang links, the sitemap and the link and badge snippets
+start with it. `SITE_BASE` is the path it sits under (default `/`;
+`/reg-site/` for a GitHub Pages project site): every internal link carries
+it, and `check-dist` refuses one that does not. `node src/build.mjs` also
+takes `--site=` and `--base=`, which win over the environment;
+`node scripts/serve.mjs 4173 --base=/reg-site/` serves `dist/` under that
+path, and `check-viewports` reads `SITE_BASE` as the build does. CI builds
+and checks both `/` and `/reg-site/`.
+
 To look at a candidate projection without pinning it, put its
 `projection-v1.json` and `badges/` in `.rc/data/` and a lock naming its hash
 and source commit in `.rc/lock.json` (`.rc/` is ignored by git), then:
