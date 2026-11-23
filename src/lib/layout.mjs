@@ -1,6 +1,6 @@
 import { T } from "../i18n.mjs";
 import { esc, short } from "./html.mjs";
-import { SITE_URL, route } from "./model.mjs";
+import { SITE_URL, route, withBase } from "./model.mjs";
 
 const NAV = ["home", "configurator", "vectors", "cite", "data"];
 
@@ -28,7 +28,7 @@ ${preview ? '<meta name="robots" content="noindex, nofollow">\n' : ""}<meta name
 <link rel="canonical" href="${SITE_URL}${path}">
 <link rel="alternate" hreflang="${lang}" href="${SITE_URL}${path}">
 <link rel="alternate" hreflang="${other}" href="${SITE_URL}${alt}">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="${withBase("/assets/site.css")}">
 <script>document.documentElement.className="js";try{var m=localStorage.getItem("reg-theme");if(m)document.documentElement.dataset.theme=m}catch(e){}</script>
 </head>
 <body>
@@ -56,8 +56,8 @@ ${body}
     <p>${esc(t.footer_license)}</p>
   </div>
 </footer>
-<script src="/assets/site.js" defer></script>
-${scripts.map((s) => `<script src="${s}" defer></script>`).join("\n")}${modules.map((s) => `<script type="module" src="${s}"></script>`).join("\n")}
+<script src="${withBase("/assets/site.js")}" defer></script>
+${scripts.map((s) => `<script src="${withBase(s)}" defer></script>`).join("\n")}${modules.map((s) => `<script type="module" src="${withBase(s)}"></script>`).join("\n")}
 </body>
 </html>
 `;

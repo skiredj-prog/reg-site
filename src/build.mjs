@@ -2,6 +2,9 @@
 //
 //   node src/build.mjs              preview build (noindex, banner)
 //   node src/build.mjs --public     public build (still no conformance claims)
+//   node src/build.mjs --base=/reg-site/ --site=https://example.org
+//                                   for a site served under that path of that
+//                                   origin (or SITE_BASE, SITE_URL: lib/model.mjs)
 //
 // The build refuses a projection that is not the pinned one, whose guards
 // failed, that allows conformance claims, or whose contract it does not know.
@@ -13,7 +16,7 @@ import { contentHash } from "../scripts/hash.mjs";
 import { LANGS, T } from "./i18n.mjs";
 import { esc, short } from "./lib/html.mjs";
 import { layout } from "./lib/layout.mjs";
-import { SITE_URL, model, profilePath, route } from "./lib/model.mjs";
+import { BASE, SITE_URL, model, profilePath, route, withBase, withoutBase } from "./lib/model.mjs";
 import { profileYaml } from "./lib/profile.mjs";
 import { cite } from "./pages/cite.mjs";
 import { configurationPage, configurator } from "./pages/configurator.mjs";
@@ -107,7 +110,7 @@ const opts = { preview: PREVIEW };
 rmSync(DIST, { recursive: true, force: true });
 let pages = 0;
 const out = (path, html) => {
-  const dir = join(DIST, path);
+  const dir = join(DIST, withoutBase(path));
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), html);
   pages++;
@@ -126,11 +129,11 @@ for (const lang of LANGS) {
 
 // A not-found page, both languages on one page (GitHub Pages serves /404.html).
 const nf = layout(M, {
-  lang: "fr", section: null, path: "/404.html", alt: "/en/", preview: PREVIEW,
+  lang: "fr", section: null, path: withBase("/404.html"), alt: withBase("/en/"), preview: PREVIEW,
   title: T.fr.nf_title, description: T.fr.nf_title,
   body: `<div class="page page-form"><div class="page-head"><div><h1>${esc(T.fr.nf_title)}</h1><p class="lead">${esc(T.fr.nf_lead)}</p></div></div>
-<p><a class="btn primary" href="/">${esc(T.fr.nf_home)} <span aria-hidden="true">→</span></a></p>
-<div lang="en"><h2>${esc(T.en.nf_title)}</h2><p>${esc(T.en.nf_lead)}</p><p><a class="btn" href="/en/">${esc(T.en.nf_home)} <span aria-hidden="true">→</span></a></p></div></div>`,
+<p><a class="btn primary" href="${withBase("/")}">${esc(T.fr.nf_home)} <span aria-hidden="true">→</span></a></p>
+<div lang="en"><h2>${esc(T.en.nf_title)}</h2><p>${esc(T.en.nf_lead)}</p><p><a class="btn" href="${withBase("/en/")}">${esc(T.en.nf_home)} <span aria-hidden="true">→</span></a></p></div></div>`,
 });
 writeFileSync(join(DIST, "404.html"), nf);
 pages++;
@@ -141,9 +144,9 @@ if (!existsSync(join(DATA, "badges/en"))) fail("data/badges/en is missing: pin a
 mkdirSync(join(DIST, "data"), { recursive: true });
 cpSync(join(DATA, "projection-v1.json"), join(DIST, "data/projection-v1.json"));
 mkdirSync(join(DIST, "profiles"), { recursive: true });
-for (const c of M.admissible) writeFileSync(join(DIST, profilePath(c.id)), profileYaml(M, c));
-cpSync(join(ROOT, "public"), DIST, { recursive: true });
-writeFileSync(join(DIST, "robots.txt"), PREVIEW ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+for (const c of M.admissible) writeFileSync(join(DIST, withoutBase(profilePath(c.id))), profileYaml(M, c));
+if (existsSync(join(ROOT, "public"))) cpSync(join(ROOT, "public"), DIST, { recursive: true });
+writeFileSync(join(DIST, "robots.txt"), PREVIEW ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}${withBase("/sitemap.xml")}\n`);
 if (!PREVIEW) {
   const urls = [];
   for (const lang of LANGS) {
@@ -156,6 +159,6 @@ if (!PREVIEW) {
 writeFileSync(join(DIST, "build.json"), JSON.stringify({
   preview: PREVIEW, source_commit: P.source.commit, source_tag: P.source.exact_tag || null,
   projection_contract: P.contract_version, projection_sha256: P.content_sha256,
-  platform_commit: lock.platform_commit || null, pages,
+  platform_commit: lock.platform_commit || null, pages, base: BASE, site: SITE_URL,
 }, null, 2) + "\n");
-console.log(`built ${pages} HTML pages (${(pages - 1) / LANGS.length} per language and 404.html) from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)})${PREVIEW ? ", preview" : ", public"}`);
+console.log(`built ${pages} HTML pages (${(pages - 1) / LANGS.length} per language and 404.html) from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)})${PREVIEW ? ", preview" : ", public"}, for ${SITE_URL}${BASE}`);

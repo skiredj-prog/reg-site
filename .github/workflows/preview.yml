@@ -1,6 +1,8 @@
 name: preview
-# Builds and checks on every push. Deploys to GitHub Pages only when run by
-# hand (Actions > preview > Run workflow), so nothing goes live by accident.
+# Builds and checks on every push, for both paths the site may be served
+# under: / (its own domain) and /reg-site/ (a GitHub Pages project site).
+# Builds the Pages artifact and deploys only when run by hand (Actions >
+# preview > Run workflow), so nothing goes live by accident.
 on:
   push:
   pull_request:
@@ -10,11 +12,35 @@ on:
         description: "Deploy the preview to GitHub Pages"
         type: boolean
         default: false
+      base:
+        description: "Path the Pages artifact is built for (/ or /reg-site/)"
+        type: string
+        default: "/"
+      site:
+        description: "Origin the Pages artifact is built for (scheme and host, no path)"
+        type: string
+        default: "https://reg.tenirlabs.cc"
 permissions:
   contents: read
 jobs:
   build:
+    name: build (${{ matrix.base }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - base: "/"
+            site: "https://reg.tenirlabs.cc"
+            artifact: dist-root
+          # Exercises a build under a subpath. The origin is a neutral
+          # placeholder: this entry is a test, not a hosting target.
+          - base: "/reg-site/"
+            site: "https://example.org"
+            artifact: dist-reg-site
+    env:
+      SITE_BASE: ${{ matrix.base }}
+      SITE_URL: ${{ matrix.site }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,7 +55,37 @@ jobs:
         run: |
           npm i --no-save playwright@1.49.1
           npx playwright install --with-deps chromium
-          node scripts/serve.mjs 4173 &
+          node scripts/serve.mjs 4173 --base="$SITE_BASE" &
+          sleep 1
+          node scripts/check-viewports.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist
+  pages:
+    # The artifact GitHub Pages would serve, built and checked for the base
+    # and the site given by hand.
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE: ${{ inputs.base }}
+      SITE_URL: ${{ inputs.site }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build
+      - name: Pinned projection matches reg-platform
+        run: node scripts/verify-remote.mjs
+        env:
+          REQUIRE_PLATFORM_PIN: "1"
+      - name: Browser checks (375px and 1280px)
+        run: |
+          npm i --no-save playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node scripts/serve.mjs 4173 --base="$SITE_BASE" &
           sleep 1
           node scripts/check-viewports.mjs
       - uses: actions/upload-pages-artifact@v3
@@ -37,7 +93,7 @@ jobs:
           path: dist
   deploy:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy }}
-    needs: build
+    needs: pages
     runs-on: ubuntu-latest
     permissions:
       pages: write

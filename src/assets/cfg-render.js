@@ -135,7 +135,9 @@ export function renderTake(D, id) {
   const url = D.site + href(D, D.routes.config, id);
   const badge = D.site + href(D, D.routes.badge, id);
   const md = `[![REG+ config: ${D.state[C.s]}](${badge})](${url})`;
-  const copy = (key, text, lbl) => `<div class="copy wrap">
+  // No copy snippet in a preview build: what is copied from a preview would
+  // outlive it. The badge image, the detail link and the profile stay.
+  const copy = (key, text, lbl) => D.preview ? "" : `<div class="copy wrap">
     ${lbl ? `<p class="copy-label">${esc(lbl)}</p>` : ""}
     <pre class="code"><code id="${key}">${esc(text)}</code></pre>
     <div class="copy-bar"><button type="button" class="btn small" data-copy="${key}" data-copied="${esc(t.copied)}" data-failed="${esc(t.copy_failed)}">${esc(t.copy)}</button><span class="copy-status" role="status" aria-live="polite"></span></div>

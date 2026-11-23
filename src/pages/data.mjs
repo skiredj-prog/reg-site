@@ -4,7 +4,7 @@
 import { AXIS_LABEL, PROBLEM_LABEL, RESULT_LABEL, T, VALUE_LABEL, fmt } from "../i18n.mjs";
 import { arrow, copyBlock, dateLabel, esc, kv, limits, q, resultTag, short } from "../lib/html.mjs";
 import { layout } from "../lib/layout.mjs";
-import { route } from "../lib/model.mjs";
+import { route, withBase } from "../lib/model.mjs";
 
 const OUTCOMES = ["PASS", "FAIL", "INCONCLUSIVE", "NOT_APPLICABLE", "ADAPTER_REQUIRED", "IMPLEMENTATION_GAP", "NOT_IN_PERIMETER"];
 
@@ -85,7 +85,7 @@ export function data(M, lang, { preview }) {
       <p class="lead">${esc(t.data_lead)}</p>
       <p class="meta"><span>${esc(t.data_commit)}${colon} <a href="${esc(M.commitUrl)}"><code>${short(P.source.commit, 12)}</code></a></span><span>${esc(t.data_contract)}${colon} <code>${esc(P.contract)} ${esc(P.contract_version)}</code></span><span>${esc(t.data_guards)}${colon} <span class="tag b-yes"><span class="g" aria-hidden="true">✓</span>${esc(t.data_guards_ok)}</span></span></p>
     </div>
-    <div class="head-actions"><a class="btn" href="/data/projection-v1.json" download>${esc(t.data_raw)}</a></div>
+    <div class="head-actions"><a class="btn" href="${withBase("/data/projection-v1.json")}" download>${esc(t.data_raw)}</a></div>
   </div>
   ${limits(lang, [esc(t.data_lim_1), esc(t.data_lim_2), esc(t.data_lim_3)], { id: "data-limits" })}
   <div class="tabs" data-tabs>

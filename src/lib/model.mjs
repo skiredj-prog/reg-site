@@ -1,7 +1,41 @@
 // What the pages need, derived from the projection and nothing else.
 
-export const SITE_URL = "https://reg.tenirlabs.cc";
+// Where the site is served. SITE_URL is an origin: scheme and host, nothing
+// after them. SITE_BASE is the path the site sits under: "/" at the root of
+// its own domain, "/reg-site/" for a GitHub Pages project site. Both come
+// from the environment; --site= and --base= on the command line win over it.
+// They are read here, once, so that every page and script sees the same.
+const cli = (name) => process.argv.slice(2).find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 
+function origin(value) {
+  let url = null;
+  try { url = new URL(value); } catch { /* refused below */ }
+  if (!url || !/^https?:$/.test(url.protocol) || url.origin !== value) {
+    throw new Error(`SITE_URL must be an origin, scheme and host only, with no path and no final slash: ${JSON.stringify(value)}`);
+  }
+  return value;
+}
+
+function base(value) {
+  const b = `/${value}/`.replace(/\/{2,}/g, "/");
+  if (!/^\/([A-Za-z0-9_~-][A-Za-z0-9._~-]*\/)*$/.test(b)) {
+    throw new Error(`SITE_BASE must be a path such as / or /reg-site/: ${JSON.stringify(value)}`);
+  }
+  return b;
+}
+
+export const SITE_URL = origin(cli("site") || process.env.SITE_URL || "https://reg.tenirlabs.cc");
+export const BASE = base(cli("base") || process.env.SITE_BASE || "/");
+
+// A path of the site ("/assets/site.css") as a URL path under the base, and
+// back again for the files written into dist/, which is served as the base.
+export const withBase = (p) => (BASE === "/" ? p : BASE.slice(0, -1) + p);
+export const withoutBase = (p) => {
+  if (!p.startsWith(BASE)) throw new Error(`${p} is not under the base ${BASE}`);
+  return p.slice(BASE.length - 1);
+};
+
+// Paths of the site without the base: links go through route().
 export const ROUTES = {
   home: { fr: "/", en: "/en/" },
   configurator: { fr: "/configurateur/", en: "/en/configurator/" },
@@ -14,11 +48,11 @@ export const ROUTES = {
 
 export const route = (name, lang, id) => {
   const r = ROUTES[name][lang];
-  return typeof r === "function" ? r(id) : r;
+  return withBase(typeof r === "function" ? r(id) : r);
 };
 
-export const badgePath = (lang, id) => (lang === "en" ? `/badges/en/${id}.svg` : `/badges/${id}.svg`);
-export const profilePath = (id) => `/profiles/${id}.yaml`;
+export const badgePath = (lang, id) => withBase(lang === "en" ? `/badges/en/${id}.svg` : `/badges/${id}.svg`);
+export const profilePath = (id) => withBase(`/profiles/${id}.yaml`);
 
 // The preferred starting point of the configurator: the repository's own
 // example profile (profiles/example-aggregate-budget-single-host.yaml).

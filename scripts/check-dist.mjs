@@ -1,6 +1,6 @@
 // Guards on the built site. Fails if any page could be read as a conformance
 // claim, loses its source commit, has no "what this does not establish"
-// block, or links to nothing.
+// block, links to nothing, or links outside the base it was built for.
 //
 //   node scripts/check-dist.mjs [--dist dist] [--lock projection.lock.json]
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -13,6 +13,13 @@ const opt = (name, d) => { const i = args.indexOf(name); return i >= 0 ? args[i 
 const DIST = join(ROOT, opt("--dist", "dist"));
 const lock = JSON.parse(readFileSync(join(ROOT, opt("--lock", "projection.lock.json")), "utf8"));
 const build = JSON.parse(readFileSync(join(DIST, "build.json"), "utf8"));
+// The path the site is served under ("/", "/reg-site/") and its origin, as
+// the build wrote them.
+const { base, site } = build;
+if (typeof base !== "string" || !/^\/(.+\/)?$/.test(base) || typeof site !== "string" || !site) {
+  console.error("check-dist: build.json does not name the base and the site the build was made for");
+  process.exit(1);
+}
 
 // Affirmative claim language. The copy says what the site does not do
 // without using these forms.
@@ -87,8 +94,12 @@ for (const f of pages) {
     if (!html.includes('<meta name="robots" content="noindex, nofollow">')) errors.push(`${rel(f)}: preview page is indexable`);
   }
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  const canonical = html.match(/<link rel="canonical" href="([^"]*)">/)?.[1];
+  if (!canonical?.startsWith(site + base)) errors.push(`${rel(f)}: canonical URL ${canonical ?? "missing"} is not under ${site}${base}`);
   for (const m of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:\?[^"#]*)?(#[^"]*)?"/g)) {
-    let p = join(DIST, m[1]);
+    // Every internal link carries the base; dist/ is what the base serves.
+    if (!m[1].startsWith(base)) { errors.push(`${rel(f)}: link outside the base ${base}: ${m[1]}`); continue; }
+    let p = join(DIST, m[1].slice(base.length - 1));
     if (m[1].endsWith("/")) p = join(p, "index.html");
     if (!existsSync(p)) errors.push(`${rel(f)}: broken internal link ${m[1]}`);
   }
@@ -99,6 +110,14 @@ for (const f of pages) {
   if (dup.length) errors.push(`${rel(f)}: duplicate ids ${[...new Set(dup)].join(", ")}`);
 }
 if (build.preview && !readFileSync(join(DIST, "robots.txt"), "utf8").includes("Disallow: /")) errors.push("robots.txt allows indexing in preview");
+// A preview build offers nothing to copy from the configurator (page link,
+// badge Markdown); a public build offers both.
+const snippet = /\sid="tk-(?:md|link)-/;
+if (build.preview) {
+  for (const f of pages) if (snippet.test(readFileSync(f, "utf8"))) errors.push(`${rel(f)}: a preview page offers a copy snippet`);
+} else if (!snippet.test(readFileSync(join(DIST, "configurateur/index.html"), "utf8"))) {
+  errors.push("configurateur/index.html: a public build must offer the copy snippets");
+}
 if (build.projection_sha256 !== lock.content_sha256) errors.push("dist was built from another projection");
 if (build.pages !== pages.length) errors.push(`build wrote ${build.pages} HTML pages, dist holds ${pages.length}`);
 
