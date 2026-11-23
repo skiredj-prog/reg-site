@@ -112,7 +112,38 @@ Eleven read-only checks, run against the served site.
 | 11 | Cache | `Cache-Control` and `Age` recorded, no threshold |
 
 Label each fact as observed or inferred in the report. Replay checks 4 to 8
-after any redeployment.
+after any redeployment. Check 4 compares bytes with a build you made yourself;
+the attestation below ties the same bytes to the run that deployed them.
+
+## Provenance
+
+Every run of the `pages` job signs a build provenance attestation for the
+files of the artifact, before the artifact is uploaded: a statement, signed
+through Sigstore, that the `preview` workflow of this repository, in this run
+and at this commit, produced files with these sha256 digests. The attestation
+is linked from the run summary and listed at
+<https://github.com/skiredj-prog/reg-site/attestations>. For a public
+repository the signature goes through Sigstore's public instance, so the record
+is public and permanent; a run with `deploy` unticked records one as well. If
+signing fails, the job fails and nothing is deployed.
+
+To check that a served file is one the workflow built, download it and verify
+it with the GitHub CLI, which hashes the file and looks the digest up among the
+attestations of this repository:
+
+    curl -sSo index.html https://preview.reg.tenirlabs.cc/index.html
+    gh attestation verify index.html -R skiredj-prog/reg-site \
+      --signer-workflow skiredj-prog/reg-site/.github/workflows/preview.yml
+
+`--format json` prints the whole statement: commit, run, and the digest of
+every attested file. The run also uploads that list as an ordinary artifact,
+`pages-sha256sums`, for a comparison without the CLI. The attestation covers at
+most 1024 files per run; the job stops before signing if the build has more.
+
+What a verified file proves: it was built by this workflow, at that commit,
+from the repository's sources and the pinned projection. What it does not
+prove: that the site serves it to everyone, that the build is correct, or any
+conformance of anything.
 
 ## Going back
 
