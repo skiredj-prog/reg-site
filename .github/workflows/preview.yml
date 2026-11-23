@@ -33,11 +33,10 @@ jobs:
           - base: "/"
             site: "https://reg.tenirlabs.cc"
             artifact: dist-root
-          # GitHub serves the project sites of skiredj-prog under the custom
-          # domain of its user site: skiredj-prog.github.io/reg-site/
-          # redirects to tenirlabs.cc/reg-site/.
+          # Exercises a build under a subpath. The origin is a neutral
+          # placeholder: this entry is a test, not a hosting target.
           - base: "/reg-site/"
-            site: "https://tenirlabs.cc"
+            site: "https://example.org"
             artifact: dist-reg-site
     env:
       SITE_BASE: ${{ matrix.base }}
