@@ -95,7 +95,18 @@ not a fault.
 
 ## Verifying a deployment
 
-Eleven read-only checks, run against the served site.
+Eleven read-only checks, run against the served site. The `verify-live`
+workflow runs them from GitHub's runners: Actions → verify-live → Run workflow,
+with the origin, the base and the full SHA of the deployed commit. It builds
+that commit, compares what the site serves with that build, loads the pages in
+Chromium, and uploads the report as the `verify-live-report` artifact. It
+deploys nothing and needs no approval. The same checks run from any machine
+with Node 22, once the ten minutes of GitHub Pages' edge cache have passed:
+
+    npm run build    # the deployed commit, with the SITE_BASE and SITE_URL it was deployed for
+    node scripts/verify-live.mjs --site=https://preview.reg.tenirlabs.cc          # 1 to 6, 8, 9 and 11
+    BASE=https://preview.reg.tenirlabs.cc node scripts/check-viewports.mjs        # 7
+    node scripts/verify-live-browser.mjs --site=https://preview.reg.tenirlabs.cc  # 7 and 10
 
 | # | Check | What passes |
 | --- | --- | --- |
@@ -105,10 +116,10 @@ Eleven read-only checks, run against the served site.
 | 4 | Integrity | the sha256 of every served file equals the one from an independent build of the same commit (same `SITE_BASE` and `SITE_URL`) |
 | 5 | Data | `projection-v1.json`, every badge and every profile skeleton are identical to the build; `build.json` carries the expected `preview`, `base`, `site`, commits and page count |
 | 6 | Not found | an unknown path answers 404 with the body of `404.html` |
-| 7 | Browser | `BASE=<origin> npm run check:viewports` passes against the live site; a page load records no console error and no failed request |
+| 7 | Browser | `check-viewports` passes against the live site; `verify-live-browser` records no console error, no page error and no failed request on the home and configurator pages |
 | 8 | Metadata | canonical, `robots` meta and hreflang links match the origin; `robots.txt` disallows all for a preview |
 | 9 | Claims wording | follows from check 4: the identical build passed `check-dist`, which refuses affirmative claim wording |
-| 10 | Third parties | the browser contacts the site's host only |
+| 10 | Third parties | `verify-live-browser`: the browser contacts the site's host only |
 | 11 | Cache | `Cache-Control` and `Age` recorded, no threshold |
 
 Label each fact as observed or inferred in the report. Replay checks 4 to 8
