@@ -145,7 +145,7 @@ mkdirSync(join(DIST, "data"), { recursive: true });
 cpSync(join(DATA, "projection-v1.json"), join(DIST, "data/projection-v1.json"));
 mkdirSync(join(DIST, "profiles"), { recursive: true });
 for (const c of M.admissible) writeFileSync(join(DIST, withoutBase(profilePath(c.id))), profileYaml(M, c));
-cpSync(join(ROOT, "public"), DIST, { recursive: true });
+if (existsSync(join(ROOT, "public"))) cpSync(join(ROOT, "public"), DIST, { recursive: true });
 writeFileSync(join(DIST, "robots.txt"), PREVIEW ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}${withBase("/sitemap.xml")}\n`);
 if (!PREVIEW) {
   const urls = [];

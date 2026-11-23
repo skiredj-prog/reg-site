@@ -106,8 +106,10 @@ To take a new projection: `npm run pin -- <reg-platform commit>`, then
 
 ## Deploy (preview)
 
-`public/CNAME` is `reg.tenirlabs.cc`. Deployment is manual only: Actions →
-preview → Run workflow → deploy. It has not been run: GitHub Pages and the
-DNS record are not set up, and setting them up is a separate decision.
+The custom domain is set in the repository's Settings → Pages, not by a
+`CNAME` file: a deployment made by Actions does not read one, so the
+artifact carries none. Deployment is manual only: Actions → preview → Run
+workflow → deploy. It has not been run: GitHub Pages and the DNS record
+are not set up, and setting them up is a separate decision.
 
 License: Apache-2.0.
