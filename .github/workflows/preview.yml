@@ -2,7 +2,8 @@ name: preview
 # Builds and checks on every push, for both paths the site may be served
 # under: / (its own domain) and /reg-site/ (a GitHub Pages project site).
 # Builds the Pages artifact and deploys only when run by hand (Actions >
-# preview > Run workflow), so nothing goes live by accident.
+# preview > Run workflow), so nothing goes live by accident. The files of that
+# artifact are attested (signed build provenance) before it is uploaded.
 on:
   push:
   pull_request:
@@ -68,6 +69,10 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     env:
       SITE_BASE: ${{ inputs.base }}
       SITE_URL: ${{ inputs.site }}
@@ -88,6 +93,26 @@ jobs:
           node scripts/serve.mjs 4173 --base="$SITE_BASE" &
           sleep 1
           node scripts/check-viewports.mjs
+      - name: Checksums of every file the artifact serves
+        # Shasum format, paths as served under the base. actions/attest takes
+        # at most 1024 subjects: past that, the list itself would be the subject.
+        run: |
+          (cd dist && find . -type f | sed 's|^\./||' | LC_ALL=C sort | xargs -d '\n' sha256sum) > "$RUNNER_TEMP/SHA256SUMS"
+          n=$(wc -l < "$RUNNER_TEMP/SHA256SUMS")
+          echo "$n files"
+          test "$n" -gt 0 && test "$n" -le 1024
+      - name: Attest the provenance of the served files
+        # Signed statement that this workflow, in this run and at this commit,
+        # built files with these digests. Public repository: Sigstore's public
+        # instance, a permanent public record. A failure here fails the job,
+        # so nothing unattested is deployed. See docs/DEPLOYMENT.md, Provenance.
+        uses: actions/attest@v4
+        with:
+          subject-checksums: ${{ runner.temp }}/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pages-sha256sums
+          path: ${{ runner.temp }}/SHA256SUMS
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
