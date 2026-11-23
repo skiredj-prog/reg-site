@@ -110,6 +110,14 @@ for (const f of pages) {
   if (dup.length) errors.push(`${rel(f)}: duplicate ids ${[...new Set(dup)].join(", ")}`);
 }
 if (build.preview && !readFileSync(join(DIST, "robots.txt"), "utf8").includes("Disallow: /")) errors.push("robots.txt allows indexing in preview");
+// A preview build offers nothing to copy from the configurator (page link,
+// badge Markdown); a public build offers both.
+const snippet = /\sid="tk-(?:md|link)-/;
+if (build.preview) {
+  for (const f of pages) if (snippet.test(readFileSync(f, "utf8"))) errors.push(`${rel(f)}: a preview page offers a copy snippet`);
+} else if (!snippet.test(readFileSync(join(DIST, "configurateur/index.html"), "utf8"))) {
+  errors.push("configurateur/index.html: a public build must offer the copy snippets");
+}
 if (build.projection_sha256 !== lock.content_sha256) errors.push("dist was built from another projection");
 if (build.pages !== pages.length) errors.push(`build wrote ${build.pages} HTML pages, dist holds ${pages.length}`);
 

@@ -61,8 +61,10 @@ export function configMap(M, lang, { current = null, cellHref = true, compact = 
 </figure>`;
 }
 
-// Everything the shared renderer needs, in one language.
-export function cfgData(M, lang, uid = "c") {
+// Everything the shared renderer needs, in one language. A preview build
+// shows no copy snippets (page link, badge Markdown): a link copied from a
+// preview must not become a lasting reference.
+export function cfgData(M, lang, uid = "c", preview = false) {
   const t = T[lang];
   const P = M.P;
   const configs = {};
@@ -115,13 +117,14 @@ export function cfgData(M, lang, uid = "c") {
       profile: profilePath("{id}"),
     },
     defaultId: M.defaultConfig,
+    preview: Boolean(preview),
     t: Object.fromEntries(keys.map((k) => [k, t[k]])),
   };
 }
 
 export function configurator(M, lang, { preview }) {
   const t = T[lang];
-  const D = cfgData(M, lang, "app");
+  const D = cfgData(M, lang, "app", preview);
   const id = M.defaultConfig;
   const cur = M.configById.get(id);
   const selects = M.P.axes.map((a) => {
@@ -183,7 +186,7 @@ ${renderResult(D, id, { mode: "app" })}
 
 export function configurationPage(M, lang, c, { preview }) {
   const t = T[lang];
-  const D = cfgData(M, lang, "c");
+  const D = cfgData(M, lang, "c", preview);
   const other = lang === "fr" ? "en" : "fr";
   const title = M.AXES.map((ax) => VALUE_LABEL[lang][c.config[ax]]).join(" · ");
   const body = `
