@@ -1,0 +1,20 @@
+name: gate-check
+# Exercises the approval gate of the github-pages environment without
+# publishing anything. The job waits for the environment's required
+# reviewer, then prints one line. It never calls actions/deploy-pages and
+# has neither the pages nor the id-token permission, so it cannot publish
+# to GitHub Pages even if approved. Run by hand only (Actions > gate-check
+# > Run workflow, from main), then Reject at the approval prompt: the run
+# ends in failure and nothing is deployed.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gate:
+    name: wait for the github-pages reviewer
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - run: echo "gate-check on $GITHUB_SHA - the approval gate let this job run. Nothing was deployed."
