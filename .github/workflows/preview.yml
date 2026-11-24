@@ -23,6 +23,11 @@ on:
         default: "https://reg.tenirlabs.cc"
 permissions:
   contents: read
+# One run at a time per branch and event; a run waits rather than being
+# cancelled, so a hand-started deployment is never cut short.
+concurrency:
+  group: preview-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: false
 jobs:
   build:
     name: build (${{ matrix.base }})
@@ -43,8 +48,10 @@ jobs:
       SITE_BASE: ${{ matrix.base }}
       SITE_URL: ${{ matrix.site }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - run: npm run build
@@ -54,31 +61,34 @@ jobs:
           REQUIRE_PLATFORM_PIN: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
       - name: Browser checks (375px and 1280px)
         run: |
-          npm i --no-save playwright@1.49.1
+          npm ci --ignore-scripts
           npx playwright install --with-deps chromium
           node scripts/serve.mjs 4173 --base="$SITE_BASE" &
           sleep 1
           node scripts/check-viewports.mjs
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: ${{ matrix.artifact }}
           path: dist
   pages:
     # The artifact GitHub Pages would serve, built and checked for the base
     # and the site given by hand.
+    name: pages
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write
-      attestations: write
+      contents: read # check out the repository
+      id-token: write # a short-lived OIDC identity, which Sigstore certifies for the signature
+      attestations: write # store the signed provenance statement on the repository
     env:
       SITE_BASE: ${{ inputs.base }}
       SITE_URL: ${{ inputs.site }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - run: npm run build
@@ -88,7 +98,7 @@ jobs:
           REQUIRE_PLATFORM_PIN: "1"
       - name: Browser checks (375px and 1280px)
         run: |
-          npm i --no-save playwright@1.49.1
+          npm ci --ignore-scripts
           npx playwright install --with-deps chromium
           node scripts/serve.mjs 4173 --base="$SITE_BASE" &
           sleep 1
@@ -106,26 +116,27 @@ jobs:
         # built files with these digests. Public repository: Sigstore's public
         # instance, a permanent public record. A failure here fails the job,
         # so nothing unattested is deployed. See docs/DEPLOYMENT.md, Provenance.
-        uses: actions/attest@v4
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
         with:
           subject-checksums: ${{ runner.temp }}/SHA256SUMS
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: pages-sha256sums
           path: ${{ runner.temp }}/SHA256SUMS
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: dist
   deploy:
+    name: deploy
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy }}
     needs: pages
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
+      pages: write # publish the uploaded artifact to GitHub Pages
+      id-token: write # the OIDC identity deploy-pages presents to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.d.outputs.page_url }}
     steps:
       - id: d
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

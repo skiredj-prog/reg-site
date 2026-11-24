@@ -5,7 +5,7 @@
 // answered 400 or more. Passes when every page answers 200, nothing errors and
 // the only host contacted is the site's. Read-only: writes only the report.
 //
-//   npm i --no-save playwright@1.49.1 && npx playwright install --with-deps chromium
+//   npm ci && npx playwright install --with-deps chromium
 //   node scripts/verify-live-browser.mjs --site=https://preview.reg.tenirlabs.cc \
 //        [--base=/] [--out=verify-live-report/browser.json]
 //

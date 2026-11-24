@@ -4,6 +4,7 @@
   "type": "module",
   "version": "0.2.0",
   "engines": { "node": ">=20" },
+  "devDependencies": { "playwright": "1.64.1" },
   "scripts": {
     "build": "node src/build.mjs && node scripts/check-dist.mjs",
     "build:public": "node src/build.mjs --public && node scripts/check-dist.mjs",

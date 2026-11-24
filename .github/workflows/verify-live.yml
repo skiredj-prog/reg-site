@@ -1,11 +1,17 @@
 name: verify-live
 # Read-only checks of a served site against a build of the commit it was
-# deployed from (docs/DEPLOYMENT.md, "Verifying a deployment"). Run by hand
-# after a deployment: Actions > verify-live > Run workflow, with the origin, the
-# base and the deployed commit. Builds that commit in a separate directory,
-# compares what the site serves with that build, loads pages in Chromium, and
-# uploads the report. Deploys nothing and writes nothing on the site.
+# deployed from (docs/DEPLOYMENT.md, "Verifying a deployment"). Runs every
+# day on the preview, and by hand after a deployment: Actions > verify-live >
+# Run workflow. Finds the deployed commit in the github-pages environment
+# unless one is given, builds that commit in a separate directory, compares
+# what the site serves with that build, checks that one signed provenance
+# statement of the preview workflow covers every served file, loads pages in
+# Chromium, and uploads the report. Deploys nothing, writes nothing on the
+# site, opens no issue: a failure shows as a failed run.
 on:
+  schedule:
+    # Every day at 05:17 UTC, the preview at its own domain.
+    - cron: "17 5 * * *"
   workflow_dispatch:
     inputs:
       site:
@@ -17,26 +23,57 @@ on:
         type: string
         default: "/"
       commit:
-        description: "Commit the served site was built from (full SHA; empty: the commit this workflow runs on)"
+        description: "Commit the served site was built from (full SHA; empty: the latest successful github-pages deployment)"
         type: string
         default: ""
 permissions:
-  contents: read
+  contents: read # check out the scripts and the deployed commit
+  deployments: read # find the commit of the newest github-pages deployment
+  attestations: read # look up the provenance signatures of the served files
+concurrency:
+  group: verify-live
+  cancel-in-progress: false
 jobs:
   verify:
+    name: verify
     runs-on: ubuntu-latest
     env:
-      SITE_BASE: ${{ inputs.base }}
-      SITE_URL: ${{ inputs.site }}
+      # A scheduled run has no inputs: it checks the preview.
+      SITE_BASE: ${{ inputs.base || '/' }}
+      SITE_URL: ${{ inputs.site || 'https://preview.reg.tenirlabs.cc' }}
     steps:
       # The scripts come from the commit this workflow runs on; the site to
       # compare with is built from the deployed commit, in its own directory.
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ inputs.commit || github.sha }}
+          persist-credentials: false
+      - name: The commit the site was deployed from
+        id: deployed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GIVEN: ${{ inputs.commit }}
+        run: |
+          if [ -n "$GIVEN" ]; then
+            sha="$GIVEN"; from="given by hand"
+          else
+            # The newest deployment of the github-pages environment, which
+            # must have succeeded: a newer failed deployment is a finding.
+            id=$(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&per_page=1" --jq '.[0].id // empty')
+            test -n "$id" || { echo "::error::no deployment in the github-pages environment"; exit 1; }
+            sha=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id" --jq '.sha')
+            ok=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses?per_page=100" --jq 'map(.state) | index("success") != null')
+            test "$ok" = "true" || { echo "::error::the newest github-pages deployment ($id, $sha) has no success status"; exit 1; }
+            from="newest github-pages deployment, $id"
+          fi
+          echo "$sha" | grep -Eq '^[0-9a-f]{40}$' || { echo "::error::not a full commit SHA: $sha"; exit 1; }
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "Deployed commit: \`$sha\` ($from). Site: $SITE_URL, base $SITE_BASE." | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          ref: ${{ steps.deployed.outputs.sha }}
           path: deployed
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - name: Build the deployed commit for this origin and base
@@ -44,16 +81,22 @@ jobs:
         working-directory: deployed
       - name: Checks 1 to 6, 8, 9 and 11
         run: node scripts/verify-live.mjs --site="$SITE_URL" --dist=deployed/dist --repo="$GITHUB_REPOSITORY" --out=verify-live-report
+      - name: Check 12, one signed provenance statement covers every served file
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOYED: ${{ steps.deployed.outputs.sha }}
+        run: node scripts/verify-provenance.mjs --site="$SITE_URL" --dist=deployed/dist --repo="$GITHUB_REPOSITORY" --commit="$DEPLOYED" --out=verify-live-report
       - name: Check 7, the visitor's paths on the served site (375px and 1280px)
         if: ${{ !cancelled() }}
         run: |
-          npm i --no-save playwright@1.49.1
+          npm ci --ignore-scripts
           npx playwright install --with-deps chromium
           BASE="$SITE_URL" DIST=deployed/dist node scripts/check-viewports.mjs
       - name: Checks 7 and 10, console errors, failed requests and hosts contacted
         if: ${{ !cancelled() }}
         run: node scripts/verify-live-browser.mjs --site="$SITE_URL" --base="$SITE_BASE" --out=verify-live-report/browser.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: ${{ !cancelled() }}
         with:
           name: verify-live-report
