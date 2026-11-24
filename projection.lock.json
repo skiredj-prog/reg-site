@@ -1,7 +1,7 @@
 {
-  "content_sha256": "3d96ba0def7964fc886b751b9e2ff6bd9aca87424430122dbfd67a7d7d5f8dba",
-  "source_commit": "20016d271ce1d5420260116f8323aba707ad5dde",
+  "content_sha256": "a50f8f919af70d6f234a0bbc14ae40e4f3019e846a20f2e850ebbfac7c806bed",
+  "source_commit": "78dca34c3e65e1ac51c74f3d2a2cfbfa0371e801",
   "platform_repository": "https://github.com/skiredj-prog/reg-platform",
-  "platform_commit": "4c86874501f14c84a0b88d56e226db5b2575810d",
+  "platform_commit": "8e6d15f72f7a0e1341f8e44d5e041188fe061696",
   "projection_url": "https://raw.githubusercontent.com/skiredj-prog/reg-platform/{platform_commit}/projection/projection-v1.json"
 }
