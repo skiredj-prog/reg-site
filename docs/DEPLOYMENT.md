@@ -95,18 +95,24 @@ not a fault.
 
 ## Verifying a deployment
 
-Eleven read-only checks, run against the served site. The `verify-live`
-workflow runs them from GitHub's runners: Actions → verify-live → Run workflow,
-with the origin, the base and the full SHA of the deployed commit. It builds
-that commit, compares what the site serves with that build, loads the pages in
-Chromium, and uploads the report as the `verify-live-report` artifact. It
-deploys nothing and needs no approval. The same checks run from any machine
-with Node 22, once the ten minutes of GitHub Pages' edge cache have passed:
+Twelve read-only checks, run against the served site. The `verify-live`
+workflow runs them from GitHub's runners every day at 05:17 UTC on the
+preview, and by hand: Actions → verify-live → Run workflow, with the origin,
+the base and, if needed, the full SHA of the deployed commit. Without one it
+takes the commit of the newest deployment of the `github-pages` environment,
+and fails if that deployment did not succeed. It builds that commit, compares
+what the site serves with that build, checks the provenance signature, loads
+the pages in Chromium, and uploads the report as the `verify-live-report`
+artifact. It deploys nothing, needs no approval and opens no issue: a failure
+is a failed run, which GitHub notifies to whoever last edited the schedule.
+The same checks run from any machine with Node 22, once the ten minutes of
+GitHub Pages' edge cache have passed:
 
     npm run build    # the deployed commit, with the SITE_BASE and SITE_URL it was deployed for
     node scripts/verify-live.mjs --site=https://preview.reg.tenirlabs.cc          # 1 to 6, 8, 9 and 11
     BASE=https://preview.reg.tenirlabs.cc node scripts/check-viewports.mjs        # 7
     node scripts/verify-live-browser.mjs --site=https://preview.reg.tenirlabs.cc  # 7 and 10
+    node scripts/verify-provenance.mjs --site=https://preview.reg.tenirlabs.cc    # 12, needs gh and GH_TOKEN
 
 | # | Check | What passes |
 | --- | --- | --- |
@@ -121,6 +127,7 @@ with Node 22, once the ten minutes of GitHub Pages' edge cache have passed:
 | 9 | Claims wording | follows from check 4: the identical build passed `check-dist`, which refuses affirmative claim wording |
 | 10 | Third parties | `verify-live-browser`: the browser contacts the site's host only |
 | 11 | Cache | `Cache-Control` and `Age` recorded, no threshold |
+| 12 | Provenance | `gh attestation verify` finds a valid signature of the served `index.html` by the `preview` workflow of this repository on `main`, and one of the statements it verifies lists every served file with its sha256. The signed commit is reported; it may differ from the deployed one when both build identical bytes |
 
 Label each fact as observed or inferred in the report. Replay checks 4 to 8
 after any redeployment. Check 4 compares bytes with a build you made yourself;

@@ -1,0 +1,33 @@
+name: lint-workflows
+# zizmor, a static analyser for GitHub Actions, on every change to the
+# workflows: unpinned actions, credentials left in checkouts, template
+# injection, excessive permissions. Offline audits only; reads the
+# repository, writes nothing.
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+      - ".github/zizmor-requirements.txt"
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - ".github/zizmor-requirements.txt"
+permissions:
+  contents: read
+concurrency:
+  group: lint-workflows-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install zizmor (version and digests pinned)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/zizmor"
+          "$RUNNER_TEMP/zizmor/bin/pip" install --require-hashes --no-deps --only-binary=:all: -r .github/zizmor-requirements.txt
+      - name: Audit the workflows
+        run: '"$RUNNER_TEMP/zizmor/bin/zizmor" --offline --format=github .github/workflows'

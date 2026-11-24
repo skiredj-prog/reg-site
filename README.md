@@ -36,7 +36,8 @@ node scripts/verify-live.mjs --site=<origin>  # compares a served site with dist
 ```
 
 The build has no dependencies (Node 20 or later). The browser checks need
-`npm i --no-save playwright` and `npx playwright install chromium`; they
+Playwright, the only development dependency, pinned with its integrity in
+`package-lock.json`: `npm ci` then `npx playwright install chromium`. They
 take their expected values from the projection the site was built from.
 
 Where the site is served comes from two variables. `SITE_URL` is its

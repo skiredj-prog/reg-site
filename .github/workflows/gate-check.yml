@@ -10,6 +10,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: gate-check
+  cancel-in-progress: false
 jobs:
   gate:
     name: wait for the github-pages reviewer
