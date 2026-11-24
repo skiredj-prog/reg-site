@@ -67,6 +67,11 @@ for (const width of [375, 1280]) {
       if (path.includes("does-not-exist") ? res.status() !== 404 : !res.ok()) fail(`${path}: HTTP ${res.status()}`);
       const o = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
       if (o.sw > o.cw) fail(`${width} ${theme} ${path}: page overflows horizontally (${o.sw} > ${o.cw})`);
+      // A box that scrolls sideways is a named region the keyboard can reach.
+      const stuck = await page.$$eval("pre.code, .frame-scroll", (els) => els
+        .filter((e) => e.offsetParent && e.scrollWidth > e.clientWidth + 1 && (e.getAttribute("tabindex") !== "0" || !e.getAttribute("aria-label")))
+        .map((e) => e.className));
+      for (const c of stuck) fail(`${width} ${theme} ${path}: a scrolling box (${c}) cannot be reached with the keyboard`);
       if (build.preview) {
         // The preview banner is seen, not only present in the markup.
         const b = await page.$eval('[data-guard="preview-banner"]', (e) => {

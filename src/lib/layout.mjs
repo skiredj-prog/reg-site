@@ -29,12 +29,13 @@ ${preview ? '<meta name="robots" content="noindex, nofollow">\n' : ""}<meta name
 <link rel="canonical" href="${SITE_URL}${path}">
 <link rel="alternate" hreflang="${lang}" href="${SITE_URL}${path}">
 <link rel="alternate" hreflang="${other}" href="${SITE_URL}${alt}">
+<link rel="icon" href="${withBase("/assets/favicon.svg")}" type="image/svg+xml">
 <link rel="stylesheet" href="${withBase("/assets/site.css")}">
 <script>document.documentElement.className="js";try{var m=localStorage.getItem("reg-theme");if(m)document.documentElement.dataset.theme=m}catch(e){}</script>
 </head>
 <body>
 <a class="skip" href="#main">${esc(t.skip)}</a>
-${preview ? `<p class="preview" role="note" data-guard="preview-banner">${esc(t.preview_banner)}</p>\n` : ""}<header class="top">
+${preview ? `<section class="preview-zone" aria-label="${esc(t.preview_label)}"><p class="preview" role="note" data-guard="preview-banner">${esc(t.preview_banner)}</p></section>\n` : ""}<header class="top">
   <div class="top-in">
     <a class="brand" href="${route("home", lang)}">REG</a>
     <a class="stamp" href="${route("data", lang)}" title="${esc(t.stamp_title)}"><span class="stamp-k">reg-conformance</span><code>${short(P.source.commit)}</code></a>
