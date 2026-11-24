@@ -151,6 +151,18 @@ every attested file. The run also uploads that list as an ordinary artifact,
 `pages-sha256sums`, for a comparison without the CLI. The attestation covers at
 most 1024 files per run; the job stops before signing if the build has more.
 
+Every build also serves `sha256sums.txt`: the sha256 of every other served
+file, in `sha256sum`'s format and in byte order of the paths. It is one of the
+attested files, so one lookup checks the whole site: verify the manifest with
+the command above, then `sha256sum -c sha256sums.txt` in a copy of the site.
+`build.json` names the commit of the site's code (`site_commit`, read with
+git rather than from the CI environment, so a local build says the same) and
+whether the tree had local changes (`site_tree_clean`). The Verify page
+(`/verifier/`, `/en/verify/`) shows both, recomputes every digest in the
+visitor's browser against the manifest, and gives these commands. The browser
+recompute compares the site with itself; only the signature or a rebuild ties
+the bytes to a commit, and the page says so.
+
 What a verified file proves: it was built by this workflow, at that commit,
 from the repository's sources and the pinned projection. What it does not
 prove: that the site serves it to everyone, that the build is correct, or any
@@ -170,5 +182,7 @@ Newest first. Times in UTC.
 
 | Date | Commit | Run | Base and origin | Result |
 | --- | --- | --- | --- | --- |
+| 2026-11-24 17:33 | `290070d` | [45449415093](https://github.com/skiredj-prog/reg-site/actions/runs/45449415093) | `/`, `https://preview.reg.tenirlabs.cc` | no deployment (`deploy` unticked, `deploy` job skipped): first provenance attestation, 630 subjects, [attestation 71737486](https://github.com/skiredj-prog/reg-site/attestations/71737486), Rekor log index 4083582485. That these are the served bytes is inferred (on 23 November a build of `290070d` for this origin was identical, file for file, to the served build of `33a12fb`), not yet checked against the attestation |
+| 2026-11-23 19:39 | `33a12fb` | [45251275738](https://github.com/skiredj-prog/reg-site/actions/runs/45251275738) (`verify-live`) | `/`, `https://preview.reg.tenirlabs.cc` | read-only: checks 1 to 6, 8 and 9 PASS, 11 recorded; `check-viewports` and `verify-live-browser` clean against the live site; nothing deployed |
 | 2026-11-23 07:38 | `33a12fb` | [45130223442](https://github.com/skiredj-prog/reg-site/actions/runs/45130223442) | `/`, `https://preview.reg.tenirlabs.cc` | first publication; approved at the gate by the release controller; the eleven checks passed between 08:23 and 08:39 UTC from the release controller's workstation, 630 of 630 files identical to an independent build of the commit |
 | 2026-11-23, 06:23 to 06:53 | `33a12fb` | 45123811382 (`gate-check`) | none | gate test: stopped at the gate, rejected, nothing deployed |

@@ -102,6 +102,14 @@ main:focus { outline: none; }
   .top-in { padding: 8px 32px; }
   .nav-wrap { flex-direction: row; align-items: center; justify-content: space-between; }
 }
+/* Six sections and the tools on one row from 768px: tighter links below 1024px. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .top nav a { padding: 0 6px; }
+  .top nav ul { gap: 0; }
+  .top-tools { gap: 4px; }
+  .lang { padding: 0 6px; }
+  .theme { padding: 0 8px; }
+}
 @media (min-width: 1280px) {
   .nav-wrap { flex-basis: auto; flex: 1 1 auto; margin-left: 16px; }
   .stamp { margin-right: 0; order: 3; }
@@ -554,3 +562,25 @@ blockquote p { margin: 0; }
 .dlg h2 { margin: 0 0 8px; font-size: 1.25rem; }
 .dlg p { margin: 0; color: var(--ink-soft); }
 .dlg-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+/* Verify page: the three links, the in-browser recompute. */
+.js .no-js-only { display: none; }
+.chain { list-style: none; padding: 0; display: grid; gap: 16px; }
+@media (min-width: 768px) { .chain { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.chain-i { margin: 0; padding: var(--pad); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); min-width: 0; }
+.chain-i p:last-child { margin-bottom: 0; }
+.chain-t { display: flex; align-items: baseline; gap: 12px; margin: 0 0 8px; }
+.chain-n { flex: none; font: 600 0.875rem/1 var(--mono); color: var(--accent); }
+.vrun { margin: 0 0 24px; padding: var(--pad); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); min-width: 0; }
+.vrun-prog { display: grid; gap: 8px; margin: 0 0 16px; max-width: 520px; }
+.vrun-prog label { font-size: 0.875rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.vrun-prog progress { width: 100%; height: 8px; accent-color: var(--accent); }
+.vrun-res:empty { display: none; }
+.vrun[data-result="match"] .vrun-res::before { content: "✓ "; color: var(--accent); font-family: var(--mono); }
+.vrun[data-result="differs"] .vrun-res::before, .vrun[data-result="error"] .vrun-res::before { content: "✗ "; color: var(--limit); font-family: var(--mono); }
+.vrun-bad { margin: 0; }
+.vrun-bad:empty { display: none; }
+.vrun-bad code { overflow-wrap: anywhere; }
+.links { padding-left: 1.25rem; }
+.v-warn { margin: 8px 0 0; }
+.v-warn .g { color: var(--hold); font-family: var(--mono); font-weight: 600; }

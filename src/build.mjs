@@ -9,8 +9,10 @@
 // The build refuses a projection that is not the pinned one, whose guards
 // failed, that allows conformance claims, or whose contract it does not know.
 
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contentHash } from "../scripts/hash.mjs";
 import { LANGS, T } from "./i18n.mjs";
@@ -23,6 +25,7 @@ import { configurationPage, configurator } from "./pages/configurator.mjs";
 import { data } from "./pages/data.mjs";
 import { home } from "./pages/home.mjs";
 import { rows, vectorPage, vectorsList } from "./pages/vectors.mjs";
+import { MANIFEST, verify } from "./pages/verify.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
@@ -103,7 +106,22 @@ for (const v of [...P.vectors, ...(P.vector_index?.rows_without_vector || [])]) 
   if (!/^[A-Za-z0-9._-]+$/.test(v.id)) fail(`vector id not usable in a URL: ${v.id}`);
 }
 
+// The commit of this site's own code, read from git and not from the CI
+// environment, so that a local build says the same as a CI build. A tree
+// with changes git can see (untracked files included, ignored files not)
+// is not that commit: the build says so rather than claiming it.
+function siteSource() {
+  const git = (...a) => execFileSync("git", ["-C", ROOT, ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  try {
+    const commit = git("rev-parse", "HEAD");
+    if (!/^[0-9a-f]{40}$/.test(commit)) return { commit: null, clean: null };
+    return { commit, clean: git("status", "--porcelain") === "" };
+  } catch { return { commit: null, clean: null }; }
+}
+const SITE = siteSource();
+
 const M = model(P, lock);
+M.site = { ...SITE, repository: "https://github.com/skiredj-prog/reg-site" };
 const opts = { preview: PREVIEW };
 
 // ---------------------------------------------------------------- write
@@ -125,6 +143,7 @@ for (const lang of LANGS) {
   for (const r of allRows) out(route("vector", lang, r.id), vectorPage(M, lang, r, opts));
   out(route("cite", lang), cite(M, lang, opts));
   out(route("data", lang), data(M, lang, opts));
+  out(route("verify", lang), verify(M, lang, opts));
 }
 
 // A not-found page, both languages on one page (GitHub Pages serves /404.html).
@@ -150,7 +169,7 @@ writeFileSync(join(DIST, "robots.txt"), PREVIEW ? "User-agent: *\nDisallow: /\n"
 if (!PREVIEW) {
   const urls = [];
   for (const lang of LANGS) {
-    urls.push(route("home", lang), route("configurator", lang), route("vectors", lang), route("cite", lang), route("data", lang));
+    urls.push(route("home", lang), route("configurator", lang), route("vectors", lang), route("cite", lang), route("data", lang), route("verify", lang));
     for (const c of P.configurations) urls.push(route("configuration", lang, c.id));
     for (const r of allRows) urls.push(route("vector", lang, r.id));
   }
@@ -160,5 +179,19 @@ writeFileSync(join(DIST, "build.json"), JSON.stringify({
   preview: PREVIEW, source_commit: P.source.commit, source_tag: P.source.exact_tag || null,
   projection_contract: P.contract_version, projection_sha256: P.content_sha256,
   platform_commit: lock.platform_commit || null, pages, base: BASE, site: SITE_URL,
+  site_commit: SITE.commit, site_tree_clean: SITE.clean, manifest: MANIFEST,
 }, null, 2) + "\n");
-console.log(`built ${pages} HTML pages (${(pages - 1) / LANGS.length} per language and 404.html) from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)})${PREVIEW ? ", preview" : ", public"}, for ${SITE_URL}${BASE}`);
+
+// Written last: the sha256 of every file dist/ serves, itself excepted, in
+// sha256sum's format and in byte order of the paths, so that
+// "sha256sum -c" checks a copy of the site and the Verify page recomputes it.
+const served = [];
+(function walk(d) {
+  for (const f of readdirSync(d)) {
+    const p = join(d, f);
+    if (statSync(p).isDirectory()) walk(p); else served.push(relative(DIST, p).split(sep).join("/"));
+  }
+})(DIST);
+const listed = served.filter((f) => f !== MANIFEST).sort((a, b) => (Buffer.compare(Buffer.from(a), Buffer.from(b))));
+writeFileSync(join(DIST, MANIFEST), listed.map((f) => `${createHash("sha256").update(readFileSync(join(DIST, f))).digest("hex")}  ${f}\n`).join(""));
+console.log(`built ${pages} HTML pages (${(pages - 1) / LANGS.length} per language and 404.html) and ${MANIFEST} (${listed.length} files) from reg-conformance@${short(P.source.commit, 12)} (projection ${short(P.content_sha256, 12)}) with reg-site@${SITE.commit ? short(SITE.commit, 12) + (SITE.clean ? "" : " plus local changes") : "unknown"}${PREVIEW ? ", preview" : ", public"}, for ${SITE_URL}${BASE}`);

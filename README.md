@@ -21,6 +21,7 @@ nothing on this site may be cited to say that a product conforms to REG.
 | Vector | `/vecteurs/<id>/` | Requirement, reference-kernel result, and the commands to replay it at the pinned commit. |
 | Cite | `/citer/`, `/en/cite/` | Copies the exact reference of this version; when CLAIMS.md is present, assembles the statement it requires. |
 | Data source | `/donnees/`, `/en/data/` | Commit, contract, fingerprint, replay, guards, files read with their sha256, records, rules. |
+| Verify | `/verifier/`, `/en/verify/` | Sees the site commit, the data commit and the digest manifest; recomputes the sha256 of every served file in the browser; copies the commands that check the provenance signature and rebuild the site. |
 
 Every page carries a "what this does not establish" block and a footer that
 links the exact reg-conformance commit.
@@ -105,6 +106,10 @@ To take a new projection: `npm run pin -- <reg-platform commit>`, then
 - Every internal link and anchor resolves; no duplicate ids.
 - Every admissible configuration has a profile skeleton, with no
   attestation; no other configuration has one.
+- `sha256sums.txt` lists every other served file once, in byte order of the
+  paths, with its sha256; `build.json` names the site commit (`site_commit`,
+  read with git, `null` outside a repository) and whether the tree had local
+  changes (`site_tree_clean`).
 
 ## Deploy (preview)
 
