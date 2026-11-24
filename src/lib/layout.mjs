@@ -2,7 +2,7 @@ import { T } from "../i18n.mjs";
 import { esc, short } from "./html.mjs";
 import { SITE_URL, route, withBase } from "./model.mjs";
 
-const NAV = ["home", "configurator", "vectors", "cite", "data"];
+const NAV = ["home", "configurator", "vectors", "cite", "data", "verify"];
 
 export function layout(M, { lang, section, path, alt, title, description, body, scripts = [], modules = [], preview }) {
   const t = T[lang];
@@ -10,7 +10,8 @@ export function layout(M, { lang, section, path, alt, title, description, body, 
   const P = M.P;
   const nav = NAV.map((k) => {
     const cur = k === section ? ' aria-current="page"' : "";
-    return `<li><a href="${route(k, lang)}"${cur}>${esc(t["nav_" + k])}</a></li>`;
+    // A shorter label where the full one would push the menu onto two rows.
+    return `<li><a href="${route(k, lang)}"${cur}>${esc(t["nav_short_" + k] ?? t["nav_" + k])}</a></li>`;
   }).join("");
   const tag = P.source.exact_tag ? ` (${esc(P.source.exact_tag)})` : "";
   const platform = M.lock.platform_commit

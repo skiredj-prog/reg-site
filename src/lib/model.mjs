@@ -44,6 +44,7 @@ export const ROUTES = {
   vector: { fr: (id) => `/vecteurs/${id}/`, en: (id) => `/en/vectors/${id}/` },
   cite: { fr: "/citer/", en: "/en/cite/" },
   data: { fr: "/donnees/", en: "/en/data/" },
+  verify: { fr: "/verifier/", en: "/en/verify/" },
 };
 
 export const route = (name, lang, id) => {

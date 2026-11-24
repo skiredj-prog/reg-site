@@ -41,6 +41,9 @@ for (const lang of ["fr", "en"]) {
   PAGES.push(r("home", lang), r("configurator", lang), r("vectors", lang), r("cite", lang), r("data", lang),
     r("configuration", lang, DEFAULT), r("configuration", lang, broken));
   if (firstVector) PAGES.push(r("vector", lang, firstVector));
+  // Builds that serve a manifest have the Verify page (older deployed builds,
+  // checked by verify-live, have neither).
+  if (build.manifest) PAGES.push(r("verify", lang));
 }
 PAGES.push(withBase("/this-page-does-not-exist/"));
 
@@ -205,6 +208,33 @@ for (const width of [1280, 375]) {
   if (await page.isVisible("#site-nav")) fail("menu: Escape does not close it");
   await ctx.close();
 }
+
+// 5. Verify: the in-browser recompute matches every file of the manifest,
+// and names the one file a server altered.
+if (build.manifest) {
+  const listed = readFileSync(join(DIST, build.manifest), "utf8").trim().split("\n").length;
+  for (const width of [375, 1280]) {
+    const mobile = width < 768;
+    const ctx = await browser.newContext({ viewport: { width, height: 900 }, ...(mobile ? { isMobile: true, hasTouch: true } : {}) });
+    const page = await ctx.newPage();
+    page.on("pageerror", (e) => fail(`verify ${width}: ${e.message}`));
+    const run = async () => {
+      await page.click("#vrun-go");
+      await page.waitForFunction(() => document.getElementById("vrun").dataset.result && document.getElementById("vrun-go").getAttribute("aria-disabled") !== "true", null, { timeout: 120000 }).catch(() => {});
+      return { result: await page.getAttribute("#vrun", "data-result"), text: (await page.textContent("#vrun-res")).trim(), bad: await page.$$eval("#vrun-bad code", (c) => c.map((x) => x.textContent)) };
+    };
+    await page.goto(BASE + r("verify", "fr"));
+    const a = await run();
+    const want = fmt(T.fr.verify_res_ok, { ok: listed.toLocaleString("fr-FR"), total: listed.toLocaleString("fr-FR"), mb: "", s: "" }).split(" (")[0];
+    if (a.result !== "match" || !a.text.startsWith(want)) fail(`verify ${width}: recompute says "${a.text}" (${a.result}), expected "${want} ..."`);
+    if (!/^[0-9a-f]{64}$/.test((await page.textContent("#vrun-mhash")).trim())) fail(`verify ${width}: the manifest digest is not shown`);
+    const altered = "assets/site.css";
+    await page.route(`**/${altered}`, (route) => route.fulfill({ status: 200, contentType: "text/css", body: "/* altered */" }));
+    const b = await run();
+    if (b.result !== "differs" || b.bad.length !== 1 || b.bad[0] !== altered) fail(`verify ${width}: an altered ${altered} gives "${b.text}" (${b.result}), listed: ${b.bad.join(", ") || "none"}`);
+    await ctx.close();
+  }
+}
 await browser.close();
 
 if (errors.length) {
@@ -212,4 +242,4 @@ if (errors.length) {
   console.error(`check-viewports: ${errors.length} problem(s)`);
   process.exit(1);
 }
-console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build, banner seen at the top of each)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu OK`);
+console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build, banner seen at the top of each)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu${build.manifest ? ", in-browser recompute (match, then one altered file named)" : ""} OK`);

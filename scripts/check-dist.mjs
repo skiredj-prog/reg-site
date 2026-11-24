@@ -3,6 +3,7 @@
 // block, links to nothing, or links outside the base it was built for.
 //
 //   node scripts/check-dist.mjs [--dist dist] [--lock projection.lock.json]
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -121,6 +122,33 @@ if (build.preview) {
 if (build.projection_sha256 !== lock.content_sha256) errors.push("dist was built from another projection");
 if (build.pages !== pages.length) errors.push(`build wrote ${build.pages} HTML pages, dist holds ${pages.length}`);
 
+// The site's own commit, as the build read it from git: a full sha or null,
+// and whether the tree had local changes. The Verify page shows both.
+if (!("site_commit" in build) || (build.site_commit !== null && !/^[0-9a-f]{40}$/.test(build.site_commit))) errors.push("build.json does not name the site commit (a full sha, or null outside git)");
+if (build.site_commit !== null && typeof build.site_tree_clean !== "boolean") errors.push("build.json does not say whether the site tree was clean");
+
+// The manifest lists every served file but itself, once, in byte order of
+// the paths, with its sha256, in sha256sum's format.
+const MANIFEST = build.manifest;
+const manifestPath = MANIFEST && join(DIST, MANIFEST);
+let listedCount = 0;
+if (MANIFEST !== "sha256sums.txt" || !existsSync(manifestPath)) errors.push("build.json names no manifest, or the manifest is missing");
+else {
+  const lines = readFileSync(manifestPath, "utf8").split("\n");
+  if (lines.pop() !== "") errors.push(`${MANIFEST}: does not end with a newline`);
+  const want = files.map((f) => rel(f).replace(/^\//, "")).filter((f) => f !== MANIFEST).sort((a, b) => Buffer.compare(Buffer.from(a), Buffer.from(b)));
+  const got = [];
+  for (const [i, l] of lines.entries()) {
+    const m = /^([0-9a-f]{64}) {2}(.+)$/.exec(l);
+    if (!m) { errors.push(`${MANIFEST}:${i + 1}: not "<sha256>  <path>"`); continue; }
+    got.push(m[2]);
+    if (!existsSync(join(DIST, m[2]))) { errors.push(`${MANIFEST}:${i + 1}: lists ${m[2]}, which dist does not hold`); continue; }
+    if (createHash("sha256").update(readFileSync(join(DIST, m[2]))).digest("hex") !== m[1]) errors.push(`${MANIFEST}:${i + 1}: wrong sha256 for ${m[2]}`);
+  }
+  if (got.join("\n") !== want.join("\n")) errors.push(`${MANIFEST}: lists ${got.length} paths, dist serves ${want.length} besides it, or not in byte order`);
+  listedCount = got.length;
+}
+
 // Every admissible configuration has a profile skeleton; no other does.
 const admissible = new Set(P.configurations.filter((c) => c.admissible_structural).map((c) => c.id));
 const profiles = files.filter((f) => f.includes("/profiles/")).map((f) => f.split("/").pop().replace(/\.yaml$/, ""));
@@ -173,4 +201,4 @@ if (errors.length) {
   console.error(`check-dist: ${errors.length} problem(s)`);
   process.exit(1);
 }
-console.log(`check-dist: ${pages.length} HTML pages (404.html included, same count as the build), ${files.length} files, ${profiles.length} profile skeletons, ${badges} badges that say what the projection says; no claim wording, source commit and limits on every page${build.preview ? ", preview banner with its text" : ""}, links and anchors resolve`);
+console.log(`check-dist: ${pages.length} HTML pages (404.html included, same count as the build), ${files.length} files (${listedCount} in ${MANIFEST}, digests match), ${profiles.length} profile skeletons, ${badges} badges that say what the projection says; no claim wording, source commit and limits on every page${build.preview ? ", preview banner with its text" : ""}, links and anchors resolve`);
