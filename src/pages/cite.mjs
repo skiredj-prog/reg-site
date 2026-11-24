@@ -103,7 +103,7 @@ function form(M, lang, cp) {
       <label class="check"><input type="checkbox" name="third"> <span>${esc(t.cite_third)}</span></label>
       ${field("reg_version", t.cite_reg_version, { hint: t.cite_reg_version_hint, attrs: 'type="text" autocomplete="off"', value: M.P.source.exact_tag || "" })}
     </fieldset>
-    <div class="cite-out" aria-labelledby="out-t">
+    <div class="cite-out" role="region" aria-labelledby="out-t">
       <h3 id="out-t">${esc(t.cite_out)}</h3>
       <p class="muted small">${esc(t.cite_draft_note)}</p>
       <pre class="code quote-out"><code id="cite-text">${esc(t.cite_out_empty)}</code></pre>

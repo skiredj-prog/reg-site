@@ -126,4 +126,48 @@
     window.addEventListener("hashchange", fromHash);
     fromHash();
   }
+
+  // Scrolling boxes (code blocks, wide tables) a keyboard can reach: a box
+  // whose content overflows becomes a named, focusable region, so the arrow
+  // keys scroll it; one that fits takes no tab stop. Run again on resize.
+  // The name says what the box holds, after the label or heading it sits
+  // under, so that it differs from the section that heading already names.
+  var fr = document.documentElement.lang === "fr";
+  function nameOf(box) {
+    var kind = box.tagName === "PRE" ? (fr ? "code" : "code") : (fr ? "tableau" : "table");
+    var copy = box.closest(".copy");
+    var label = copy && copy.querySelector(".copy-label");
+    if (label && label.textContent.trim()) return label.textContent.trim() + " (" + kind + ")";
+    var cap = box.querySelector("caption");
+    if (cap && cap.textContent.trim()) return cap.textContent.trim() + " (" + kind + ")";
+    for (var el = box.closest(".frame") || box.closest(".copy") || box; el; el = el.previousElementSibling || el.parentElement) {
+      if (/^H[2-4]$/.test(el.tagName)) return el.textContent.trim() + " (" + kind + ")";
+      if (el.tagName === "MAIN") break;
+    }
+    return fr ? "Contenu défilant (" + kind + ")" : "Scrollable " + kind;
+  }
+  function regions() {
+    var used = {};
+    Array.prototype.forEach.call(document.querySelectorAll("pre.code, .frame-scroll"), function (box) {
+      var over = box.scrollWidth > box.clientWidth + 1;
+      if (over && (!box.hasAttribute("tabindex") || box.hasAttribute("data-scroll-region"))) {
+        // Two regions never share a name: the second gets "(2)".
+        var name = nameOf(box);
+        used[name] = (used[name] || 0) + 1;
+        box.setAttribute("tabindex", "0");
+        box.setAttribute("role", "region");
+        box.setAttribute("aria-label", used[name] > 1 ? name + " (" + used[name] + ")" : name);
+        box.setAttribute("data-scroll-region", "");
+      } else if (!over && box.hasAttribute("data-scroll-region")) {
+        box.removeAttribute("tabindex");
+        box.removeAttribute("role");
+        box.removeAttribute("aria-label");
+        box.removeAttribute("data-scroll-region");
+      }
+    });
+  }
+  window.regScrollRegions = regions;
+  regions();
+  var rt;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(regions, 150); });
 })();
