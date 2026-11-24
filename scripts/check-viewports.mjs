@@ -217,4 +217,4 @@ if (errors.length) {
   console.error(`check-viewports: ${errors.length} problem(s)`);
   process.exit(1);
 }
-console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build, banner seen at the top of each)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu, keyboard-reachable scrolling boxes OK`);
+console.log(`check-viewports: ${PAGES.length} pages x 2 widths x 2 themes${build.preview ? " (preview build, banner seen at the top of each)" : ""}; configurator, vector list, data tabs, copy, ${P.claims_policy?.present ? "citation form, " : ""}menu OK`);
